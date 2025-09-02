@@ -1,0 +1,29 @@
+Estimate Form Implementation Instructions
+
+1. Add car rate input: Provide a dropdown list of car types with fixed rates.
+   - Luxury Sedan: INR 2000
+   - Sports Car: INR 5000
+   - SUV: INR 3000
+   - The selected rate contributes to the estimate.
+
+2. Add decoration type selection with cost:
+   - Fresh decoration: INR 1000
+   - Artificial decoration: INR 500
+   - Cost applies only when decoration is requested.
+
+3. Travel distance calculation:
+   - Input total distance in kilometers.
+   - Each kilometer adds INR 30 to the estimate.
+
+4. Hourly cost for duration:
+   - Input total booking duration in hours.
+   - Base rate: INR 800 for up to 8 hours.
+   - Additional INR 100 for each hour beyond 8.
+
+5. Estimate calculation:
+   - Total = Car Rate + Decoration Cost + (Distance × 30) + Hourly Charges.
+   - Update and display the total in real time as inputs change.
+
+6. Display the estimate on the form for user review before submission.
+
+7. Test to ensure each input updates the total correctly.
