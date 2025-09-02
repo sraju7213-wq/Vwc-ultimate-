@@ -1,0 +1,1178 @@
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <style>
+                body {
+                  background-color: black; /* Ensure the iframe has a Black background */
+                }
+    
+                
+              </style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valley Wedding Cars - Luxury Fleet Booking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+            color: #FFD700;
+            min-height: 100vh;
+            padding: 20px;
+            background-image: radial-gradient(circle at 10% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 20%),
+                              radial-gradient(circle at 90% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 20%);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(25, 25, 25, 0.9) 100%);
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #FFD700, #B8860B, #FFD700, #B8860B);
+            z-index: -1;
+            border-radius: 22px;
+            animation: borderAnimation 3s linear infinite;
+            background-size: 400% 400%;
+        }
+
+        @keyframes borderAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-bottom: 2px solid #FFD700;
+        }
+
+        /* Circular logo container */
+        .logo-wrap {
+            --size: 110px;
+            width: var(--size);
+            height: var(--size);
+            border-radius: 50%;
+            background: #000;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #d4af37;
+            box-shadow: 0 6px 18px rgba(212,175,55,0.15);
+            overflow: hidden;
+            margin: 0 auto 15px;
+        }
+
+        /* Make the full logo visible and proportional */
+        .logo-img {
+            width: 88%;
+            height: 88%;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+            filter: none;
+        }
+
+        /* Responsive tweak for small screens */
+        @media (max-width: 420px) {
+            .logo-wrap { --size: 84px; }
+        }
+
+        .title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #FFD700, #B8860B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+
+        .quote {
+            font-style: italic;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 3px solid #FFD700;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 0 10px 10px 0;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            background: rgba(255, 215, 0, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: #FFD700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #B8860B;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #FFD700;
+        }
+
+        select, input, textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #333;
+            background: #1a1a1a;
+            color: #FFD700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        select:focus, input:focus, textarea:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        /* SEGMENTED CONTROL FIXES - REMOVING WHITE BORDERS */
+        .segmented{
+            display:flex;
+            gap:8px;
+            flex-wrap:wrap;
+            margin:8px 0 4px;
+            /* REMOVE DEFAULT FIELDSET STYLING */
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            background: transparent !important;
+        }
+        
+        .seg-item{
+            display:inline-flex;
+            align-items:center;
+            gap:8px;
+            padding:9px 12px;
+            border:1px solid #d4af37;
+            border-radius:999px;
+            color:#d4af37;
+            cursor:pointer;
+            user-select:none;
+            -webkit-tap-highlight-color:transparent;
+            background: #1a1a1a;
+            transition: all 0.2s ease;
+            /* REMOVE ANY WHITE BORDER PROPERTIES */
+            border-color: #d4af37 !important;
+            box-shadow: none !important;
+            outline: none !important;
+        }
+        
+        .seg-item input{ 
+            display:none 
+        }
+        
+        .seg-item:has(input:checked),
+        .seg-item input:checked + span{
+            background:#d4af37;
+            color:#000;
+            border-color:#d4af37
+        }
+        
+        .segmented.small .seg-item{ 
+            padding:7px 10px;
+            font-size:.92rem 
+        }
+
+        /* iOS tap feedback improvement */
+        .seg-item:active{ 
+            transform: translateY(0.5px) 
+        }
+
+        /* FIX FOCUS STYLES TO REMOVE WHITE BORDERS */
+        .seg-item:focus-within { 
+            outline: none !important; 
+            box-shadow: 0 0 0 2px rgba(212,175,55,0.4) !important; 
+        }
+
+        /* Remove fieldset default styling */
+        fieldset {
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            margin: 0;
+            padding: 0;
+        }
+
+        .decor-label{ 
+            color:#d4af37;
+            font-weight:700 
+        }
+        
+        .decor-type{ 
+            margin-top:8px 
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #B8860B, #FFD700);
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .note {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 3px solid #FFD700;
+            font-size: 0.9rem;
+        }
+
+        .instagram-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .instagram-link:hover {
+            background: #FFD700;
+            color: #000;
+            transform: scale(1.05);
+        }
+
+        .instagram-link i {
+            margin-right: 8px;
+        }
+
+        .car-image-container {
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .car-image-container.show {
+            display: block;
+        }
+
+        .car-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 2px solid #d4af37;
+        }
+
+        .booking-summary {
+            background: rgba(255, 215, 0, 0.08);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            display: none;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            font-weight: 600;
+            color: #FFD700;
+        }
+
+        .summary-value {
+            color: #000000;
+            text-align: right;
+        }
+
+        .location-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .location-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .location-field {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .location-label {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: #FFD700;
+        }
+
+        .hours-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .hour-option {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .hour-option:hover {
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .hour-option.selected {
+            background: #d4af37;
+            color: #000;
+            border-color: #d4af37;
+        }
+
+        .driving-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .driving-option {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .driving-option:hover {
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .driving-option.selected {
+            background: #d4af37;
+            color: #000;
+            border-color: #d4af37;
+        }
+
+        .custom-driving-input {
+            margin-top: 10px;
+            display: none;
+        }
+
+        .custom-driving-input.show {
+            display: block;
+        }
+
+        /* Hide decoration options initially */
+        .decoration-options {
+            display: none;
+        }
+
+        .decoration-options.show {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .quote {
+                font-size: 1rem;
+            }
+            
+            .location-wrapper {
+                flex-direction: column;
+            }
+            
+            .location-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            
+            .form-section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-wrap" aria-label="Valley Wedding Cars logo">
+                <img src="https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@9f43332887c0e0e64f041eb8d5b944707eb8051c/uploads/2025-08-22T08-26-16-447Z-wzwu1bdis.png" alt="Valley Wedding Cars logo" class="logo-img">
+            </div>
+            <h1 class="title">Valley Wedding Cars</h1>
+            <p class="subtitle">Luxury Fleet Booking</p>
+        </div>
+
+        <div class="quote">
+            "Shaadi ka din khaas hota hai... aapki entry bhi waise hi honi chahiye."
+            <br>
+            <span style="font-size: 0.9rem; opacity: 0.7;">(Your wedding day is special—your entry should be unforgettable too.)</span>
+        </div>
+
+        <form id="bookingForm">
+            <div class="form-section">
+                <h2 class="section-title"><i class="fas fa-comments"></i> Enquiry Type</h2>
+                <fieldset class="segmented" role="radiogroup" aria-label="Enquiry type">
+                    <label class="seg-item">
+                        <input type="radio" name="enquiryType" value="Just Checking" checked>
+                        <span>Just Checking</span>
+                    </label>
+                    <label class="seg-item">
+                        <input type="radio" name="enquiryType" value="Know the Price">
+                        <span>Know the Price</span>
+                    </label>
+                    <label class="seg-item">
+                        <input type="radio" name="enquiryType" value="Booking Now">
+                        <span>Booking Now</span>
+                    </label>
+                </fieldset>
+            </div>
+
+            <div class="form-section">
+                <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> Location Details</h2>
+                
+                <div class="location-wrapper">
+                    <div class="location-group">
+                        <div class="location-field">
+                            <label class="location-label">EVENT START LOCATION</label>
+                            <select id="startMainLocation" name="startMainLocation" required>
+                                <option value="">MAIN LOCATION</option>
+                                <option value="Srinagar">Srinagar</option>
+                                <option value="Leh">Leh</option>
+                                <option value="Kargil">Kargil</option>
+                                <option value="Pahalgam">Pahalgam</option>
+                                <option value="Gulmarg">Gulmarg</option>
+                                <option value="Sonamarg">Sonamarg</option>
+                                <option value="Nubra Valley">Nubra Valley</option>
+                                <option value="Anantnag">Anantnag</option>
+                                <option value="Baramulla">Baramulla</option>
+                                <option value="Sopore">Sopore</option>
+                                <option value="Bandipora">Bandipora</option>
+                                <option value="Kupwara">Kupwara</option>
+                                <option value="Udhampur">Udhampur</option>
+                                <option value="Rajouri">Rajouri</option>
+                                <option value="Poonch">Poonch</option>
+                                <option value="Doda">Doda</option>
+                                <option value="Kishtwar">Kishtwar</option>
+                                <option value="Ramban">Ramban</option>
+                            </select>
+                        </div>
+                        
+                        <div class="location-field">
+                            <label class="location-label">SUB LOCATION</label>
+                            <select id="startSubLocation" name="startSubLocation">
+                                <option value="">SUB LOCATION</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="location-field">
+                        <label class="location-label">DETAILED ADDRESS</label>
+                        <input type="text" id="startDetailedAddress" name="startDetailedAddress" placeholder="Enter detailed address...">
+                    </div>
+                </div>
+
+                <div class="location-wrapper">
+                    <div class="location-group">
+                        <div class="location-field">
+                            <label class="location-label">EVENT END LOCATION</label>
+                            <select id="endMainLocation" name="endMainLocation" required>
+                                <option value="">MAIN LOCATION</option>
+                                <option value="Srinagar">Srinagar</option>
+                                <option value="Leh">Leh</option>
+                                <option value="Kargil">Kargil</option>
+                                <option value="Pahalgam">Pahalgam</option>
+                                <option value="Gulmarg">Gulmarg</option>
+                                <option value="Sonamarg">Sonamarg</option>
+                                <option value="Nubra Valley">Nubra Valley</option>
+                                <option value="Anantnag">Anantnag</option>
+                                <option value="Baramulla">Baramulla</option>
+                                <option value="Sopore">Sopore</option>
+                                <option value="Bandipora">Bandipora</option>
+                                <option value="Kupwara">Kupwara</option>
+                                <option value="Udhampur">Udhampur</option>
+                                <option value="Rajouri">Rajouri</option>
+                                <option value="Poonch">Poonch</option>
+                                <option value="Doda">Doda</option>
+                                <option value="Kishtwar">Kishtwar</option>
+                                <option value="Ramban">Ramban</option>
+                            </select>
+                        </div>
+                        
+                        <div class="location-field">
+                            <label class="location-label">SUB LOCATION</label>
+                            <select id="endSubLocation" name="endSubLocation">
+                                <option value="">SUB LOCATION</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="location-field">
+                        <label class="location-label">DETAILED ADDRESS</label>
+                        <input type="text" id="endDetailedAddress" name="endDetailedAddress" placeholder="Enter detailed address...">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2 class="section-title"><i class="fas fa-car"></i> Service Type</h2>
+                <fieldset class="segmented" role="radiogroup" aria-label="Service type">
+                    <label class="seg-item">
+                        <input type="radio" name="serviceTypeRadio" value="Wedding" checked>
+                        <span>Wedding</span>
+                    </label>
+                    <label class="seg-item">
+                        <input type="radio" name="serviceTypeRadio" value="Engagement">
+                        <span>Engagement</span>
+                    </label>
+                    <label class="seg-item">
+                        <input type="radio" name="serviceTypeRadio" value="Proposal">
+                        <span>Proposal</span>
+                    </label>
+                    <label class="seg-item">
+                        <input type="radio" name="serviceTypeRadio" value="Photoshoot/video shoot">
+                        <span>Photoshoot/Video Shoot</span>
+                    </label>
+                    <label class="seg-item">
+                        <input type="radio" name="serviceTypeRadio" value="Airport Pickup/Drop">
+                        <span>Airport Pickup/Drop</span>
+                    </label>
+                    <label class="seg-item">
+                        <input type="radio" name="serviceTypeRadio" value="Sightseeing/Luxury Tour">
+                        <span>Sightseeing/Luxury Tour</span>
+                    </label>
+                </fieldset>
+                <input type="hidden" id="serviceType" name="serviceType" value="Wedding">
+                
+                <div id="decorBlock" class="decor-wrap" aria-live="polite">
+                    <div class="decor-row">
+                        <span class="decor-label">Want Decoration?</span>
+                        <fieldset class="segmented small" role="radiogroup" aria-label="Want decoration">
+                            <label class="seg-item">
+                                <input type="radio" name="wantDecorationRadio" value="No" checked>
+                                <span>No</span>
+                            </label>
+                            <label class="seg-item">
+                                <input type="radio" name="wantDecorationRadio" value="Yes">
+                                <span>Yes</span>
+                            </label>
+                        </fieldset>
+                    </div>
+                    
+                    <!-- Decoration Type Options - Hidden by default -->
+                    <div id="decorationOptions" class="decoration-options">
+                        <div class="decor-type">
+                            <span class="decor-label">Decoration Type</span>
+                            <fieldset class="segmented small" role="radiogroup" aria-label="Decoration type">
+                                <label class="seg-item">
+                                    <input type="radio" name="decorationTypeRadio" value="Artificial Flowers">
+                                    <span>Artificial Flowers</span>
+                                </label>
+                                <label class="seg-item">
+                                    <input type="radio" name="decorationTypeRadio" value="Fresh Flowers">
+                                    <span>Fresh Flowers</span>
+                                </label>
+                            </fieldset>
+                        </div>
+                    </div>
+                    
+                    <input type="hidden" id="wantDecoration" name="wantDecoration" value="No">
+                    <input type="hidden" id="decoration" name="decoration" value="">
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2 class="section-title"><i class="fas fa-car"></i> Vehicle Selection</h2>
+                
+                <div class="form-group">
+                    <label for="vehicle">Select Your Vehicle:</label>
+                    <select id="vehicle" name="vehicle" required>
+                        <option value="">Choose a vehicle...</option>
+                        <option value="BMW 330D Convertible">BMW 330D Convertible</option>
+                        <option value="MERCEDES Maybach">MERCEDES Maybach</option>
+                        <option value="BMW 5 SERIES G30">BMW 5 SERIES G30</option>
+                        <option value="BMW 5 Series F10">BMW 5 Series F10</option>
+                        <option value="Range Rover Sport">Range Rover Sport</option>
+                        <option value="Mercedes G wagon">Mercedes G wagon</option>
+                        <option value="AUDI A6">AUDI A6</option>
+                        <option value="MERCEDES S CLASS S350">MERCEDES S CLASS S350</option>
+                    </select>
+                </div>
+
+                <div class="car-image-container" id="carImageContainer">
+                    <img id="carImage" class="car-image" src="" alt="Selected Car">
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Event Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventHours">Event Hours:</label>
+                    <div class="hours-container" id="hoursContainer">
+                        <div class="hour-option" data-hours="8">8 Hours</div>
+                        <div class="hour-option" data-hours="10">10 Hours</div>
+                        <div class="hour-option" data-hours="12">12 Hours</div>
+                        <div class="hour-option" data-hours="15">15 Hours</div>
+                        <div class="hour-option" data-hours="24">1 Day</div>
+                        <div class="hour-option" data-hours="48">2 Days</div>
+                    </div>
+                    <input type="hidden" id="eventHours" name="eventHours" value="">
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2 class="section-title"><i class="fas fa-user"></i> Personal Information</h2>
+                
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Special Requests:</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Any special requirements or notes..."></textarea>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2 class="section-title"><i class="fas fa-car-side"></i> Driving Options</h2>
+                <div class="driving-options" id="drivingOptions">
+                    <div class="driving-option" data-option="Chauffeur">NEED CHAUFFEUR</div>
+                    <div class="driving-option" data-option="Self Drive">SELF DRIVE</div>
+                    <div class="driving-option" data-option="Other">OTHER</div>
+                </div>
+                <div class="custom-driving-input" id="customDrivingInput">
+                    <label for="customDriving">Please specify:</label>
+                    <input type="text" id="customDriving" name="customDriving" placeholder="Specify driving option...">
+                </div>
+                <input type="hidden" id="drivingOption" name="drivingOption" value="">
+            </div>
+
+            <button type="submit" class="btn">
+                <i class="fas fa-bookmark"></i> BOOK YOUR WEDDING CAR
+            </button>
+
+            <div class="booking-summary" id="bookingSummary">
+                <h3 style="color: #FFD700; margin-bottom: 15px; text-align: center;">
+                    <i class="fas fa-check-circle"></i> Booking Summary
+                </h3>
+                <div class="summary-item">
+                    <span class="summary-label">Enquiry Type:</span>
+                    <span class="summary-value" id="summaryEnquiry">Just Checking</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Service:</span>
+                    <span class="summary-value" id="summaryService">Wedding</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Location:</span>
+                    <span class="summary-value" id="summaryLocation">Srinagar</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Vehicle:</span>
+                    <span class="summary-value" id="summaryVehicle">BMW Convertible</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Date:</span>
+                    <span class="summary-value" id="summaryDate">2025-01-01</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Name:</span>
+                    <span class="summary-value" id="summaryName">John Doe</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Phone:</span>
+                    <span class="summary-value" id="summaryPhone">+917075196141</span>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>Note:</strong> We only provide services throughout Kashmir and please contact us for customized pricing.
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="https://www.instagram.com/valleyweddingcars" target="_blank" class="instagram-link">
+                    <i class="fab fa-instagram"></i> Follow @valleyweddingcars on Instagram
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Sub-location data - EVERY LOCATION HAS SUB-LOCATIONS OR IS DISABLED
+        const SUB_LOCATIONS = {
+            'Srinagar': ['Rajbagh', 'Jawahar Nagar', 'Lal Chowk', 'Dalgate', 'Nishat', 'Shalimar', 'Hazratbal', 'Nowhatta', 'Bemina', 'Hyderpora', 'Chanapora', 'Sanat Nagar', 'Baghat'],
+            'Leh': ['Leh City', 'Shanti Stupa', 'Hall of Fame', 'Nubra Valley', 'Thiksey Monastery', 'Diskit Monastery', 'Shey Palace', 'Alchi Monastery', 'Phyang Monastery', 'Lhalung Monastery'],
+            'Kargil': ['Kargil City', 'Drass', 'Gyalmer', 'Gyashan', 'Sankoo', 'Turtuk', 'Ladakh', 'Kargil Valley', 'Srinagar Road', 'Leh Road'],
+            'Pahalgam': ['Betaab Valley Gate', 'Aru Road', 'Main Market', 'Lidder River Bank', 'Betaab Valley', 'Aru Valley', 'Kokernag', 'Verinag', 'Qazigund'],
+            'Gulmarg': ['Kongdori', 'Apharwat Base', 'Tangmarg Road', 'Market Area', 'Gulmarg Valley', 'Achabal', 'Banihal', 'Srinagar Road', 'Leh Road'],
+            'Sonamarg': ['Thajiwas Base', 'Main Market', 'Baltal Road', 'Betaab Valley', 'Aru Valley', 'Kokernag', 'Verinag', 'Qazigund'],
+            'Nubra Valley': ['Nubra Valley', 'Hunder', 'Diskit', 'Sumur', 'Lamayuru', 'Hikkim', 'Turtuk', 'Chushul', 'Changthang', 'Ladakh'],
+            'Anantnag': ['Lal Chowk Anantnag', 'Khanabal', 'Mattan', 'Pahalgam', 'Betaab Valley', 'Aru Valley', 'Kokernag', 'Verinag', 'Qazigund'],
+            'Baramulla': ['Main Town', 'Uri Road', 'Sopore Road', 'Gulmarg', 'Kongdori', 'Tanmarg', 'Sopore', 'Wagoora', 'Pattan'],
+            'Sopore': ['Main Town', 'Near Wular Lake', 'Gurez', 'Razdan Pass', 'Wular Lake'],
+            'Bandipora': ['Main Town', 'Near Wular Lake', 'Gurez', 'Razdan Pass', 'Wular Lake'],
+            'Kupwara': ['Main Town', 'Handwara Market', 'Lolab Valley', 'Keran', 'Machil', 'Bangus Valley'],
+            'Udhampur': ['Main Town', 'Near Udhampur Lake', 'Gumma', 'Kishtwar Road'],
+            'Rajouri': ['Main Town', 'Banihal Road', 'Kathua Road'],
+            'Poonch': ['Main Town', 'Haveli', 'Kotli'],
+            'Doda': ['Main Town', 'Punch', 'Kishtwar'],
+            'Kishtwar': ['Main Town', 'Dharamshala', 'Chandigarh'],
+            'Ramban': ['Main Town', 'Chenab Valley', 'Bhaderwah']
+        };
+
+        // Car images mapping
+        const CAR_IMAGES = {
+            "BMW 330D Convertible": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@ea51bc44bc78054acb42ec40c6ef4cdf8b28820c/uploads/2025-08-22T09-39-50-095Z-zk0do8sg0.jpg",
+            "MERCEDES Maybach": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@255df636d3b21382b701c9e6f299c7be09217698/uploads/2025-08-22T09-41-13-224Z-uwbbgn58g.jpg",
+            "BMW 5 SERIES G30": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@aa33fd78421e1a8fa9e1ff6d95800fc75c5c61b1/uploads/2025-08-22T09-42-16-425Z-k1kxvaegs.jpg",
+            "BMW 5 Series F10": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@7766519b7d48ee97144293d33bd1abcaa1dc7537/uploads/2025-08-22T09-43-49-237Z-bl0h1uu6i.jpg",
+            "Range Rover Sport": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@7651fdcb4d348df3e803de2255e8f0b5a1821dc9/uploads/2025-08-22T09-44-23-132Z-uxngpxuq2.jpg",
+            "Mercedes G wagon": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@ef38be0a76189d47ee79a3a182c2c16979e8d014/uploads/2025-08-22T09-45-09-584Z-uowaboqrx.jpg",
+            "AUDI A6": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@a47d1cecb04bbd648bc7a22ff99f74a78bee551c/uploads/2025-08-22T09-45-58-518Z-z518bw92t.jpg",
+            "MERCEDES S CLASS S350": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@b3895eb7c861beae463e395bab61648f07d56ee3/uploads/2025-08-22T09-46-50-342Z-26ldimbft.jpg"
+        };
+
+        // WhatsApp message builder function
+        function buildBookingMessage() {
+            // Helper to safely get values
+            const getVal = id => (document.getElementById(id)?.value || '').trim();
+            
+            // Enquiry type
+            const enquiryType = getVal('enquiryType');
+            
+            // Required/common fields
+            const fullName = getVal('name');
+            const phone = getVal('phone');
+            const eventDate = getVal('date');
+            const service = getVal('serviceType');
+            const vehicle = getVal('vehicle');
+            const startMainLocation = getVal('startMainLocation');
+            const startSubLocation = getVal('startSubLocation');
+            const startDetailedAddress = getVal('startDetailedAddress');
+            const endMainLocation = getVal('endMainLocation');
+            const endSubLocation = getVal('endSubLocation');
+            const endDetailedAddress = getVal('endDetailedAddress');
+            const eventHours = getVal('eventHours');
+            const drivingOption = getVal('drivingOption');
+            const customDriving = getVal('customDriving');
+            const message = getVal('message');
+            
+            // Decoration fields
+            const wantDecoration = getVal('wantDecoration');
+            const decorationType = getVal('decoration');
+            
+            // Compose Location line with precedence: custom > location (+ sub)
+            const startLocationParts = [];
+            if (startDetailedAddress) {
+                startLocationParts.push(startDetailedAddress);
+            } else {
+                if (startMainLocation) startLocationParts.push(startMainLocation);
+                if (startSubLocation) startLocationParts.push(startSubLocation);
+            }
+            const startLocationStr = startLocationParts.join(' — ');
+            
+            const endLocationParts = [];
+            if (endDetailedAddress) {
+                endLocationParts.push(endDetailedAddress);
+            } else {
+                if (endMainLocation) endLocationParts.push(endMainLocation);
+                if (endSubLocation) endLocationParts.push(endSubLocation);
+            }
+            const endLocationStr = endLocationParts.join(' — ');
+            
+            // Sections
+            const header = 'Valley Wedding Cars — Booking Request';
+            const divider = '— — — — — — — — — —';
+            const clientSec = [
+                'Client',
+                `- Name: ${fullName}`,
+                `- Phone: +91${phone}`,
+                `- Enquiry Type: ${enquiryType}`
+            ].join('\n');
+            
+            const eventSec = [
+                'Event',
+                `- Date: ${eventDate}`,
+                `- Service: ${service}`,
+                `- Car: ${vehicle}`,
+                `- Start Location: ${startLocationStr}`,
+                `- End Location: ${endLocationStr}`,
+                `- Event Hours: ${eventHours || 'Not specified'}`,
+                `- Driving Option: ${drivingOption || 'Not specified'}`,
+                message ? `- Special Requests: ${message}` : null
+            ].filter(Boolean).join('\n');
+            
+            // Decoration section only for Wedding
+            let decorSec = '';
+            if (service === 'Wedding' && wantDecoration === 'Yes') {
+                const decorLines = [
+                    'Decoration',
+                    `- Need Decoration: ${wantDecoration || 'No'}`
+                ];
+                if (decorationType) {
+                    decorLines.push(`- Type: ${decorationType}`);
+                }
+                decorSec = decorLines.join('\n');
+            }
+            
+            // Join all non-empty sections
+            const parts = [header, divider, clientSec, '', eventSec];
+            if (decorSec) parts.push('', decorSec);
+            parts.push('', 'Please reply with availability and pricing.');
+            
+            return parts.filter(Boolean).join('\n');
+        }
+
+        function openWhatsAppWithBooking() {
+            // Basic validation
+            if (!document.getElementById('name')?.value.trim()) {
+                alert('Please enter your full name.');
+                return;
+            }
+            if (!document.getElementById('phone')?.value.trim()) {
+                alert('Please enter your phone number.');
+                return;
+            }
+            if (!document.getElementById('date')?.value.trim()) {
+                alert('Please select event date.');
+                return;
+            }
+            if (!document.getElementById('serviceType')?.value.trim()) {
+                alert('Please select a service type.');
+                return;
+            }
+            if (!document.getElementById('vehicle')?.value.trim()) {
+                alert('Please select a car.');
+                return;
+            }
+            if (!document.getElementById('startMainLocation')?.value.trim()) {
+                alert('Please select a start main location.');
+                return;
+            }
+            if (!document.getElementById('endMainLocation')?.value.trim()) {
+                alert('Please select an end main location.');
+                return;
+            }
+            
+            const msg = buildBookingMessage();
+            const phoneIntl = '917075196141'; // Updated WhatsApp number
+            const url = `https://wa.me/${phoneIntl}?text=${encodeURIComponent(msg)}`;
+            window.open(url, '_blank', 'noopener,noreferrer');
+        }
+
+        // Add event listener to form submit
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const enquiryType = document.querySelector('input[name="enquiryType"]:checked')?.value || 'Just Checking';
+            const serviceType = document.querySelector('input[name="serviceTypeRadio"]:checked')?.value || 'Wedding';
+            const wantDecoration = document.querySelector('input[name="wantDecorationRadio"]:checked')?.value || 'No';
+            const decoration = document.querySelector('input[name="decorationTypeRadio"]:checked')?.value || '';
+            const startMainLocation = document.getElementById('startMainLocation').value;
+            const startSubLocation = document.getElementById('startSubLocation').value;
+            const startDetailedAddress = document.getElementById('startDetailedAddress').value;
+            const endMainLocation = document.getElementById('endMainLocation').value;
+            const endSubLocation = document.getElementById('endSubLocation').value;
+            const endDetailedAddress = document.getElementById('endDetailedAddress').value;
+            const vehicle = document.getElementById('vehicle').value;
+            const date = document.getElementById('date').value;
+            const eventHours = document.getElementById('eventHours').value;
+            const drivingOption = document.getElementById('drivingOption').value;
+            const customDriving = document.getElementById('customDriving').value;
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+            
+            // Validate form
+            if (!startMainLocation) {
+                alert('Please select a start main location.');
+                return;
+            }
+            
+            if (!endMainLocation) {
+                alert('Please select an end main location.');
+                return;
+            }
+            
+            if (!vehicle || !date || !name || !email || !phone) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Display booking summary
+            document.getElementById('summaryEnquiry').textContent = enquiryType;
+            document.getElementById('summaryService').textContent = serviceType;
+            document.getElementById('summaryLocation').textContent = startMainLocation;
+            document.getElementById('summaryVehicle').textContent = vehicle;
+            document.getElementById('summaryDate').textContent = date;
+            document.getElementById('summaryName').textContent = name;
+            document.getElementById('summaryPhone').textContent = `+917075196141`;
+            document.getElementById('bookingSummary').style.display = 'block';
+            
+            // Open WhatsApp
+            openWhatsAppWithBooking();
+            
+            // Reset form
+            this.reset();
+            
+            // Clear selected location
+            document.querySelectorAll('.location-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Reset service selection
+            document.querySelectorAll('input[name="serviceTypeRadio"]').forEach(radio => {
+                radio.checked = radio.value === 'Wedding';
+            });
+            
+            // Reset decoration selection
+            document.querySelectorAll('input[name="wantDecorationRadio"]').forEach(radio => {
+                radio.checked = radio.value === 'No';
+            });
+            
+            document.querySelectorAll('input[name="decorationTypeRadio"]').forEach(radio => {
+                radio.checked = false;
+            });
+            
+            // Hide sub-location container
+            document.getElementById('subLocationContainer').classList.remove('show');
+            
+            // Hide decoration options
+            document.getElementById('decorationOptions').classList.remove('show');
+            
+            // Hide car image
+            document.getElementById('carImageContainer').classList.remove('show');
+        });
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').min = today;
+
+        // Populate sub-locations when main location changes
+        function populateSubLocations(mainValue, selectorId) {
+            const subSel = document.getElementById(selectorId);
+            const list = SUB_LOCATIONS[mainValue] || [];
+            subSel.innerHTML = '<option value="">SUB LOCATION</option>';
+            if (list.length === 0) {
+                subSel.disabled = true;
+                return;
+            }
+            list.forEach(name => {
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = name;
+                subSel.appendChild(option);
+            });
+            subSel.disabled = false;
+        }
+
+        // Wire up main location changes for both start and end locations
+        document.getElementById('startMainLocation').addEventListener('change', function() {
+            populateSubLocations(this.value, 'startSubLocation');
+        });
+
+        document.getElementById('endMainLocation').addEventListener('change', function() {
+            populateSubLocations(this.value, 'endSubLocation');
+        });
+
+        // Car selection with image display
+        document.getElementById('vehicle').addEventListener('change', function() {
+            const carImageContainer = document.getElementById('carImageContainer');
+            const carImage = document.getElementById('carImage');
+            
+            if (this.value && CAR_IMAGES[this.value]) {
+                carImage.src = CAR_IMAGES[this.value];
+                carImageContainer.classList.add('show');
+            } else {
+                carImageContainer.classList.remove('show');
+            }
+        });
+
+        // Event hours selection
+        document.querySelectorAll('.hour-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from all options
+                document.querySelectorAll('.hour-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                
+                // Set hidden input value
+                document.getElementById('eventHours').value = this.dataset.hours;
+            });
+        });
+
+        // Driving options selection
+        document.querySelectorAll('.driving-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from all options
+                document.querySelectorAll('.driving-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                
+                // Set hidden input value
+                const optionValue = this.dataset.option;
+                document.getElementById('drivingOption').value = optionValue;
+                
+                // Show/hide custom input
+                const customDrivingInput = document.getElementById('customDrivingInput');
+                if (optionValue === 'Other') {
+                    customDrivingInput.classList.add('show');
+                } else {
+                    customDrivingInput.classList.remove('show');
+                    document.getElementById('customDriving').value = '';
+                }
+            });
+        });
+
+        // Decoration toggle - Show/hide decoration options based on "Want Decoration?" selection
+        document.querySelectorAll('input[name="wantDecorationRadio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const decorationOptions = document.getElementById('decorationOptions');
+                if (this.value === 'Yes') {
+                    decorationOptions.classList.add('show');
+                } else {
+                    decorationOptions.classList.remove('show');
+                }
+                
+                // Update hidden field
+                document.getElementById('wantDecoration').value = this.value;
+            });
+        });
+
+        // Decoration type selection - update hidden field
+        document.querySelectorAll('input[name="decorationTypeRadio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.getElementById('decoration').value = this.value;
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+    
+              <script>
+                              
+              </script>
+                        </body>
+                        </html>
