@@ -294,6 +294,12 @@
             font-size: 0.9rem;
         }
 
+        .estimate-output {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: #FFD700;
+        }
+
         .instagram-link {
             display: inline-block;
             margin-top: 15px;
@@ -383,6 +389,10 @@
             min-width: 120px;
         }
 
+        .location-field select {
+            width: 100%;
+        }
+
         .location-label {
             font-size: 0.9rem;
             margin-bottom: 5px;
@@ -450,6 +460,12 @@
         .custom-driving-input {
             margin-top: 10px;
             display: none;
+        }
+
+        @media (max-width: 600px) {
+            .location-group {
+                flex-direction: column;
+            }
         }
 
         .custom-driving-input.show {
@@ -664,12 +680,12 @@
                             <span class="decor-label">Decoration Type</span>
                             <fieldset class="segmented small" role="radiogroup" aria-label="Decoration type">
                                 <label class="seg-item">
-                                    <input type="radio" name="decorationTypeRadio" value="Artificial Flowers">
-                                    <span>Artificial Flowers</span>
+                                    <input type="radio" name="decorationTypeRadio" value="Artificial">
+                                    <span>Artificial (INR 500)</span>
                                 </label>
                                 <label class="seg-item">
-                                    <input type="radio" name="decorationTypeRadio" value="Fresh Flowers">
-                                    <span>Fresh Flowers</span>
+                                    <input type="radio" name="decorationTypeRadio" value="Fresh">
+                                    <span>Fresh (INR 1000)</span>
                                 </label>
                             </fieldset>
                         </div>
@@ -682,7 +698,7 @@
 
             <div class="form-section">
                 <h2 class="section-title"><i class="fas fa-car"></i> Vehicle Selection</h2>
-                
+
                 <div class="form-group">
                     <label for="vehicle">Select Your Vehicle:</label>
                     <select id="vehicle" name="vehicle" required>
@@ -718,6 +734,21 @@
                         <div class="hour-option" data-hours="48">2 Days</div>
                     </div>
                     <input type="hidden" id="eventHours" name="eventHours" value="">
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2 class="section-title"><i class="fas fa-route"></i> Travel Details</h2>
+                <div class="form-group">
+                    <label for="distance">Travel Distance (km):</label>
+                    <input type="number" id="distance" name="distance" min="0" placeholder="Enter distance">
+                </div>
+                <div class="form-group">
+                    <label for="duration">Booking Duration (hours):</label>
+                    <input type="number" id="duration" name="duration" min="0" placeholder="Enter total hours">
+                </div>
+                <div class="estimate-output">
+                    <strong>Total Estimate: INR <span id="totalEstimate">0</span></strong>
                 </div>
             </div>
 
@@ -1153,9 +1184,10 @@
                 } else {
                     decorationOptions.classList.remove('show');
                 }
-                
+
                 // Update hidden field
                 document.getElementById('wantDecoration').value = this.value;
+                calculateEstimate();
             });
         });
 
@@ -1163,8 +1195,45 @@
         document.querySelectorAll('input[name="decorationTypeRadio"]').forEach(radio => {
             radio.addEventListener('change', function() {
                 document.getElementById('decoration').value = this.value;
+                calculateEstimate();
             });
         });
+        const DECORATION_COSTS = {
+            'Fresh': 1000,
+            'Artificial': 500
+        };
+
+        function calculateEstimate() {
+            const wantDecoration = document.querySelector('input[name="wantDecorationRadio"]:checked')?.value;
+            let decorationCost = 0;
+            if (wantDecoration === 'Yes') {
+                const decoType = document.querySelector('input[name="decorationTypeRadio"]:checked')?.value;
+                decorationCost = DECORATION_COSTS[decoType] || 0;
+            }
+
+            const distance = parseFloat(document.getElementById('distance')?.value) || 0;
+            const distanceCost = distance * 30;
+
+            const duration = parseFloat(document.getElementById('duration')?.value) || 0;
+            let hourlyCost = 0;
+            if (duration > 0) {
+                hourlyCost = 800;
+                if (duration > 8) {
+                    hourlyCost += (duration - 8) * 100;
+                }
+            }
+
+            const total = decorationCost + distanceCost + hourlyCost;
+            const estimateEl = document.getElementById('totalEstimate');
+            if (estimateEl) {
+                estimateEl.textContent = total;
+            }
+        }
+        ['distance', 'duration'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('input', calculateEstimate);
+        });
+        calculateEstimate();
     </script>
 </body>
 </html>

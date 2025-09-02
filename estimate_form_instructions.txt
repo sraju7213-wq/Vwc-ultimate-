@@ -1,0 +1,23 @@
+Estimate Form Implementation Instructions
+
+1. Add decoration type selection with cost:
+   - Fresh decoration: INR 1000
+   - Artificial decoration: INR 500
+   - Cost applies only when decoration is requested.
+
+2. Travel distance calculation:
+   - Input total distance in kilometers.
+   - Each kilometer adds INR 30 to the estimate.
+
+3. Hourly cost for duration:
+   - Input total booking duration in hours.
+   - Base rate: INR 800 for up to 8 hours.
+   - Additional INR 100 for each hour beyond 8.
+
+4. Estimate calculation:
+   - Total = Decoration Cost + (Distance × 30) + Hourly Charges.
+   - Update and display the total in real time as inputs change.
+
+5. Display the estimate on the form for user review before submission.
+
+6. Test to ensure each input updates the total correctly.
