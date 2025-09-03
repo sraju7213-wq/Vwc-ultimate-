@@ -1,23 +1,36 @@
 Estimate Form Implementation Instructions
 
-1. Add decoration type selection with cost:
-   - Fresh decoration: INR 1000
-   - Artificial decoration: INR 500
-   - Cost applies only when decoration is requested.
+1. Car rate selection:
+   - Add a dropdown where the user chooses a car type (Luxury Sedan, Sports Car, SUV).
+   - Map each type to a fixed rate:
+     * Luxury Sedan: INR 2000
+     * Sports Car: INR 5000
+     * SUV: INR 3000
+   - Use the selected car rate in the final estimate.
 
-2. Travel distance calculation:
-   - Input total distance in kilometers.
-   - Each kilometer adds INR 30 to the estimate.
+2. Decoration type selection:
+   - Provide radio buttons for Fresh (INR 1000) or Artificial (INR 500).
+   - Only apply decoration cost if the user requests decoration.
 
-3. Hourly cost for duration:
-   - Input total booking duration in hours.
-   - Base rate: INR 800 for up to 8 hours.
-   - Additional INR 100 for each hour beyond 8.
+3. Travel distance calculation:
+   - Accept numeric input for total kilometers.
+   - Multiply the entered distance by INR 30 to obtain the distance cost.
 
-4. Estimate calculation:
-   - Total = Decoration Cost + (Distance × 30) + Hourly Charges.
-   - Update and display the total in real time as inputs change.
+4. Hourly cost for duration:
+   - Accept numeric input for total booking hours.
+   - Base cost: INR 800 for up to 8 hours.
+   - Charge INR 100 for each hour beyond 8.
 
-5. Display the estimate on the form for user review before submission.
+5. Estimate calculation:
+   - Total = Car Rate + Decoration Cost + (Distance × 30) + Hourly Charges.
+   - Recalculate and display the total in real time as inputs change.
 
-6. Test to ensure each input updates the total correctly.
+6. Form submission and display:
+   - Show the live estimate at the bottom of the form.
+   - Optionally email or display a summary with car type, decoration, distance, duration, and total.
+
+7. Save these instructions in this text file for developer reference.
+
+8. Testing and validation:
+   - Verify each field updates the total correctly.
+   - Check that car rate, decoration cost, distance, and hourly charges reflect the user selections.
