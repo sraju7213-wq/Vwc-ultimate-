@@ -1,19 +1,5 @@
 
-                        <!DOCTYPE html>
-                        <html lang="en">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <style>
-                body {
-                  background-color: black; /* Ensure the iframe has a Black background */
-                }
-    
-                
-              </style>
-                        </head>
-                        <body>
-                            <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -194,10 +180,11 @@
             box-shadow: none !important;
             background: transparent !important;
         }
-        
+
         .seg-item{
             display:inline-flex;
             align-items:center;
+            justify-content:center;
             gap:8px;
             padding:9px 12px;
             border:1px solid #d4af37;
@@ -212,10 +199,12 @@
             border-color: #d4af37 !important;
             box-shadow: none !important;
             outline: none !important;
+            flex:1;
+            text-align:center;
         }
         
-        .seg-item input{ 
-            display:none 
+        .seg-item input{
+            display:none
         }
         
         .seg-item:has(input:checked),
@@ -236,9 +225,17 @@
         }
 
         /* FIX FOCUS STYLES TO REMOVE WHITE BORDERS */
-        .seg-item:focus-within { 
-            outline: none !important; 
-            box-shadow: 0 0 0 2px rgba(212,175,55,0.4) !important; 
+        .seg-item:focus-within {
+            outline: none !important;
+            box-shadow: 0 0 0 2px rgba(212,175,55,0.4) !important;
+        }
+
+        .enquiry-section .segmented {
+            width: 100%;
+        }
+
+        .enquiry-section .seg-item {
+            flex: 1;
         }
 
         /* Remove fieldset default styling */
@@ -320,6 +317,11 @@
 
         .instagram-link i {
             margin-right: 8px;
+        }
+
+        .instagram-wrapper {
+            text-align: center;
+            margin-top: 20px;
         }
 
         .car-image-container {
@@ -471,27 +473,64 @@
             display: block;
         }
 
+        @media (min-width: 768px) {
+            .container {
+                max-width: 1200px;
+            }
+
+            #bookingForm {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            #bookingForm .form-section {
+                margin-bottom: 20px;
+            }
+
+            #bookingForm button,
+            #bookingForm .booking-summary,
+            #bookingForm .vehicle-selection,
+            #bookingForm .full-width {
+                grid-column: 1 / -1;
+            }
+
+            #bookingForm .service-section {
+                grid-column: 1;
+                grid-row: 2;
+            }
+
+            #bookingForm .location-section {
+                grid-column: 2;
+                grid-row: 2;
+            }
+        }
+
         @media (max-width: 600px) {
             .container {
                 padding: 15px;
             }
-            
+
             .title {
                 font-size: 1.8rem;
             }
-            
+
             .quote {
                 font-size: 1rem;
             }
-            
+
             .location-wrapper {
                 flex-direction: column;
             }
-            
+
+            .location-group {
+                flex-direction: column;
+            }
+
             .location-grid {
                 grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             }
-            
+
             .form-section {
                 padding: 15px;
             }
@@ -515,7 +554,7 @@
         </div>
 
         <form id="bookingForm">
-            <div class="form-section">
+            <div class="form-section enquiry-section full-width">
                 <h2 class="section-title"><i class="fas fa-comments"></i> Enquiry Type</h2>
                 <fieldset class="segmented" role="radiogroup" aria-label="Enquiry type">
                     <label class="seg-item">
@@ -533,7 +572,74 @@
                 </fieldset>
             </div>
 
-            <div class="form-section">
+            <div class="form-section service-section">
+                <h2 class="section-title"><i class="fas fa-car"></i> Service Type</h2>
+                <fieldset class="segmented" role="radiogroup" aria-label="Service type">
+                    <label class="seg-item">
+                        <input type="radio" name="serviceTypeRadio" value="Wedding" checked>
+                        <span>Wedding</span>
+                    </label>
+                    <label class="seg-item">
+                        <input type="radio" name="serviceTypeRadio" value="Engagement">
+                        <span>Engagement</span>
+                    </label>
+                    <label class="seg-item">
+                        <input type="radio" name="serviceTypeRadio" value="Proposal">
+                        <span>Proposal</span>
+                    </label>
+                    <label class="seg-item">
+                        <input type="radio" name="serviceTypeRadio" value="Photoshoot/video shoot">
+                        <span>Photoshoot/Video Shoot</span>
+                    </label>
+                    <label class="seg-item">
+                        <input type="radio" name="serviceTypeRadio" value="Airport Pickup/Drop">
+                        <span>Airport Pickup/Drop</span>
+                    </label>
+                    <label class="seg-item">
+                        <input type="radio" name="serviceTypeRadio" value="Sightseeing/Luxury Tour">
+                        <span>Sightseeing/Luxury Tour</span>
+                    </label>
+                </fieldset>
+                <input type="hidden" id="serviceType" name="serviceType" value="Wedding">
+
+                <div id="decorBlock" class="decor-wrap" aria-live="polite">
+                    <div class="decor-row">
+                        <span class="decor-label">Want Decoration?</span>
+                        <fieldset class="segmented small" role="radiogroup" aria-label="Want decoration">
+                            <label class="seg-item">
+                                <input type="radio" name="wantDecorationRadio" value="No" checked>
+                                <span>No</span>
+                            </label>
+                            <label class="seg-item">
+                                <input type="radio" name="wantDecorationRadio" value="Yes">
+                                <span>Yes</span>
+                            </label>
+                        </fieldset>
+                    </div>
+
+                    <!-- Decoration Type Options - Hidden by default -->
+                    <div id="decorationOptions" class="decoration-options">
+                        <div class="decor-type">
+                            <span class="decor-label">Decoration Type</span>
+                            <fieldset class="segmented small" role="radiogroup" aria-label="Decoration type">
+                                <label class="seg-item">
+                                    <input type="radio" name="decorationTypeRadio" value="Artificial">
+                                    <span>Artificial (INR 500)</span>
+                                </label>
+                                <label class="seg-item">
+                                    <input type="radio" name="decorationTypeRadio" value="Fresh">
+                                    <span>Fresh (INR 1000)</span>
+                                </label>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="wantDecoration" name="wantDecoration" value="No">
+                    <input type="hidden" id="decoration" name="decoration" value="">
+                </div>
+            </div>
+
+            <div class="form-section location-section">
                 <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> Location Details</h2>
                 
                 <div class="location-wrapper">
@@ -619,98 +725,25 @@
                 </div>
             </div>
 
-            <div class="form-section">
-                <h2 class="section-title"><i class="fas fa-car"></i> Service Type</h2>
-                <fieldset class="segmented" role="radiogroup" aria-label="Service type">
-                    <label class="seg-item">
-                        <input type="radio" name="serviceTypeRadio" value="Wedding" checked>
-                        <span>Wedding</span>
-                    </label>
-                    <label class="seg-item">
-                        <input type="radio" name="serviceTypeRadio" value="Engagement">
-                        <span>Engagement</span>
-                    </label>
-                    <label class="seg-item">
-                        <input type="radio" name="serviceTypeRadio" value="Proposal">
-                        <span>Proposal</span>
-                    </label>
-                    <label class="seg-item">
-                        <input type="radio" name="serviceTypeRadio" value="Photoshoot/video shoot">
-                        <span>Photoshoot/Video Shoot</span>
-                    </label>
-                    <label class="seg-item">
-                        <input type="radio" name="serviceTypeRadio" value="Airport Pickup/Drop">
-                        <span>Airport Pickup/Drop</span>
-                    </label>
-                    <label class="seg-item">
-                        <input type="radio" name="serviceTypeRadio" value="Sightseeing/Luxury Tour">
-                        <span>Sightseeing/Luxury Tour</span>
-                    </label>
-                </fieldset>
-                <input type="hidden" id="serviceType" name="serviceType" value="Wedding">
-                
-                <div id="decorBlock" class="decor-wrap" aria-live="polite">
-                    <div class="decor-row">
-                        <span class="decor-label">Want Decoration?</span>
-                        <fieldset class="segmented small" role="radiogroup" aria-label="Want decoration">
-                            <label class="seg-item">
-                                <input type="radio" name="wantDecorationRadio" value="No" checked>
-                                <span>No</span>
-                            </label>
-                            <label class="seg-item">
-                                <input type="radio" name="wantDecorationRadio" value="Yes">
-                                <span>Yes</span>
-                            </label>
-                        </fieldset>
-                    </div>
-                    
-                    <!-- Decoration Type Options - Hidden by default -->
-                    <div id="decorationOptions" class="decoration-options">
-                        <div class="decor-type">
-                            <span class="decor-label">Decoration Type</span>
-                            <fieldset class="segmented small" role="radiogroup" aria-label="Decoration type">
-                                <label class="seg-item">
-                                    <input type="radio" name="decorationTypeRadio" value="Artificial">
-                                    <span>Artificial (INR 500)</span>
-                                </label>
-                                <label class="seg-item">
-                                    <input type="radio" name="decorationTypeRadio" value="Fresh">
-                                    <span>Fresh (INR 1000)</span>
-                                </label>
-                            </fieldset>
-                        </div>
-                    </div>
-                    
-                    <input type="hidden" id="wantDecoration" name="wantDecoration" value="No">
-                    <input type="hidden" id="decoration" name="decoration" value="">
-                </div>
-            </div>
 
-            <div class="form-section">
+            <div class="form-section vehicle-selection">
                 <h2 class="section-title"><i class="fas fa-car"></i> Vehicle Selection</h2>
-
-                <div class="form-group">
-                    <label for="carType">Car Type:</label>
-                    <select id="carType" name="carType">
-                        <option value="">Select car type...</option>
-                        <option value="Luxury Sedan">Luxury Sedan - INR 2000</option>
-                        <option value="Sports Car">Sports Car - INR 5000</option>
-                        <option value="SUV">SUV - INR 3000</option>
-                    </select>
-                </div>
 
                 <div class="form-group">
                     <label for="vehicle">Select Your Vehicle:</label>
                     <select id="vehicle" name="vehicle" required>
                         <option value="">Choose a vehicle...</option>
-                        <option value="BMW 330D Convertible">BMW 330D Convertible</option>
-                        <option value="MERCEDES Maybach">MERCEDES Maybach</option>
-                        <option value="BMW 5 SERIES G30">BMW 5 SERIES G30</option>
-                        <option value="BMW 5 Series F10">BMW 5 Series F10</option>
-                        <option value="Range Rover Sport">Range Rover Sport</option>
-                        <option value="Mercedes G wagon">Mercedes G wagon</option>
-                        <option value="AUDI A6">AUDI A6</option>
-                        <option value="MERCEDES S CLASS S350">MERCEDES S CLASS S350</option>
+                        <option value="AUDI A6">AUDI A6 - INR 16000</option>
+                        <option value="BMW 5 Series F10 (Old Shape)">BMW 5 Series F10 (Old Shape) - Price TBD</option>
+                        <option value="BMW 5 Series G30">BMW 5 Series G30 - Price TBD</option>
+                        <option value="BMW Convertible">BMW Convertible - INR 26000</option>
+                        <option value="Hyundai Creta">Hyundai Creta - INR 12000</option>
+                        <option value="Hyundai Verna">Hyundai Verna - INR 12000</option>
+                        <option value="Mercedes CLA 200">Mercedes CLA 200 - INR 14000</option>
+                        <option value="Mercedes G Wagon">Mercedes G Wagon - INR 160000</option>
+                        <option value="Mercedes S Class">Mercedes S Class - INR 22000</option>
+                        <option value="Range Rover Sport">Range Rover Sport - INR 85000</option>
+                        <option value="Range Rover Sport 2">Range Rover Sport 2 - INR 125000</option>
                     </select>
                 </div>
 
@@ -776,7 +809,7 @@
                 </div>
             </div>
 
-            <div class="form-section">
+            <div class="form-section driving-section full-width">
                 <h2 class="section-title"><i class="fas fa-car-side"></i> Driving Options</h2>
                 <div class="driving-options" id="drivingOptions">
                     <div class="driving-option" data-option="Chauffeur">NEED CHAUFFEUR</div>
@@ -812,7 +845,7 @@
                 </div>
                 <div class="summary-item">
                     <span class="summary-label">Vehicle:</span>
-                    <span class="summary-value" id="summaryVehicle">BMW Convertible</span>
+                    <span class="summary-value" id="summaryVehicle"></span>
                 </div>
                 <div class="summary-item">
                     <span class="summary-label">Date:</span>
@@ -828,11 +861,11 @@
                 </div>
             </div>
 
-            <div class="note">
+            <div class="note full-width">
                 <strong>Note:</strong> We only provide services throughout Kashmir and please contact us for customized pricing.
             </div>
 
-            <div style="text-align: center; margin-top: 20px;">
+            <div class="instagram-wrapper full-width">
                 <a href="https://www.instagram.com/valleyweddingcars" target="_blank" class="instagram-link">
                     <i class="fab fa-instagram"></i> Follow @valleyweddingcars on Instagram
                 </a>
@@ -865,14 +898,11 @@
 
         // Car images mapping
         const CAR_IMAGES = {
-            "BMW 330D Convertible": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@ea51bc44bc78054acb42ec40c6ef4cdf8b28820c/uploads/2025-08-22T09-39-50-095Z-zk0do8sg0.jpg",
-            "MERCEDES Maybach": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@255df636d3b21382b701c9e6f299c7be09217698/uploads/2025-08-22T09-41-13-224Z-uwbbgn58g.jpg",
             "BMW 5 SERIES G30": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@aa33fd78421e1a8fa9e1ff6d95800fc75c5c61b1/uploads/2025-08-22T09-42-16-425Z-k1kxvaegs.jpg",
-            "BMW 5 Series F10": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@7766519b7d48ee97144293d33bd1abcaa1dc7537/uploads/2025-08-22T09-43-49-237Z-bl0h1uu6i.jpg",
+            "BMW 5 Series F10 (Old Shape)": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@7766519b7d48ee97144293d33bd1abcaa1dc7537/uploads/2025-08-22T09-43-49-237Z-bl0h1uu6i.jpg",
             "Range Rover Sport": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@7651fdcb4d348df3e803de2255e8f0b5a1821dc9/uploads/2025-08-22T09-44-23-132Z-uxngpxuq2.jpg",
-            "Mercedes G wagon": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@ef38be0a76189d47ee79a3a182c2c16979e8d014/uploads/2025-08-22T09-45-09-584Z-uowaboqrx.jpg",
-            "AUDI A6": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@a47d1cecb04bbd648bc7a22ff99f74a78bee551c/uploads/2025-08-22T09-45-58-518Z-z518bw92t.jpg",
-            "MERCEDES S CLASS S350": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@b3895eb7c861beae463e395bab61648f07d56ee3/uploads/2025-08-22T09-46-50-342Z-26ldimbft.jpg"
+            "Mercedes G Wagon": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@ef38be0a76189d47ee79a3a182c2c16979e8d014/uploads/2025-08-22T09-45-09-584Z-uowaboqrx.jpg",
+            "AUDI A6": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@a47d1cecb04bbd648bc7a22ff99f74a78bee551c/uploads/2025-08-22T09-45-58-518Z-z518bw92t.jpg"
         };
 
         // WhatsApp message builder function
@@ -1199,9 +1229,17 @@
             });
         });
         const CAR_RATES = {
-            'Luxury Sedan': 2000,
-            'Sports Car': 5000,
-            'SUV': 3000
+            'AUDI A6': 16000,
+            'BMW 5 Series F10 (Old Shape)': 0,
+            'BMW 5 Series G30': 0,
+            'BMW Convertible': 26000,
+            'Hyundai Creta': 12000,
+            'Hyundai Verna': 12000,
+            'Mercedes CLA 200': 14000,
+            'Mercedes G Wagon': 160000,
+            'Mercedes S Class': 22000,
+            'Range Rover Sport': 85000,
+            'Range Rover Sport 2': 125000
         };
 
         const DECORATION_COSTS = {
@@ -1210,8 +1248,8 @@
         };
 
         function calculateEstimate() {
-            const carType = document.getElementById('carType')?.value;
-            const carRate = CAR_RATES[carType] || 0;
+            const vehicle = document.getElementById('vehicle')?.value;
+            const carRate = CAR_RATES[vehicle] || 0;
 
             const wantDecoration = document.querySelector('input[name="wantDecorationRadio"]:checked')?.value;
             let decorationCost = 0;
@@ -1221,15 +1259,12 @@
             }
 
             const distance = parseFloat(document.getElementById('distance')?.value) || 0;
-            const distanceCost = distance * 30;
+            const distanceCost = distance * 100;
 
             const duration = parseFloat(document.getElementById('duration')?.value) || 0;
             let hourlyCost = 0;
-            if (duration > 0) {
-                hourlyCost = 800;
-                if (duration > 8) {
-                    hourlyCost += (duration - 8) * 100;
-                }
+            if (duration > 8) {
+                hourlyCost = (duration - 8) * carRate * 0.04;
             }
 
             const total = carRate + decorationCost + distanceCost + hourlyCost;
@@ -1239,8 +1274,8 @@
             }
         }
 
-        const carTypeEl = document.getElementById('carType');
-        if (carTypeEl) carTypeEl.addEventListener('change', calculateEstimate);
+        const vehicleEl = document.getElementById('vehicle');
+        if (vehicleEl) vehicleEl.addEventListener('change', calculateEstimate);
         ['distance', 'duration'].forEach(id => {
             const el = document.getElementById(id);
             if (el) el.addEventListener('input', calculateEstimate);
@@ -1249,11 +1284,3 @@
     </script>
 </body>
 </html>
-
-
-    
-              <script>
-                              
-              </script>
-                        </body>
-                        </html>
