@@ -690,27 +690,20 @@
                 <h2 class="section-title"><i class="fas fa-car"></i> Vehicle Selection</h2>
 
                 <div class="form-group">
-                    <label for="carType">Car Type:</label>
-                    <select id="carType" name="carType">
-                        <option value="">Select car type...</option>
-                        <option value="Luxury Sedan">Luxury Sedan - INR 2000</option>
-                        <option value="Sports Car">Sports Car - INR 5000</option>
-                        <option value="SUV">SUV - INR 3000</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
                     <label for="vehicle">Select Your Vehicle:</label>
                     <select id="vehicle" name="vehicle" required>
                         <option value="">Choose a vehicle...</option>
-                        <option value="BMW 330D Convertible">BMW 330D Convertible</option>
-                        <option value="MERCEDES Maybach">MERCEDES Maybach</option>
-                        <option value="BMW 5 SERIES G30">BMW 5 SERIES G30</option>
-                        <option value="BMW 5 Series F10">BMW 5 Series F10</option>
-                        <option value="Range Rover Sport">Range Rover Sport</option>
-                        <option value="Mercedes G wagon">Mercedes G wagon</option>
-                        <option value="AUDI A6">AUDI A6</option>
-                        <option value="MERCEDES S CLASS S350">MERCEDES S CLASS S350</option>
+                        <option value="AUDI A6">AUDI A6 - INR 16000</option>
+                        <option value="BMW 5 Series F10 (Old Shape)">BMW 5 Series F10 (Old Shape) - Price TBD</option>
+                        <option value="BMW 5 Series G30">BMW 5 Series G30 - Price TBD</option>
+                        <option value="BMW Convertible">BMW Convertible - INR 26000</option>
+                        <option value="Hyundai Creta">Hyundai Creta - INR 12000</option>
+                        <option value="Hyundai Verna">Hyundai Verna - INR 12000</option>
+                        <option value="Mercedes CLA 200">Mercedes CLA 200 - INR 14000</option>
+                        <option value="Mercedes G Wagon">Mercedes G Wagon - INR 160000</option>
+                        <option value="Mercedes S Class">Mercedes S Class - INR 22000</option>
+                        <option value="Range Rover Sport">Range Rover Sport - INR 85000</option>
+                        <option value="Range Rover Sport 2">Range Rover Sport 2 - INR 125000</option>
                     </select>
                 </div>
 
@@ -812,7 +805,7 @@
                 </div>
                 <div class="summary-item">
                     <span class="summary-label">Vehicle:</span>
-                    <span class="summary-value" id="summaryVehicle">BMW Convertible</span>
+                    <span class="summary-value" id="summaryVehicle"></span>
                 </div>
                 <div class="summary-item">
                     <span class="summary-label">Date:</span>
@@ -865,14 +858,11 @@
 
         // Car images mapping
         const CAR_IMAGES = {
-            "BMW 330D Convertible": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@ea51bc44bc78054acb42ec40c6ef4cdf8b28820c/uploads/2025-08-22T09-39-50-095Z-zk0do8sg0.jpg",
-            "MERCEDES Maybach": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@255df636d3b21382b701c9e6f299c7be09217698/uploads/2025-08-22T09-41-13-224Z-uwbbgn58g.jpg",
             "BMW 5 SERIES G30": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@aa33fd78421e1a8fa9e1ff6d95800fc75c5c61b1/uploads/2025-08-22T09-42-16-425Z-k1kxvaegs.jpg",
-            "BMW 5 Series F10": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@7766519b7d48ee97144293d33bd1abcaa1dc7537/uploads/2025-08-22T09-43-49-237Z-bl0h1uu6i.jpg",
+            "BMW 5 Series F10 (Old Shape)": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@7766519b7d48ee97144293d33bd1abcaa1dc7537/uploads/2025-08-22T09-43-49-237Z-bl0h1uu6i.jpg",
             "Range Rover Sport": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@7651fdcb4d348df3e803de2255e8f0b5a1821dc9/uploads/2025-08-22T09-44-23-132Z-uxngpxuq2.jpg",
-            "Mercedes G wagon": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@ef38be0a76189d47ee79a3a182c2c16979e8d014/uploads/2025-08-22T09-45-09-584Z-uowaboqrx.jpg",
-            "AUDI A6": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@a47d1cecb04bbd648bc7a22ff99f74a78bee551c/uploads/2025-08-22T09-45-58-518Z-z518bw92t.jpg",
-            "MERCEDES S CLASS S350": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@b3895eb7c861beae463e395bab61648f07d56ee3/uploads/2025-08-22T09-46-50-342Z-26ldimbft.jpg"
+            "Mercedes G Wagon": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@ef38be0a76189d47ee79a3a182c2c16979e8d014/uploads/2025-08-22T09-45-09-584Z-uowaboqrx.jpg",
+            "AUDI A6": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@a47d1cecb04bbd648bc7a22ff99f74a78bee551c/uploads/2025-08-22T09-45-58-518Z-z518bw92t.jpg"
         };
 
         // WhatsApp message builder function
@@ -1199,9 +1189,17 @@
             });
         });
         const CAR_RATES = {
-            'Luxury Sedan': 2000,
-            'Sports Car': 5000,
-            'SUV': 3000
+            'AUDI A6': 16000,
+            'BMW 5 Series F10 (Old Shape)': 0,
+            'BMW 5 Series G30': 0,
+            'BMW Convertible': 26000,
+            'Hyundai Creta': 12000,
+            'Hyundai Verna': 12000,
+            'Mercedes CLA 200': 14000,
+            'Mercedes G Wagon': 160000,
+            'Mercedes S Class': 22000,
+            'Range Rover Sport': 85000,
+            'Range Rover Sport 2': 125000
         };
 
         const DECORATION_COSTS = {
@@ -1210,8 +1208,8 @@
         };
 
         function calculateEstimate() {
-            const carType = document.getElementById('carType')?.value;
-            const carRate = CAR_RATES[carType] || 0;
+            const vehicle = document.getElementById('vehicle')?.value;
+            const carRate = CAR_RATES[vehicle] || 0;
 
             const wantDecoration = document.querySelector('input[name="wantDecorationRadio"]:checked')?.value;
             let decorationCost = 0;
@@ -1239,8 +1237,8 @@
             }
         }
 
-        const carTypeEl = document.getElementById('carType');
-        if (carTypeEl) carTypeEl.addEventListener('change', calculateEstimate);
+        const vehicleEl = document.getElementById('vehicle');
+        if (vehicleEl) vehicleEl.addEventListener('change', calculateEstimate);
         ['distance', 'duration'].forEach(id => {
             const el = document.getElementById(id);
             if (el) el.addEventListener('input', calculateEstimate);
