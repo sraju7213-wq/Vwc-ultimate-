@@ -297,6 +297,13 @@
             color: #FFD700;
         }
 
+        .estimate-note {
+            font-size: 0.85rem;
+            margin-top: 5px;
+            color: #FFD700;
+            opacity: 0.8;
+        }
+
         .instagram-link {
             display: inline-block;
             margin-top: 15px;
@@ -782,6 +789,7 @@
                 </div>
                 <div class="estimate-output">
                     <strong>Total Estimate: INR <span id="totalEstimate">0</span></strong>
+                    <p class="estimate-note">*Pricing may vary with fuel MRP and booking hours. Please verify the final estimate with our team via WhatsApp or call.</p>
                 </div>
             </div>
 
@@ -840,8 +848,12 @@
                     <span class="summary-value" id="summaryService">Wedding</span>
                 </div>
                 <div class="summary-item">
-                    <span class="summary-label">Location:</span>
-                    <span class="summary-value" id="summaryLocation">Srinagar</span>
+                    <span class="summary-label">Start:</span>
+                    <span class="summary-value" id="summaryStart"></span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">End:</span>
+                    <span class="summary-value" id="summaryEnd"></span>
                 </div>
                 <div class="summary-item">
                     <span class="summary-label">Vehicle:</span>
@@ -858,6 +870,30 @@
                 <div class="summary-item">
                     <span class="summary-label">Phone:</span>
                     <span class="summary-value" id="summaryPhone">+917075196141</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Email:</span>
+                    <span class="summary-value" id="summaryEmail"></span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Hours:</span>
+                    <span class="summary-value" id="summaryHours"></span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Driving:</span>
+                    <span class="summary-value" id="summaryDriving"></span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Decoration:</span>
+                    <span class="summary-value" id="summaryDecoration"></span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Estimate:</span>
+                    <span class="summary-value" id="summaryEstimate"></span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Message:</span>
+                    <span class="summary-value" id="summaryMessage"></span>
                 </div>
             </div>
 
@@ -907,15 +943,17 @@
 
         // WhatsApp message builder function
         function buildBookingMessage() {
+            calculateEstimate();
             // Helper to safely get values
             const getVal = id => (document.getElementById(id)?.value || '').trim();
             
             // Enquiry type
-            const enquiryType = getVal('enquiryType');
-            
+            const enquiryType = document.querySelector('input[name="enquiryType"]:checked')?.value || 'Just Checking';
+
             // Required/common fields
             const fullName = getVal('name');
             const phone = getVal('phone');
+            const email = getVal('email');
             const eventDate = getVal('date');
             const service = getVal('serviceType');
             const vehicle = getVal('vehicle');
@@ -933,6 +971,7 @@
             // Decoration fields
             const wantDecoration = getVal('wantDecoration');
             const decorationType = getVal('decoration');
+            const estimate = document.getElementById('totalEstimate')?.textContent || '0';
             
             // Compose Location line with precedence: custom > location (+ sub)
             const startLocationParts = [];
@@ -960,6 +999,7 @@
                 'Client',
                 `- Name: ${fullName}`,
                 `- Phone: +91${phone}`,
+                `- Email: ${email}`,
                 `- Enquiry Type: ${enquiryType}`
             ].join('\n');
             
@@ -967,11 +1007,11 @@
                 'Event',
                 `- Date: ${eventDate}`,
                 `- Service: ${service}`,
-                `- Car: ${vehicle}`,
-                `- Start Location: ${startLocationStr}`,
-                `- End Location: ${endLocationStr}`,
-                `- Event Hours: ${eventHours || 'Not specified'}`,
-                `- Driving Option: ${drivingOption || 'Not specified'}`,
+                `- Vehicle: ${vehicle}`,
+                `- Start: ${startLocationStr}`,
+                `- End: ${endLocationStr}`,
+                `- Hours: ${eventHours || 'Not specified'}`,
+                `- Driving: ${(drivingOption === 'Other' && customDriving) ? customDriving : drivingOption || 'Not specified'}`,
                 message ? `- Special Requests: ${message}` : null
             ].filter(Boolean).join('\n');
             
@@ -991,8 +1031,8 @@
             // Join all non-empty sections
             const parts = [header, divider, clientSec, '', eventSec];
             if (decorSec) parts.push('', decorSec);
-            parts.push('', 'Please reply with availability and pricing.');
-            
+            parts.push('', `Estimated Price: INR ${estimate}`, '', 'Note: Pricing may vary with fuel MRP and booking hours. Please verify final estimate with our team via WhatsApp or call.');
+
             return parts.filter(Boolean).join('\n');
         }
 
@@ -1004,6 +1044,10 @@
             }
             if (!document.getElementById('phone')?.value.trim()) {
                 alert('Please enter your phone number.');
+                return;
+            }
+            if (!document.getElementById('email')?.value.trim()) {
+                alert('Please enter your email address.');
                 return;
             }
             if (!document.getElementById('date')?.value.trim()) {
@@ -1077,11 +1121,28 @@
             // Display booking summary
             document.getElementById('summaryEnquiry').textContent = enquiryType;
             document.getElementById('summaryService').textContent = serviceType;
-            document.getElementById('summaryLocation').textContent = startMainLocation;
+            const startParts = [];
+            if (startDetailedAddress) startParts.push(startDetailedAddress);
+            if (startMainLocation) startParts.push(startMainLocation);
+            if (startSubLocation) startParts.push(startSubLocation);
+            document.getElementById('summaryStart').textContent = startParts.join(' — ');
+            const endParts = [];
+            if (endDetailedAddress) endParts.push(endDetailedAddress);
+            if (endMainLocation) endParts.push(endMainLocation);
+            if (endSubLocation) endParts.push(endSubLocation);
+            document.getElementById('summaryEnd').textContent = endParts.join(' — ');
             document.getElementById('summaryVehicle').textContent = vehicle;
             document.getElementById('summaryDate').textContent = date;
             document.getElementById('summaryName').textContent = name;
-            document.getElementById('summaryPhone').textContent = `+917075196141`;
+            document.getElementById('summaryPhone').textContent = `+91${phone}`;
+            document.getElementById('summaryEmail').textContent = email;
+            document.getElementById('summaryHours').textContent = eventHours || 'Not specified';
+            const driveText = drivingOption === 'Other' && customDriving ? customDriving : drivingOption;
+            document.getElementById('summaryDriving').textContent = driveText || 'Not specified';
+            const decorText = wantDecoration === 'Yes' ? (decoration ? decoration : 'Yes') : 'No';
+            document.getElementById('summaryDecoration').textContent = decorText;
+            document.getElementById('summaryEstimate').textContent = document.getElementById('totalEstimate').textContent;
+            document.getElementById('summaryMessage').textContent = message || '—';
             document.getElementById('bookingSummary').style.display = 'block';
             
             // Open WhatsApp
@@ -1202,6 +1263,13 @@
                     customDrivingInput.classList.remove('show');
                     document.getElementById('customDriving').value = '';
                 }
+            });
+        });
+
+        // Service type selection - update hidden field
+        document.querySelectorAll('input[name="serviceTypeRadio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.getElementById('serviceType').value = this.value;
             });
         });
 
