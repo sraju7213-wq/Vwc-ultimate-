@@ -471,6 +471,28 @@
             display: block;
         }
 
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1200px;
+            }
+
+            #bookingForm {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            #bookingForm .form-section {
+                margin-bottom: 20px;
+            }
+
+            #bookingForm button,
+            #bookingForm .booking-summary,
+            #bookingForm .vehicle-selection {
+                grid-column: 1 / -1;
+            }
+        }
+
         @media (max-width: 600px) {
             .container {
                 padding: 15px;
@@ -686,7 +708,7 @@
                 </div>
             </div>
 
-            <div class="form-section">
+            <div class="form-section vehicle-selection">
                 <h2 class="section-title"><i class="fas fa-car"></i> Vehicle Selection</h2>
 
                 <div class="form-group">
@@ -1219,15 +1241,12 @@
             }
 
             const distance = parseFloat(document.getElementById('distance')?.value) || 0;
-            const distanceCost = distance * 30;
+            const distanceCost = distance * 100;
 
             const duration = parseFloat(document.getElementById('duration')?.value) || 0;
             let hourlyCost = 0;
-            if (duration > 0) {
-                hourlyCost = 800;
-                if (duration > 8) {
-                    hourlyCost += (duration - 8) * 100;
-                }
+            if (duration > 8) {
+                hourlyCost = (duration - 8) * carRate * 0.04;
             }
 
             const total = carRate + decorationCost + distanceCost + hourlyCost;
