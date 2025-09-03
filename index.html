@@ -180,10 +180,11 @@
             box-shadow: none !important;
             background: transparent !important;
         }
-        
+
         .seg-item{
             display:inline-flex;
             align-items:center;
+            justify-content:center;
             gap:8px;
             padding:9px 12px;
             border:1px solid #d4af37;
@@ -198,10 +199,12 @@
             border-color: #d4af37 !important;
             box-shadow: none !important;
             outline: none !important;
+            flex:1;
+            text-align:center;
         }
         
-        .seg-item input{ 
-            display:none 
+        .seg-item input{
+            display:none
         }
         
         .seg-item:has(input:checked),
@@ -222,9 +225,17 @@
         }
 
         /* FIX FOCUS STYLES TO REMOVE WHITE BORDERS */
-        .seg-item:focus-within { 
-            outline: none !important; 
-            box-shadow: 0 0 0 2px rgba(212,175,55,0.4) !important; 
+        .seg-item:focus-within {
+            outline: none !important;
+            box-shadow: 0 0 0 2px rgba(212,175,55,0.4) !important;
+        }
+
+        .enquiry-section .segmented {
+            width: 100%;
+        }
+
+        .enquiry-section .seg-item {
+            flex: 1;
         }
 
         /* Remove fieldset default styling */
@@ -306,6 +317,11 @@
 
         .instagram-link i {
             margin-right: 8px;
+        }
+
+        .instagram-wrapper {
+            text-align: center;
+            margin-top: 20px;
         }
 
         .car-image-container {
@@ -474,8 +490,19 @@
 
             #bookingForm button,
             #bookingForm .booking-summary,
-            #bookingForm .vehicle-selection {
+            #bookingForm .vehicle-selection,
+            #bookingForm .full-width {
                 grid-column: 1 / -1;
+            }
+
+            #bookingForm .service-section {
+                grid-column: 1;
+                grid-row: 2;
+            }
+
+            #bookingForm .location-section {
+                grid-column: 2;
+                grid-row: 2;
             }
         }
 
@@ -527,7 +554,7 @@
         </div>
 
         <form id="bookingForm">
-            <div class="form-section">
+            <div class="form-section enquiry-section full-width">
                 <h2 class="section-title"><i class="fas fa-comments"></i> Enquiry Type</h2>
                 <fieldset class="segmented" role="radiogroup" aria-label="Enquiry type">
                     <label class="seg-item">
@@ -545,7 +572,74 @@
                 </fieldset>
             </div>
 
-            <div class="form-section">
+            <div class="form-section service-section">
+                <h2 class="section-title"><i class="fas fa-car"></i> Service Type</h2>
+                <fieldset class="segmented" role="radiogroup" aria-label="Service type">
+                    <label class="seg-item">
+                        <input type="radio" name="serviceTypeRadio" value="Wedding" checked>
+                        <span>Wedding</span>
+                    </label>
+                    <label class="seg-item">
+                        <input type="radio" name="serviceTypeRadio" value="Engagement">
+                        <span>Engagement</span>
+                    </label>
+                    <label class="seg-item">
+                        <input type="radio" name="serviceTypeRadio" value="Proposal">
+                        <span>Proposal</span>
+                    </label>
+                    <label class="seg-item">
+                        <input type="radio" name="serviceTypeRadio" value="Photoshoot/video shoot">
+                        <span>Photoshoot/Video Shoot</span>
+                    </label>
+                    <label class="seg-item">
+                        <input type="radio" name="serviceTypeRadio" value="Airport Pickup/Drop">
+                        <span>Airport Pickup/Drop</span>
+                    </label>
+                    <label class="seg-item">
+                        <input type="radio" name="serviceTypeRadio" value="Sightseeing/Luxury Tour">
+                        <span>Sightseeing/Luxury Tour</span>
+                    </label>
+                </fieldset>
+                <input type="hidden" id="serviceType" name="serviceType" value="Wedding">
+
+                <div id="decorBlock" class="decor-wrap" aria-live="polite">
+                    <div class="decor-row">
+                        <span class="decor-label">Want Decoration?</span>
+                        <fieldset class="segmented small" role="radiogroup" aria-label="Want decoration">
+                            <label class="seg-item">
+                                <input type="radio" name="wantDecorationRadio" value="No" checked>
+                                <span>No</span>
+                            </label>
+                            <label class="seg-item">
+                                <input type="radio" name="wantDecorationRadio" value="Yes">
+                                <span>Yes</span>
+                            </label>
+                        </fieldset>
+                    </div>
+
+                    <!-- Decoration Type Options - Hidden by default -->
+                    <div id="decorationOptions" class="decoration-options">
+                        <div class="decor-type">
+                            <span class="decor-label">Decoration Type</span>
+                            <fieldset class="segmented small" role="radiogroup" aria-label="Decoration type">
+                                <label class="seg-item">
+                                    <input type="radio" name="decorationTypeRadio" value="Artificial">
+                                    <span>Artificial (INR 500)</span>
+                                </label>
+                                <label class="seg-item">
+                                    <input type="radio" name="decorationTypeRadio" value="Fresh">
+                                    <span>Fresh (INR 1000)</span>
+                                </label>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="wantDecoration" name="wantDecoration" value="No">
+                    <input type="hidden" id="decoration" name="decoration" value="">
+                </div>
+            </div>
+
+            <div class="form-section location-section">
                 <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> Location Details</h2>
                 
                 <div class="location-wrapper">
@@ -631,72 +725,6 @@
                 </div>
             </div>
 
-            <div class="form-section">
-                <h2 class="section-title"><i class="fas fa-car"></i> Service Type</h2>
-                <fieldset class="segmented" role="radiogroup" aria-label="Service type">
-                    <label class="seg-item">
-                        <input type="radio" name="serviceTypeRadio" value="Wedding" checked>
-                        <span>Wedding</span>
-                    </label>
-                    <label class="seg-item">
-                        <input type="radio" name="serviceTypeRadio" value="Engagement">
-                        <span>Engagement</span>
-                    </label>
-                    <label class="seg-item">
-                        <input type="radio" name="serviceTypeRadio" value="Proposal">
-                        <span>Proposal</span>
-                    </label>
-                    <label class="seg-item">
-                        <input type="radio" name="serviceTypeRadio" value="Photoshoot/video shoot">
-                        <span>Photoshoot/Video Shoot</span>
-                    </label>
-                    <label class="seg-item">
-                        <input type="radio" name="serviceTypeRadio" value="Airport Pickup/Drop">
-                        <span>Airport Pickup/Drop</span>
-                    </label>
-                    <label class="seg-item">
-                        <input type="radio" name="serviceTypeRadio" value="Sightseeing/Luxury Tour">
-                        <span>Sightseeing/Luxury Tour</span>
-                    </label>
-                </fieldset>
-                <input type="hidden" id="serviceType" name="serviceType" value="Wedding">
-                
-                <div id="decorBlock" class="decor-wrap" aria-live="polite">
-                    <div class="decor-row">
-                        <span class="decor-label">Want Decoration?</span>
-                        <fieldset class="segmented small" role="radiogroup" aria-label="Want decoration">
-                            <label class="seg-item">
-                                <input type="radio" name="wantDecorationRadio" value="No" checked>
-                                <span>No</span>
-                            </label>
-                            <label class="seg-item">
-                                <input type="radio" name="wantDecorationRadio" value="Yes">
-                                <span>Yes</span>
-                            </label>
-                        </fieldset>
-                    </div>
-                    
-                    <!-- Decoration Type Options - Hidden by default -->
-                    <div id="decorationOptions" class="decoration-options">
-                        <div class="decor-type">
-                            <span class="decor-label">Decoration Type</span>
-                            <fieldset class="segmented small" role="radiogroup" aria-label="Decoration type">
-                                <label class="seg-item">
-                                    <input type="radio" name="decorationTypeRadio" value="Artificial">
-                                    <span>Artificial (INR 500)</span>
-                                </label>
-                                <label class="seg-item">
-                                    <input type="radio" name="decorationTypeRadio" value="Fresh">
-                                    <span>Fresh (INR 1000)</span>
-                                </label>
-                            </fieldset>
-                        </div>
-                    </div>
-                    
-                    <input type="hidden" id="wantDecoration" name="wantDecoration" value="No">
-                    <input type="hidden" id="decoration" name="decoration" value="">
-                </div>
-            </div>
 
             <div class="form-section vehicle-selection">
                 <h2 class="section-title"><i class="fas fa-car"></i> Vehicle Selection</h2>
@@ -781,7 +809,7 @@
                 </div>
             </div>
 
-            <div class="form-section">
+            <div class="form-section driving-section full-width">
                 <h2 class="section-title"><i class="fas fa-car-side"></i> Driving Options</h2>
                 <div class="driving-options" id="drivingOptions">
                     <div class="driving-option" data-option="Chauffeur">NEED CHAUFFEUR</div>
@@ -833,11 +861,11 @@
                 </div>
             </div>
 
-            <div class="note">
+            <div class="note full-width">
                 <strong>Note:</strong> We only provide services throughout Kashmir and please contact us for customized pricing.
             </div>
 
-            <div style="text-align: center; margin-top: 20px;">
+            <div class="instagram-wrapper full-width">
                 <a href="https://www.instagram.com/valleyweddingcars" target="_blank" class="instagram-link">
                     <i class="fab fa-instagram"></i> Follow @valleyweddingcars on Instagram
                 </a>
