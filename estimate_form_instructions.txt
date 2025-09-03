@@ -10,7 +10,7 @@ Estimate Form Implementation Instructions
 
 2. Decoration type selection:
    - Provide radio buttons for Fresh (INR 1000) or Artificial (INR 500).
-   - Only apply decoration cost if the user requests decoration.
+   - Cost applies only if decoration is requested.
 
 3. Travel distance calculation:
    - Accept numeric input for total kilometers.
@@ -23,14 +23,12 @@ Estimate Form Implementation Instructions
 
 5. Estimate calculation:
    - Total = Car Rate + Decoration Cost + (Distance × 30) + Hourly Charges.
-   - Recalculate and display the total in real time as inputs change.
+   - Update and display the total in real time as inputs change.
 
 6. Form submission and display:
-   - Show the live estimate at the bottom of the form.
+   - Show the live estimate at the bottom of the form for user review before submission.
    - Optionally email or display a summary with car type, decoration, distance, duration, and total.
 
-7. Save these instructions in this text file for developer reference.
-
-8. Testing and validation:
+7. Testing and validation:
    - Verify each field updates the total correctly.
    - Check that car rate, decoration cost, distance, and hourly charges reflect the user selections.
