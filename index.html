@@ -53,7 +53,7 @@
 
         .header {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             margin-bottom: 30px;
             padding: 10px 20px;
@@ -84,17 +84,6 @@
             object-position: center;
             display: block;
             filter: none;
-        }
-
-        .nav-links a {
-            margin-left: 20px;
-            color: #FFD700;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .nav-links a:hover {
-            text-decoration: underline;
         }
 
         .title {
@@ -299,6 +288,11 @@
             margin-top: 10px;
             font-size: 1.2rem;
             color: #FFD700;
+        }
+
+        #totalEstimate {
+            font-size: 1.8rem;
+            font-weight: 700;
         }
 
         .estimate-note {
@@ -523,11 +517,6 @@
             <div class="logo-wrap" aria-label="Valley Wedding Cars logo">
                 <img src="https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@9f43332887c0e0e64f041eb8d5b944707eb8051c/uploads/2025-08-22T08-26-16-447Z-wzwu1bdis.png" alt="Valley Wedding Cars logo" class="logo-img">
             </div>
-            <nav class="nav-links">
-                <a href="#">Home</a>
-                <a href="#">Services</a>
-                <a href="#">Contact</a>
-            </nav>
         </header>
         <h1 class="title">Valley Wedding Cars</h1>
         <p class="subtitle">Luxury Fleet Booking</p>
@@ -766,7 +755,7 @@
                     <input type="number" id="duration" name="duration" min="0" placeholder="Enter total hours">
                 </div>
                 <div class="estimate-output">
-                    <strong>Total Estimate: INR <span id="totalEstimate">0</span></strong>
+                    Total Estimate: INR <span id="totalEstimate">0</span>
                     <p class="estimate-note">*Pricing may vary with fuel MRP and booking hours. Please verify the final estimate with our team via WhatsApp or call.</p>
                 </div>
             </div>
