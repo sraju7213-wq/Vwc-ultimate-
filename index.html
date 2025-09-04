@@ -393,6 +393,12 @@
             text-align: right;
         }
 
+        .summary-title {
+            color: #FFD700;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
         .location-wrapper {
             display: flex;
             flex-direction: column;
@@ -528,7 +534,7 @@
         /* Light theme overrides */
         body.light-theme {
             background-color: #FFFFFF;
-            color: #333333;
+            color: #000;
         }
 
         body.light-theme .container {
@@ -539,21 +545,21 @@
 
         body.light-theme .title {
             background: none;
-            -webkit-text-fill-color: #333333;
-            color: #333333;
+            -webkit-text-fill-color: #000;
+            color: #000;
         }
 
         body.light-theme .subtitle {
-            color: #555555;
+            color: #000;
         }
 
         body.light-theme .section-title,
         body.light-theme label {
-            color: #333333;
+            color: #000;
         }
 
         body.light-theme .section-title i {
-            color: #D4AF37;
+            color: #000;
         }
 
         body.light-theme .form-section {
@@ -566,7 +572,7 @@
         body.light-theme textarea {
             border: 1px solid #E0E0E0;
             background: #FFFFFF;
-            color: #333333;
+            color: #000;
         }
 
         body.light-theme select:focus,
@@ -584,7 +590,7 @@
         body.light-theme .seg-item {
             background: #FFFFFF;
             border-color: #D4AF37;
-            color: #D4AF37;
+            color: #000;
         }
 
         body.light-theme .seg-item:hover {
@@ -593,12 +599,38 @@
 
         body.light-theme .theme-selector select {
             background: #FFFFFF;
-            color: #333333;
+            color: #000;
             border-color: #D4AF37;
         }
 
         body.light-theme .header {
             border-bottom: 2px solid #D4AF37;
+        }
+
+        body.light-theme .btn {
+            background: #000;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        body.light-theme .btn:hover {
+            box-shadow: 0 7px 20px rgba(0,0,0,0.4);
+        }
+
+        body.light-theme .summary-label,
+        body.light-theme .summary-value,
+        body.light-theme .summary-title {
+            color: #000;
+        }
+
+        body.light-theme .estimate-output,
+        body.light-theme .estimate-note {
+            color: #000;
+        }
+
+        body.light-theme .booking-summary {
+            background: #F9F9F9;
+            border: 1px solid #E0E0E0;
         }
 
     </style>
@@ -901,7 +933,7 @@
             </button>
 
             <div class="booking-summary" id="bookingSummary">
-                <h3 style="color: #FFD700; margin-bottom: 15px; text-align: center;">
+                <h3 class="summary-title">
                     <i class="fas fa-check-circle"></i> Booking Summary
                 </h3>
                 <div class="summary-item">
