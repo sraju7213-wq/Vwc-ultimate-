@@ -3,7 +3,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valley Wedding Cars - Luxury Fleet Booking</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -21,11 +20,6 @@
         body.dark-theme {
             background-color: #000;
             color: #FFD700;
-        }
-
-        body.light-theme {
-            background-color: #fff;
-            color: #000;
         }
 
         .theme-toggle {
@@ -67,9 +61,11 @@
         }
 
         .header {
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 30px;
-            padding: 20px;
+            padding: 10px 20px;
             border-bottom: 2px solid #FFD700;
         }
 
@@ -99,9 +95,15 @@
             filter: none;
         }
 
-        /* Responsive tweak for small screens */
-        @media (max-width: 420px) {
-            .logo-wrap { --size: 84px; }
+        .nav-links a {
+            margin-left: 20px;
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
         }
 
         .title {
@@ -491,67 +493,133 @@
             display: block;
         }
 
-        @media (min-width: 768px) {
-            .container {
-                max-width: 1200px;
-            }
-
-            #bookingForm {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-
-            #bookingForm .form-section {
-                margin-bottom: 20px;
-            }
-
-            #bookingForm button,
-            #bookingForm .booking-summary,
-            #bookingForm .vehicle-selection,
-            #bookingForm .full-width {
-                grid-column: 1 / -1;
-            }
-
-            #bookingForm .service-section {
-                grid-column: 1;
-                grid-row: 2;
-            }
-
-            #bookingForm .location-section {
-                grid-column: 2;
-                grid-row: 2;
-            }
+        .container {
+            max-width: 1200px;
         }
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-            }
+        #bookingForm {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
 
-            .title {
-                font-size: 1.8rem;
-            }
+        #bookingForm .form-section {
+            margin-bottom: 20px;
+        }
 
-            .quote {
-                font-size: 1rem;
-            }
+        #bookingForm button,
+        #bookingForm .booking-summary,
+        #bookingForm .vehicle-selection,
+        #bookingForm .full-width {
+            grid-column: 1 / -1;
+        }
 
-            .location-wrapper {
-                flex-direction: column;
-            }
+        #bookingForm .service-section {
+            grid-column: 1;
+            grid-row: 2;
+        }
 
-            .location-group {
-                flex-direction: column;
-            }
+        #bookingForm .location-section {
+            grid-column: 2;
+            grid-row: 2;
+        }
 
-            .location-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            }
+        /* Light theme overrides */
+        body.light-theme {
+            background: #FFFFFF;
+            color: #333333;
+        }
 
-            .form-section {
-                padding: 15px;
-            }
+        body.light-theme .container {
+            background: #FFFFFF;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #E0E0E0;
+            color: #333333;
+        }
+
+        body.light-theme .header {
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-bottom: none;
+        }
+
+        body.light-theme label {
+            color: #333333;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        body.light-theme select,
+        body.light-theme input,
+        body.light-theme textarea {
+            background: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            color: #333333;
+            padding: 10px;
+        }
+
+        body.light-theme select:focus,
+        body.light-theme input:focus,
+        body.light-theme textarea:focus {
+            border: 2px solid #4CAF50;
+            box-shadow: none;
+        }
+
+        body.light-theme ::placeholder {
+            color: #BDBDBD;
+        }
+
+        body.light-theme .form-section {
+            background: #FFFFFF;
+            border: 1px solid #E0E0E0;
+        }
+
+        body.light-theme .section-title {
+            color: #D4AF37;
+        }
+
+        body.light-theme .section-title i {
+            color: #D4AF37;
+        }
+
+        body.light-theme .btn {
+            background: #4CAF50;
+            color: #FFFFFF;
+            border-radius: 5px;
+            padding: 12px 24px;
+            box-shadow: none;
+        }
+
+        body.light-theme .btn:hover {
+            background: #388E3C;
+            box-shadow: none;
+        }
+
+        body.light-theme .booking-summary {
+            background: #F9F9F9;
+            border: 1px solid #E0E0E0;
+            color: #333333;
+        }
+
+        body.light-theme .summary-item {
+            border-bottom: 1px solid #E0E0E0;
+        }
+
+        body.light-theme .summary-label {
+            color: #333333;
+        }
+
+        body.light-theme .summary-value {
+            color: #555555;
+        }
+
+        body.light-theme .nav-links a {
+            color: #333333;
+        }
+
+        body.light-theme .nav-links a:hover {
+            color: #D4AF37;
         }
     </style>
 </head>
@@ -564,13 +632,18 @@
         </select>
     </div>
     <div class="container">
-        <div class="header">
+        <header class="header">
             <div class="logo-wrap" aria-label="Valley Wedding Cars logo">
                 <img src="https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@9f43332887c0e0e64f041eb8d5b944707eb8051c/uploads/2025-08-22T08-26-16-447Z-wzwu1bdis.png" alt="Valley Wedding Cars logo" class="logo-img">
             </div>
-            <h1 class="title">Valley Wedding Cars</h1>
-            <p class="subtitle">Luxury Fleet Booking</p>
-        </div>
+            <nav class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">Services</a>
+                <a href="#">Contact</a>
+            </nav>
+        </header>
+        <h1 class="title">Valley Wedding Cars</h1>
+        <p class="subtitle">Luxury Fleet Booking</p>
 
         <div class="quote">
             "Shaadi ka din khaas hota hai... aapki entry bhi waise hi honi chahiye."
