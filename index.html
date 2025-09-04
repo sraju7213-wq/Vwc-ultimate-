@@ -307,7 +307,7 @@
         }
 
         #totalEstimate {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             font-weight: 700;
         }
 
@@ -597,6 +597,18 @@
             background: #F9F9F9;
         }
 
+        body.light-theme .enquiry-section .seg-item,
+        body.light-theme .service-section .seg-item {
+            background: #000;
+            color: #fff;
+            border-color: #000;
+        }
+
+        body.light-theme .enquiry-section .seg-item:hover,
+        body.light-theme .service-section .seg-item:hover {
+            background: #222;
+        }
+
         body.light-theme .theme-selector select {
             background: #FFFFFF;
             color: #000;
@@ -631,6 +643,17 @@
         body.light-theme .booking-summary {
             background: #F9F9F9;
             border: 1px solid #E0E0E0;
+        }
+
+        body.light-theme .instagram-link {
+            background: #000;
+            color: #fff;
+            border-color: #000;
+        }
+
+        body.light-theme .instagram-link:hover {
+            background: #222;
+            color: #fff;
         }
 
     </style>
@@ -885,8 +908,8 @@
                     <input type="number" id="duration" name="duration" min="0" placeholder="Enter total hours">
                 </div>
                 <div class="estimate-output">
-                    Total Estimate: INR <span id="totalEstimate">0</span>
                     <p class="estimate-note">*Pricing may vary with fuel MRP and booking hours. Please verify the final estimate with our team via WhatsApp or call.</p>
+                    <p>Total Estimate: INR <span id="totalEstimate">0</span></p>
                 </div>
             </div>
 
@@ -1340,12 +1363,16 @@
                 document.querySelectorAll('.hour-option').forEach(opt => {
                     opt.classList.remove('selected');
                 });
-                
+
                 // Add selected class to clicked option
                 this.classList.add('selected');
-                
-                // Set hidden input value
+
+                // Set hidden input value and default duration
                 document.getElementById('eventHours').value = this.dataset.hours;
+                const durationInput = document.getElementById('duration');
+                if (durationInput) {
+                    durationInput.value = this.dataset.hours;
+                }
             });
         });
 
