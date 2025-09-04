@@ -58,6 +58,20 @@
             margin-bottom: 30px;
             padding: 10px 20px;
             border-bottom: 2px solid #FFD700;
+            position: relative;
+        }
+
+        .theme-selector {
+            position: absolute;
+            right: 20px;
+        }
+
+        .theme-selector select {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #d4af37;
+            background: #1a1a1a;
+            color: #FFD700;
         }
 
         /* Circular logo container */
@@ -94,12 +108,14 @@
             -webkit-text-fill-color: transparent;
             text-transform: uppercase;
             letter-spacing: 1px;
+            text-align: center;
         }
 
         .subtitle {
             font-size: 1.1rem;
             opacity: 0.8;
             margin-bottom: 15px;
+            text-align: center;
         }
 
         .quote {
@@ -509,6 +525,82 @@
             grid-row: 2;
         }
 
+        /* Light theme overrides */
+        body.light-theme {
+            background-color: #FFFFFF;
+            color: #333333;
+        }
+
+        body.light-theme .container {
+            background: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
+
+        body.light-theme .title {
+            background: none;
+            -webkit-text-fill-color: #333333;
+            color: #333333;
+        }
+
+        body.light-theme .subtitle {
+            color: #555555;
+        }
+
+        body.light-theme .section-title,
+        body.light-theme label {
+            color: #333333;
+        }
+
+        body.light-theme .section-title i {
+            color: #D4AF37;
+        }
+
+        body.light-theme .form-section {
+            background: #F9F9F9;
+            border: 1px solid #E0E0E0;
+        }
+
+        body.light-theme select,
+        body.light-theme input,
+        body.light-theme textarea {
+            border: 1px solid #E0E0E0;
+            background: #FFFFFF;
+            color: #333333;
+        }
+
+        body.light-theme select:focus,
+        body.light-theme input:focus,
+        body.light-theme textarea:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 10px rgba(76,175,80,0.3);
+        }
+
+        body.light-theme .quote {
+            border-left-color: #D4AF37;
+            background: rgba(212,175,55,0.1);
+        }
+
+        body.light-theme .seg-item {
+            background: #FFFFFF;
+            border-color: #D4AF37;
+            color: #D4AF37;
+        }
+
+        body.light-theme .seg-item:hover {
+            background: #F9F9F9;
+        }
+
+        body.light-theme .theme-selector select {
+            background: #FFFFFF;
+            color: #333333;
+            border-color: #D4AF37;
+        }
+
+        body.light-theme .header {
+            border-bottom: 2px solid #D4AF37;
+        }
+
     </style>
 </head>
 <body>
@@ -516,6 +608,12 @@
         <header class="header">
             <div class="logo-wrap" aria-label="Valley Wedding Cars logo">
                 <img src="https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@9f43332887c0e0e64f041eb8d5b944707eb8051c/uploads/2025-08-22T08-26-16-447Z-wzwu1bdis.png" alt="Valley Wedding Cars logo" class="logo-img">
+            </div>
+            <div class="theme-selector">
+                <select id="themeSelect" aria-label="Theme selector">
+                    <option value="dark" selected>Dark</option>
+                    <option value="light">Light</option>
+                </select>
             </div>
         </header>
         <h1 class="title">Valley Wedding Cars</h1>
@@ -877,6 +975,18 @@
     </div>
 
     <script>
+        // Theme switching
+        const themeSelect = document.getElementById('themeSelect');
+        if (themeSelect) {
+            themeSelect.addEventListener('change', function() {
+                if (this.value === 'light') {
+                    document.body.classList.add('light-theme');
+                } else {
+                    document.body.classList.remove('light-theme');
+                }
+            });
+        }
+
         // Sub-location data - EVERY LOCATION HAS SUB-LOCATIONS OR IS DISABLED
         const SUB_LOCATIONS = {
             'Srinagar': ['Rajbagh', 'Jawahar Nagar', 'Lal Chowk', 'Dalgate', 'Nishat', 'Shalimar', 'Hazratbal', 'Nowhatta', 'Bemina', 'Hyderpora', 'Chanapora', 'Sanat Nagar', 'Baghat'],
