@@ -15,17 +15,8 @@
         body {
             min-height: 100vh;
             padding: 20px;
-        }
-
-        body.dark-theme {
             background-color: #000;
             color: #FFD700;
-        }
-
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
         }
 
         .container {
@@ -524,113 +515,9 @@
             grid-row: 2;
         }
 
-        /* Light theme overrides */
-        body.light-theme {
-            background: #FFFFFF;
-            color: #333333;
-        }
-
-        body.light-theme .container {
-            background: #FFFFFF;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border: 1px solid #E0E0E0;
-            color: #333333;
-        }
-
-        body.light-theme .header {
-            background: #FFFFFF;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-bottom: none;
-        }
-
-        body.light-theme label {
-            color: #333333;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        body.light-theme select,
-        body.light-theme input,
-        body.light-theme textarea {
-            background: #FFFFFF;
-            border: 1px solid #E0E0E0;
-            color: #333333;
-            padding: 10px;
-        }
-
-        body.light-theme select:focus,
-        body.light-theme input:focus,
-        body.light-theme textarea:focus {
-            border: 2px solid #4CAF50;
-            box-shadow: none;
-        }
-
-        body.light-theme ::placeholder {
-            color: #BDBDBD;
-        }
-
-        body.light-theme .form-section {
-            background: #FFFFFF;
-            border: 1px solid #E0E0E0;
-        }
-
-        body.light-theme .section-title {
-            color: #D4AF37;
-        }
-
-        body.light-theme .section-title i {
-            color: #D4AF37;
-        }
-
-        body.light-theme .btn {
-            background: #4CAF50;
-            color: #FFFFFF;
-            border-radius: 5px;
-            padding: 12px 24px;
-            box-shadow: none;
-        }
-
-        body.light-theme .btn:hover {
-            background: #388E3C;
-            box-shadow: none;
-        }
-
-        body.light-theme .booking-summary {
-            background: #F9F9F9;
-            border: 1px solid #E0E0E0;
-            color: #333333;
-        }
-
-        body.light-theme .summary-item {
-            border-bottom: 1px solid #E0E0E0;
-        }
-
-        body.light-theme .summary-label {
-            color: #333333;
-        }
-
-        body.light-theme .summary-value {
-            color: #555555;
-        }
-
-        body.light-theme .nav-links a {
-            color: #333333;
-        }
-
-        body.light-theme .nav-links a:hover {
-            color: #D4AF37;
-        }
     </style>
 </head>
-<body class="dark-theme">
-    <div class="theme-toggle">
-        <label for="themeToggle">Theme:</label>
-        <select id="themeToggle">
-            <option value="dark" selected>Dark</option>
-            <option value="light">Light</option>
-        </select>
-    </div>
+<body>
     <div class="container">
         <header class="header">
             <div class="logo-wrap" aria-label="Valley Wedding Cars logo">
@@ -1441,11 +1328,6 @@
         });
         calculateEstimate();
 
-        const themeToggle = document.getElementById('themeToggle');
-        themeToggle.addEventListener('change', function() {
-            document.body.classList.toggle('dark-theme', this.value === 'dark');
-            document.body.classList.toggle('light-theme', this.value === 'light');
-        });
     </script>
 </body>
 </html>
