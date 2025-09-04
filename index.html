@@ -13,14 +13,25 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
         body {
-            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
-            color: #FFD700;
             min-height: 100vh;
             padding: 20px;
-            background-image: radial-gradient(circle at 10% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 20%),
-                              radial-gradient(circle at 90% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 20%);
+        }
+
+        body.dark-theme {
+            background-color: #000;
+            color: #FFD700;
+        }
+
+        body.light-theme {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
         }
 
         .container {
@@ -544,7 +555,14 @@
         }
     </style>
 </head>
-<body>
+<body class="dark-theme">
+    <div class="theme-toggle">
+        <label for="themeToggle">Theme:</label>
+        <select id="themeToggle">
+            <option value="dark" selected>Dark</option>
+            <option value="light">Light</option>
+        </select>
+    </div>
     <div class="container">
         <div class="header">
             <div class="logo-wrap" aria-label="Valley Wedding Cars logo">
@@ -1349,6 +1367,12 @@
             if (el) el.addEventListener('input', calculateEstimate);
         });
         calculateEstimate();
+
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('change', function() {
+            document.body.classList.toggle('dark-theme', this.value === 'dark');
+            document.body.classList.toggle('light-theme', this.value === 'light');
+        });
     </script>
 </body>
 </html>
