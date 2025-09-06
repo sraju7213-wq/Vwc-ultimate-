@@ -796,7 +796,7 @@
                 <div class="form-group">
                     <label for="eventHours">Event Hours:</label>
                     <div class="hours-container" id="hoursContainer">
-                        <div class="hour-option selected" data-hours="10">10 Hours</div>
+                        <div class="hour-option selected" data-hours="10">10 Hours (Included)</div>
                         <div class="hour-option" data-hours="12">12 Hours</div>
                         <div class="hour-option" data-hours="15">15 Hours</div>
                         <div class="hour-option" data-hours="24">1 Day</div>
@@ -807,7 +807,7 @@
                 <div class="form-group">
                     <label for="eventDistance">Event Total Distance:</label>
                     <div class="distance-container" id="distanceContainer">
-                        <div class="distance-option selected" data-distance="20">20 KM</div>
+                        <div class="distance-option selected" data-distance="20">20 KM (Included)</div>
                         <div class="distance-option" data-distance="30">30 KM</div>
                         <div class="distance-option" data-distance="40">40 KM</div>
                         <div class="distance-option" data-distance="50">50 KM</div>
@@ -825,11 +825,11 @@
                 </div>
                 <div class="form-group">
                     <label for="duration">Booking Duration (hours):</label>
-                    <input type="number" id="duration" name="duration" min="0" placeholder="Enter total hours">
+                    <input type="number" id="duration" name="duration" min="0" placeholder="Enter total hours" value="10">
                 </div>
                 <div class="estimate-output">
                     <strong>Total Estimate: INR <span id="totalEstimate">0</span></strong>
-                    <p class="estimate-note">*Pricing includes 20 km and 10 hours. Beyond these limits, INR 100 is added for every 2 km and extra hourly charges apply. Final estimate may vary with fuel MRP. Please verify with our team via WhatsApp or call.</p>
+                    <p class="estimate-note" id="estimateNote">*Pricing includes 20 km and 10 hours. Price increases when these package limits are exceeded. Final estimate may vary with fuel MRP. Please verify with our team via WhatsApp or call.</p>
                 </div>
             </div>
 
@@ -1277,8 +1277,10 @@
                 // Add selected class to clicked option
                 this.classList.add('selected');
 
-                // Set hidden input value
+                // Set hidden input and sync duration input
                 document.getElementById('eventHours').value = this.dataset.hours;
+                const durationInput = document.getElementById('duration');
+                if (durationInput) durationInput.value = this.dataset.hours;
                 calculateEstimate();
             });
         });
@@ -1302,6 +1304,14 @@
         if (distanceInputEl) {
             distanceInputEl.addEventListener('input', function() {
                 document.getElementById('eventDistance').value = this.value;
+                calculateEstimate();
+            });
+        }
+
+        const durationInputEl = document.getElementById('duration');
+        if (durationInputEl) {
+            durationInputEl.addEventListener('input', function() {
+                document.getElementById('eventHours').value = this.value;
                 calculateEstimate();
             });
         }
@@ -1410,14 +1420,23 @@
             if (estimateEl) {
                 estimateEl.textContent = total;
             }
+
+            const noteEl = document.getElementById('estimateNote');
+            if (noteEl) {
+                let note = '*Pricing includes 20 km and 10 hours.';
+                const reasons = [];
+                if (distance > baseDistance) reasons.push('extra distance');
+                if (duration > 10) reasons.push('extra time');
+                if (reasons.length) {
+                    note += ' Additional charges added for ' + reasons.join(' and ') + '.';
+                }
+                note += ' Final estimate may vary with fuel MRP. Please verify with our team via WhatsApp or call.';
+                noteEl.textContent = note;
+            }
         }
 
         const vehicleEl = document.getElementById('vehicle');
         if (vehicleEl) vehicleEl.addEventListener('change', calculateEstimate);
-        ['duration'].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.addEventListener('input', calculateEstimate);
-        });
         calculateEstimate();
     </script>
 </body>

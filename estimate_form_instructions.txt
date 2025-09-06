@@ -18,6 +18,7 @@ Estimate Form Implementation Instructions
 
 4. Hourly cost for duration:
    - Input total booking duration in hours.
+   - Provide preset hour buttons (10 hours included, 12 hours, 15 hours, 1 Day, 2 Days) that auto-fill the booking duration field but allow manual edits.
    - Base package covers 10 hours. Each additional hour adds 4% of the vehicle price.
 
 5. Estimate calculation:
