@@ -434,6 +434,35 @@
             border-color: #d4af37;
         }
 
+        .distance-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .distance-option {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .distance-option:hover {
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .distance-option.selected {
+            background: #d4af37;
+            color: #000;
+            border-color: #d4af37;
+        }
+
         .driving-options {
             display: flex;
             flex-wrap: wrap;
@@ -767,14 +796,24 @@
                 <div class="form-group">
                     <label for="eventHours">Event Hours:</label>
                     <div class="hours-container" id="hoursContainer">
-                        <div class="hour-option" data-hours="8">8 Hours</div>
-                        <div class="hour-option" data-hours="10">10 Hours</div>
+                        <div class="hour-option selected" data-hours="10">10 Hours (Included)</div>
                         <div class="hour-option" data-hours="12">12 Hours</div>
                         <div class="hour-option" data-hours="15">15 Hours</div>
                         <div class="hour-option" data-hours="24">1 Day</div>
                         <div class="hour-option" data-hours="48">2 Days</div>
                     </div>
-                    <input type="hidden" id="eventHours" name="eventHours" value="">
+                    <input type="hidden" id="eventHours" name="eventHours" value="10">
+                </div>
+                <div class="form-group">
+                    <label for="eventDistance">Event Total Distance:</label>
+                    <div class="distance-container" id="distanceContainer">
+                        <div class="distance-option selected" data-distance="20">20 KM (Included)</div>
+                        <div class="distance-option" data-distance="30">30 KM</div>
+                        <div class="distance-option" data-distance="40">40 KM</div>
+                        <div class="distance-option" data-distance="50">50 KM</div>
+                        <div class="distance-option" data-distance="60">60 KM</div>
+                    </div>
+                    <input type="hidden" id="eventDistance" name="eventDistance" value="20">
                 </div>
             </div>
 
@@ -782,15 +821,15 @@
                 <h2 class="section-title"><i class="fas fa-route"></i> Travel Details</h2>
                 <div class="form-group">
                     <label for="distance">Travel Distance (km):</label>
-                    <input type="number" id="distance" name="distance" min="0" placeholder="Enter distance">
+                    <input type="number" id="distance" name="distance" min="0" placeholder="Enter distance" value="20">
                 </div>
                 <div class="form-group">
                     <label for="duration">Booking Duration (hours):</label>
-                    <input type="number" id="duration" name="duration" min="0" placeholder="Enter total hours">
+                    <input type="number" id="duration" name="duration" min="0" placeholder="Enter total hours" value="10">
                 </div>
                 <div class="estimate-output">
                     <strong>Total Estimate: INR <span id="totalEstimate">0</span></strong>
-                    <p class="estimate-note">*Pricing may vary with fuel MRP and booking hours. Please verify the final estimate with our team via WhatsApp or call.</p>
+                    <p class="estimate-note" id="estimateNote">*Pricing includes 20 km and 10 hours. Price increases when these package limits are exceeded. Final estimate may vary with fuel MRP. Please verify with our team via WhatsApp or call.</p>
                 </div>
             </div>
 
@@ -965,6 +1004,7 @@
             const endSubLocation = getVal('endSubLocation');
             const endDetailedAddress = getVal('endDetailedAddress');
             const eventHours = getVal('eventHours');
+            const eventDistance = getVal('eventDistance');
             const drivingOption = getVal('drivingOption');
             const customDriving = getVal('customDriving');
             const message = getVal('message');
@@ -1012,6 +1052,7 @@
                 `- Start: ${startLocationStr}`,
                 `- End: ${endLocationStr}`,
                 `- Hours: ${eventHours || 'Not specified'}`,
+                `- Distance Package: ${eventDistance || 'Not specified'}`,
                 `- Driving: ${(drivingOption === 'Other' && customDriving) ? customDriving : drivingOption || 'Not specified'}`,
                 message ? `- Special Requests: ${message}` : null
             ].filter(Boolean).join('\n');
@@ -1232,14 +1273,48 @@
                 document.querySelectorAll('.hour-option').forEach(opt => {
                     opt.classList.remove('selected');
                 });
-                
+
                 // Add selected class to clicked option
                 this.classList.add('selected');
-                
-                // Set hidden input value
+
+                // Set hidden input and sync duration input
                 document.getElementById('eventHours').value = this.dataset.hours;
+                const durationInput = document.getElementById('duration');
+                if (durationInput) durationInput.value = this.dataset.hours;
+                calculateEstimate();
             });
         });
+
+        // Event distance selection
+        document.querySelectorAll('.distance-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.distance-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+
+                this.classList.add('selected');
+                document.getElementById('eventDistance').value = this.dataset.distance;
+                const distanceInput = document.getElementById('distance');
+                if (distanceInput) distanceInput.value = this.dataset.distance;
+                calculateEstimate();
+            });
+        });
+
+        const distanceInputEl = document.getElementById('distance');
+        if (distanceInputEl) {
+            distanceInputEl.addEventListener('input', function() {
+                document.getElementById('eventDistance').value = this.value;
+                calculateEstimate();
+            });
+        }
+
+        const durationInputEl = document.getElementById('duration');
+        if (durationInputEl) {
+            durationInputEl.addEventListener('input', function() {
+                document.getElementById('eventHours').value = this.value;
+                calculateEstimate();
+            });
+        }
 
         // Driving options selection
         document.querySelectorAll('.driving-option').forEach(option => {
@@ -1327,13 +1402,17 @@
                 decorationCost = DECORATION_COSTS[decoType] || 0;
             }
 
+            const baseDistance = 20;
             const distance = parseFloat(document.getElementById('distance')?.value) || 0;
-            const distanceCost = distance * 100;
+            let distanceCost = 0;
+            if (distance > baseDistance) {
+                distanceCost = Math.ceil((distance - baseDistance) / 2) * 100;
+            }
 
             const duration = parseFloat(document.getElementById('duration')?.value) || 0;
             let hourlyCost = 0;
-            if (duration > 8) {
-                hourlyCost = (duration - 8) * carRate * 0.04;
+            if (duration > 10) {
+                hourlyCost = (duration - 10) * carRate * 0.04;
             }
 
             const total = carRate + decorationCost + distanceCost + hourlyCost;
@@ -1341,14 +1420,23 @@
             if (estimateEl) {
                 estimateEl.textContent = total;
             }
+
+            const noteEl = document.getElementById('estimateNote');
+            if (noteEl) {
+                let note = '*Pricing includes 20 km and 10 hours.';
+                const reasons = [];
+                if (distance > baseDistance) reasons.push('extra distance');
+                if (duration > 10) reasons.push('extra time');
+                if (reasons.length) {
+                    note += ' Additional charges added for ' + reasons.join(' and ') + '.';
+                }
+                note += ' Final estimate may vary with fuel MRP. Please verify with our team via WhatsApp or call.';
+                noteEl.textContent = note;
+            }
         }
 
         const vehicleEl = document.getElementById('vehicle');
         if (vehicleEl) vehicleEl.addEventListener('change', calculateEstimate);
-        ['distance', 'duration'].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.addEventListener('input', calculateEstimate);
-        });
         calculateEstimate();
     </script>
 </body>
