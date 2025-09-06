@@ -796,18 +796,22 @@
                 <div class="form-group">
                     <label for="eventHours">Event Hours:</label>
                     <div class="hours-container" id="hoursContainer">
-                        <div class="hour-option" data-hours="10">10 Hours</div>
+                        <div class="hour-option selected" data-hours="10">10 Hours</div>
                         <div class="hour-option" data-hours="12">12 Hours</div>
                         <div class="hour-option" data-hours="15">15 Hours</div>
                         <div class="hour-option" data-hours="24">1 Day</div>
                         <div class="hour-option" data-hours="48">2 Days</div>
                     </div>
-                    <input type="hidden" id="eventHours" name="eventHours" value="">
+                    <input type="hidden" id="eventHours" name="eventHours" value="10">
                 </div>
                 <div class="form-group">
                     <label for="eventDistance">Event Total Distance:</label>
                     <div class="distance-container" id="distanceContainer">
-                        <div class="distance-option" data-distance="20">20 KM</div>
+                        <div class="distance-option selected" data-distance="20">20 KM</div>
+                        <div class="distance-option" data-distance="30">30 KM</div>
+                        <div class="distance-option" data-distance="40">40 KM</div>
+                        <div class="distance-option" data-distance="50">50 KM</div>
+                        <div class="distance-option" data-distance="60">60 KM</div>
                     </div>
                     <input type="hidden" id="eventDistance" name="eventDistance" value="20">
                 </div>
@@ -817,7 +821,7 @@
                 <h2 class="section-title"><i class="fas fa-route"></i> Travel Details</h2>
                 <div class="form-group">
                     <label for="distance">Travel Distance (km):</label>
-                    <input type="number" id="distance" name="distance" min="0" placeholder="Enter distance">
+                    <input type="number" id="distance" name="distance" min="0" placeholder="Enter distance" value="20">
                 </div>
                 <div class="form-group">
                     <label for="duration">Booking Duration (hours):</label>
@@ -1288,9 +1292,19 @@
 
                 this.classList.add('selected');
                 document.getElementById('eventDistance').value = this.dataset.distance;
+                const distanceInput = document.getElementById('distance');
+                if (distanceInput) distanceInput.value = this.dataset.distance;
                 calculateEstimate();
             });
         });
+
+        const distanceInputEl = document.getElementById('distance');
+        if (distanceInputEl) {
+            distanceInputEl.addEventListener('input', function() {
+                document.getElementById('eventDistance').value = this.value;
+                calculateEstimate();
+            });
+        }
 
         // Driving options selection
         document.querySelectorAll('.driving-option').forEach(option => {
@@ -1378,7 +1392,7 @@
                 decorationCost = DECORATION_COSTS[decoType] || 0;
             }
 
-            const baseDistance = parseFloat(document.getElementById('eventDistance')?.value) || 0;
+            const baseDistance = 20;
             const distance = parseFloat(document.getElementById('distance')?.value) || 0;
             let distanceCost = 0;
             if (distance > baseDistance) {
@@ -1400,7 +1414,7 @@
 
         const vehicleEl = document.getElementById('vehicle');
         if (vehicleEl) vehicleEl.addEventListener('change', calculateEstimate);
-        ['distance', 'duration'].forEach(id => {
+        ['duration'].forEach(id => {
             const el = document.getElementById(id);
             if (el) el.addEventListener('input', calculateEstimate);
         });

@@ -14,6 +14,7 @@ Estimate Form Implementation Instructions
 3. Travel distance calculation:
    - Input total distance in kilometers.
    - Pricing includes 20 km. Beyond this, INR 100 is added for every extra 2 km.
+   - Provide preset distance buttons (20 km base, 30 km, 40 km, 50 km, 60 km) that auto-fill the travel distance field but allow manual edits.
 
 4. Hourly cost for duration:
    - Input total booking duration in hours.
