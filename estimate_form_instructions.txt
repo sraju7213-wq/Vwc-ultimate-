@@ -13,15 +13,14 @@ Estimate Form Implementation Instructions
 
 3. Travel distance calculation:
    - Input total distance in kilometers.
-   - Each kilometer adds INR 30 to the estimate.
+   - Pricing includes 20 km. Beyond this, INR 100 is added for every extra 2 km.
 
 4. Hourly cost for duration:
    - Input total booking duration in hours.
-   - Base rate: INR 800 for up to 8 hours.
-   - Additional INR 100 for each hour beyond 8.
+   - Base package covers 10 hours. Each additional hour adds 4% of the vehicle price.
 
 5. Estimate calculation:
-   - Total = Car Rate + Decoration Cost + (Distance × 30) + Hourly Charges.
+   - Total = Car Rate + Decoration Cost + Distance Charges + Hourly Charges.
    - Update and display the total in real time as inputs change.
 
 6. Display the estimate on the form for user review before submission.
