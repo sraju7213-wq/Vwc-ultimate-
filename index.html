@@ -3,7 +3,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valley Wedding Cars - Luxury Fleet Booking</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -89,10 +88,6 @@
             filter: none;
         }
 
-        /* Responsive tweak for small screens */
-        @media (max-width: 420px) {
-            .logo-wrap { --size: 84px; }
-        }
 
         .title {
             font-size: 2.2rem;
@@ -481,68 +476,37 @@
             display: block;
         }
 
-        @media (min-width: 768px) {
-            .container {
-                max-width: 1200px;
-            }
-
-            #bookingForm {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-
-            #bookingForm .form-section {
-                margin-bottom: 20px;
-            }
-
-            #bookingForm button,
-            #bookingForm .booking-summary,
-            #bookingForm .vehicle-selection,
-            #bookingForm .full-width {
-                grid-column: 1 / -1;
-            }
-
-            #bookingForm .service-section {
-                grid-column: 1;
-                grid-row: 2;
-            }
-
-            #bookingForm .location-section {
-                grid-column: 2;
-                grid-row: 2;
-            }
+        .container {
+            max-width: 1200px;
         }
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-            }
-
-            .title {
-                font-size: 1.8rem;
-            }
-
-            .quote {
-                font-size: 1rem;
-            }
-
-            .location-wrapper {
-                flex-direction: column;
-            }
-
-            .location-group {
-                flex-direction: column;
-            }
-
-            .location-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            }
-
-            .form-section {
-                padding: 15px;
-            }
+        #bookingForm {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
         }
+
+        #bookingForm .form-section {
+            margin-bottom: 20px;
+        }
+
+        #bookingForm button,
+        #bookingForm .booking-summary,
+        #bookingForm .vehicle-selection,
+        #bookingForm .full-width {
+            grid-column: 1 / -1;
+        }
+
+        #bookingForm .service-section {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        #bookingForm .location-section {
+            grid-column: 2;
+            grid-row: 2;
+        }
+
     </style>
 </head>
 <body>
