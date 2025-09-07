@@ -28,3 +28,7 @@ Estimate Form Implementation Instructions
 6. Display the estimate on the form for user review before submission.
 
 7. Test to ensure each input updates the total correctly.
+
+8. Location details:
+   - Use large text fields for event start and end locations.
+   - Show a note above each field: "Fill the full location with the pin code."
