@@ -1,5 +1,7 @@
 Fill the form.
 
+Enter the full start and end locations including the pin code.
+
 See [car_pricing_list.md](car_pricing_list.md) for current vehicle pricing.
 
 ### Estimate Rules
