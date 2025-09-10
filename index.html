@@ -326,6 +326,10 @@
             margin-top: 20px;
             text-align: center;
             display: none;
+            border: 1px solid #d4af37;
+            padding: 15px;
+            border-radius: 15px;
+            background: rgba(255, 215, 0, 0.05);
         }
 
         .car-image-container.show {
@@ -434,8 +438,19 @@
 
         #bookingForm button,
         #bookingForm .booking-summary,
-        #bookingForm .vehicle-selection,
         #bookingForm .full-width {
+            grid-column: 1 / -1;
+        }
+
+        #bookingForm .vehicle-selection {
+            grid-column: 1;
+        }
+
+        #bookingForm .personal-info {
+            grid-column: 2;
+        }
+
+        #bookingForm .car-image-container {
             grid-column: 1 / -1;
         }
 
@@ -590,26 +605,13 @@
                     </select>
                 </div>
 
-                <div class="car-image-container" id="carImageContainer">
-                    <img id="carImage" class="car-image" src="#" alt="Selected Car">
-                </div>
-
                 <div class="form-group">
                     <label for="date">Event Date:</label>
                     <input type="date" id="date" name="date" required>
                 </div>
-
-                <div class="form-group">
-                    <label for="eventHours">Event Hours:</label>
-                    <input type="number" id="eventHours" name="eventHours" value="10" min="0">
-                </div>
-                <div class="form-group">
-                    <label for="eventDistance">Event Total Distance (km):</label>
-                    <input type="number" id="eventDistance" name="eventDistance" value="20" min="0">
-                </div>
             </div>
 
-            <div class="form-section">
+            <div class="form-section personal-info">
                 <h2 class="section-title"><i class="fas fa-user"></i> Personal Information</h2>
                 
                 <div class="form-group">
@@ -631,6 +633,10 @@
                     <label for="message">Special Requests:</label>
                     <textarea id="message" name="message" rows="4" placeholder="Any special requirements or notes..."></textarea>
                 </div>
+            </div>
+
+            <div class="car-image-container" id="carImageContainer">
+                <img id="carImage" class="car-image" src="#" alt="Selected Car">
             </div>
 
             <div class="form-section driving-section full-width">
@@ -688,10 +694,6 @@
                     <span class="summary-value" id="summaryEmail"></span>
                 </div>
                 <div class="summary-item">
-                    <span class="summary-label">Hours:</span>
-                    <span class="summary-value" id="summaryHours"></span>
-                </div>
-                <div class="summary-item">
                     <span class="summary-label">Driving:</span>
                     <span class="summary-value" id="summaryDriving"></span>
                 </div>
@@ -706,10 +708,7 @@
             </div>
 
             <div class="note full-width">
-                <strong>Note:</strong> We only provide services throughout Kashmir and please contact us for customized pricing.
-            </div>
-            <div class="note full-width">
-                To ensure a seamless experience, our inclusive package is typically set for services between 3 PM and 11 AM. Should your event require additional time, we're happy to accommodate with a small supplementary charge. Similarly, our standard pricing applies to bookings within Srinagar, and a nominal charge may apply for locations beyond this area to cover extended travel.
+                <strong>Note:</strong> We serve all of Kashmir. Our standard package covers services between 3 PM and 11 AM within Srinagar; additional hours or travel outside Srinagar may incur nominal charges—please contact us for customized pricing.
             </div>
 
             <div class="instagram-wrapper full-width">
@@ -747,8 +746,6 @@
             const vehicle = getVal('vehicle');
             const startLocation = getVal('startLocation');
             const endLocation = getVal('endLocation');
-            const eventHours = getVal('eventHours');
-            const eventDistance = getVal('eventDistance');
             const drivingOption = getVal('drivingOption');
             const message = getVal('message');
 
@@ -777,8 +774,6 @@
                 `- Vehicle: ${vehicle}`,
                 `- Start: ${startLocationStr}`,
                 `- End: ${endLocationStr}`,
-                `- Hours: ${eventHours || 'Not specified'}`,
-                `- Distance Package: ${eventDistance || 'Not specified'}`,
                 `- Driving: ${drivingOption || 'Not specified'}`,
                 message ? `- Special Requests: ${message}` : null
             ].filter(Boolean).join('\n');
@@ -858,7 +853,6 @@
             const endLocation = document.getElementById('endLocation').value;
             const vehicle = document.getElementById('vehicle').value;
             const date = document.getElementById('date').value;
-            const eventHours = document.getElementById('eventHours').value;
             const drivingOption = document.getElementById('drivingOption').value;
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
@@ -891,7 +885,6 @@
             document.getElementById('summaryName').textContent = name;
             document.getElementById('summaryPhone').textContent = `+91${phone}`;
             document.getElementById('summaryEmail').textContent = email;
-            document.getElementById('summaryHours').textContent = eventHours || 'Not specified';
             document.getElementById('summaryDriving').textContent = drivingOption || 'Not specified';
             const decorText = wantDecoration === 'Yes' ? (decoration ? decoration : 'Yes') : 'No';
             document.getElementById('summaryDecoration').textContent = decorText;
