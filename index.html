@@ -754,20 +754,17 @@
                 <h2 class="section-title"><i class="fas fa-car"></i> Vehicle Selection</h2>
 
                 <div class="form-group">
-                    <label for="vehicle">Select Your Vehicle:</label>
-                    <select id="vehicle" name="vehicle" required>
+                    <label for="carSelect">Select Your Vehicle:</label>
+                    <select id="carSelect" name="vehicle" required>
                         <option value="">Choose a vehicle...</option>
-                        <option value="AUDI A6">AUDI A6 - INR 16000</option>
-                        <option value="BMW 5 Series F10 (Old Shape)">BMW 5 Series F10 (Old Shape) - Price TBD</option>
-                        <option value="BMW 5 Series G30">BMW 5 Series G30 - Price TBD</option>
-                        <option value="BMW Convertible">BMW Convertible - INR 26000</option>
-                        <option value="Hyundai Creta">Hyundai Creta - INR 12000</option>
-                        <option value="Hyundai Verna">Hyundai Verna - INR 12000</option>
-                        <option value="Mercedes CLA 200">Mercedes CLA 200 - INR 14000</option>
-                        <option value="Mercedes G Wagon">Mercedes G Wagon - INR 160000</option>
-                        <option value="Mercedes S Class">Mercedes S Class - INR 22000</option>
-                        <option value="Range Rover Sport">Range Rover Sport - INR 85000</option>
-                        <option value="Range Rover Sport 2">Range Rover Sport 2 - INR 125000</option>
+                        <option value="audiA6">AUDI A6</option>
+                        <option value="bmw330D">BMW 330 D Convertible</option>
+                        <option value="bmw5Old">BMW 5 Series F10 (Old Shape)</option>
+                        <option value="bmw5New">BMW 5 SERIES G30 (New Shape)</option>
+                        <option value="mercedesGWagon">Mercedes G-Wagon</option>
+                        <option value="mercedesMaybach">MERCEDES Maybach</option>
+                        <option value="mercedesSClass">MERCEDES S-CLASS S350</option>
+                        <option value="rangeRover">Range Rover Sport</option>
                     </select>
                 </div>
 
@@ -802,7 +799,8 @@
             </div>
 
             <div class="car-image-container" id="carImageContainer">
-                <img id="carImage" class="car-image" src="#" alt="Selected Car">
+                <img id="carImage" class="car-image" src="" alt="Selected Car">
+                <button id="fullViewButton" style="display:none;" onclick="window.open(document.getElementById('carImage').src, '_blank')">Full View</button>
             </div>
 
             <div class="form-section driving-section full-width">
@@ -893,11 +891,14 @@
 
         // Car images mapping
         const CAR_IMAGES = {
-            "BMW 5 SERIES G30": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@aa33fd78421e1a8fa9e1ff6d95800fc75c5c61b1/uploads/2025-08-22T09-42-16-425Z-k1kxvaegs.jpg",
-            "BMW 5 Series F10 (Old Shape)": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@7766519b7d48ee97144293d33bd1abcaa1dc7537/uploads/2025-08-22T09-43-49-237Z-bl0h1uu6i.jpg",
-            "Range Rover Sport": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@7651fdcb4d348df3e803de2255e8f0b5a1821dc9/uploads/2025-08-22T09-44-23-132Z-uxngpxuq2.jpg",
-            "Mercedes G Wagon": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@ef38be0a76189d47ee79a3a182c2c16979e8d014/uploads/2025-08-22T09-45-09-584Z-uowaboqrx.jpg",
-            "AUDI A6": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@a47d1cecb04bbd648bc7a22ff99f74a78bee551c/uploads/2025-08-22T09-45-58-518Z-z518bw92t.jpg"
+            audiA6: "https://i.postimg.cc/zfxy8jD7/AUDI-A6.jpg",
+            bmw330D: "https://i.postimg.cc/L4nyP974/BMW-330-D-Convertible.jpg",
+            bmw5Old: "https://i.postimg.cc/zvgvwYC2/BMW-5-Series-F10-OLD-SHAPE.jpg",
+            bmw5New: "https://i.postimg.cc/Hj1xBv3Y/BMW-5-SERIES-G30-New-shape.jpg",
+            mercedesGWagon: "https://i.postimg.cc/J7vp5wVN/Mercedes-G-wagon.jpg",
+            mercedesMaybach: "https://i.postimg.cc/MKBdssqh/MERCEDES-Maybach.jpg",
+            mercedesSClass: "https://i.postimg.cc/cLNTPQJ6/MERCEDES-S-CLASS-S350.jpg",
+            rangeRover: "https://i.postimg.cc/rwCgTKdj/Range-Rover-Sport.jpg"
         };
 
         // WhatsApp message builder function
@@ -914,7 +915,7 @@
             const email = getVal('email');
             const eventDate = getVal('date');
             const service = getVal('serviceType');
-            const vehicle = getVal('vehicle');
+            const vehicleName = document.getElementById('carSelect')?.selectedOptions[0]?.text || '';
             const startLocation = getVal('startLocation');
             const endLocation = getVal('endLocation');
             const drivingOption = getVal('drivingOption');
@@ -942,7 +943,7 @@
                 'Event',
                 `- Date: ${eventDate}`,
                 `- Service: ${service}`,
-                `- Vehicle: ${vehicle}`,
+                `- Vehicle: ${vehicleName}`,
                 `- Start: ${startLocationStr}`,
                 `- End: ${endLocationStr}`,
                 `- Driving: ${drivingOption || 'Not specified'}`,
@@ -992,7 +993,7 @@
                 alert('Please select a service type.');
                 return;
             }
-            if (!document.getElementById('vehicle')?.value.trim()) {
+            if (!document.getElementById('carSelect')?.value.trim()) {
                 alert('Please select a car.');
                 return;
             }
@@ -1022,7 +1023,9 @@
             const decoration = document.querySelector('input[name="decorationTypeRadio"]:checked')?.value || '';
             const startLocation = document.getElementById('startLocation').value;
             const endLocation = document.getElementById('endLocation').value;
-            const vehicle = document.getElementById('vehicle').value;
+            const carSelectEl = document.getElementById('carSelect');
+            const vehicle = carSelectEl.value;
+            const vehicleName = carSelectEl.selectedOptions[0]?.text;
             const date = document.getElementById('date').value;
             const drivingOption = document.getElementById('drivingOption').value;
             const name = document.getElementById('name').value;
@@ -1051,7 +1054,7 @@
             document.getElementById('summaryService').textContent = serviceType;
             document.getElementById('summaryStart').textContent = startLocation;
             document.getElementById('summaryEnd').textContent = endLocation;
-            document.getElementById('summaryVehicle').textContent = vehicle;
+            document.getElementById('summaryVehicle').textContent = vehicleName;
             document.getElementById('summaryDate').textContent = date;
             document.getElementById('summaryName').textContent = name;
             document.getElementById('summaryPhone').textContent = `+91${phone}`;
@@ -1097,18 +1100,24 @@
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('date').min = today;
 
-        // Car selection with image display
-        document.getElementById('vehicle').addEventListener('change', function() {
-            const carImageContainer = document.getElementById('carImageContainer');
+        // Car selection with image display and full view button
+        function updateCarImage() {
+            const carSelect = document.getElementById('carSelect');
             const carImage = document.getElementById('carImage');
-            
-            if (this.value && CAR_IMAGES[this.value]) {
-                carImage.src = CAR_IMAGES[this.value];
+            const carImageContainer = document.getElementById('carImageContainer');
+            const fullViewButton = document.getElementById('fullViewButton');
+
+            if (carSelect.value && CAR_IMAGES[carSelect.value]) {
+                carImage.src = CAR_IMAGES[carSelect.value];
                 carImageContainer.classList.add('show');
+                fullViewButton.style.display = 'inline';
             } else {
+                carImage.src = '';
                 carImageContainer.classList.remove('show');
+                fullViewButton.style.display = 'none';
             }
-        });
+        }
+        document.getElementById('carSelect').addEventListener('change', updateCarImage);
 
         // Driving options selection with self-drive note
         document.querySelectorAll('.driving-option').forEach(option => {
