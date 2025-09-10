@@ -3,6 +3,7 @@ Fill the form.
 Enter the full start and end locations including the pin code.
 
 See [car_pricing_list.md](car_pricing_list.md) for current vehicle pricing.
+See [self_drive_eligibility.md](self_drive_eligibility.md) for eligibility when selecting the "Self Drive" option.
 
 ### Estimate Rules
 
