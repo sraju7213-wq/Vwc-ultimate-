@@ -2,7 +2,7 @@ Fill the form.
 
 Enter the full start and end locations including the pin code.
 
-See [car_pricing_list.md](car_pricing_list.md) for current vehicle pricing.
+See [car_gallery.md](car_gallery.md) for the latest vehicle photos.
 
 ### Estimate Rules
 

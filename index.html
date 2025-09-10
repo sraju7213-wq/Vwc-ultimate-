@@ -487,6 +487,7 @@
             padding: 15px;
             border-radius: 15px;
             background: rgba(255, 215, 0, 0.05);
+            position: relative;
         }
 
         .car-image-container.show {
@@ -499,6 +500,22 @@
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             border: 2px solid #d4af37;
+        }
+
+        .view-full-image {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(212, 175, 55, 0.8);
+            border: none;
+            color: #000;
+            padding: 5px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .view-full-image:hover {
+            background: #ffd700;
         }
 
         .booking-summary {
@@ -755,19 +772,12 @@
 
                 <div class="form-group">
                     <label for="vehicle">Select Your Vehicle:</label>
-                    <select id="vehicle" name="vehicle" required>
+                    <select id="vehicle" name="vehicle" required onchange="updateCarImage()">
                         <option value="">Choose a vehicle...</option>
-                        <option value="AUDI A6">AUDI A6 - INR 16000</option>
-                        <option value="BMW 5 Series F10 (Old Shape)">BMW 5 Series F10 (Old Shape) - Price TBD</option>
-                        <option value="BMW 5 Series G30">BMW 5 Series G30 - Price TBD</option>
-                        <option value="BMW Convertible">BMW Convertible - INR 26000</option>
-                        <option value="Hyundai Creta">Hyundai Creta - INR 12000</option>
-                        <option value="Hyundai Verna">Hyundai Verna - INR 12000</option>
-                        <option value="Mercedes CLA 200">Mercedes CLA 200 - INR 14000</option>
-                        <option value="Mercedes G Wagon">Mercedes G Wagon - INR 160000</option>
-                        <option value="Mercedes S Class">Mercedes S Class - INR 22000</option>
-                        <option value="Range Rover Sport">Range Rover Sport - INR 85000</option>
-                        <option value="Range Rover Sport 2">Range Rover Sport 2 - INR 125000</option>
+                        <option value="AUDI A6">AUDI A6</option>
+                        <option value="BMW 330D Convertible">BMW 330D Convertible</option>
+                        <option value="Mercedes S Class">Mercedes S Class</option>
+                        <option value="Range Rover Sport">Range Rover Sport</option>
                     </select>
                 </div>
 
@@ -802,7 +812,8 @@
             </div>
 
             <div class="car-image-container" id="carImageContainer">
-                <img id="carImage" class="car-image" src="#" alt="Selected Car">
+                <img id="carImage" class="car-image" src="" alt="Car Image">
+                <button id="viewFullImage" class="view-full-image" type="button">View Full Size</button>
             </div>
 
             <div class="form-section driving-section full-width">
@@ -891,13 +902,12 @@
             document.body.classList.toggle('light-theme');
         });
 
-        // Car images mapping
+        // Car images mapping using gallery URLs
         const CAR_IMAGES = {
-            "BMW 5 SERIES G30": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@aa33fd78421e1a8fa9e1ff6d95800fc75c5c61b1/uploads/2025-08-22T09-42-16-425Z-k1kxvaegs.jpg",
-            "BMW 5 Series F10 (Old Shape)": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@7766519b7d48ee97144293d33bd1abcaa1dc7537/uploads/2025-08-22T09-43-49-237Z-bl0h1uu6i.jpg",
-            "Range Rover Sport": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@7651fdcb4d348df3e803de2255e8f0b5a1821dc9/uploads/2025-08-22T09-44-23-132Z-uxngpxuq2.jpg",
-            "Mercedes G Wagon": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@ef38be0a76189d47ee79a3a182c2c16979e8d014/uploads/2025-08-22T09-45-09-584Z-uowaboqrx.jpg",
-            "AUDI A6": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@a47d1cecb04bbd648bc7a22ff99f74a78bee551c/uploads/2025-08-22T09-45-58-518Z-z518bw92t.jpg"
+            "AUDI A6": "https://i.postimg.cc/zfxy8jD7/AUDI-A6.jpg",
+            "BMW 330D Convertible": "https://i.postimg.cc/3xg7Y5f4/BMW-330D-Convertible.jpg",
+            "Mercedes S Class": "https://i.postimg.cc/9fW7Xy5H/Mercedes-S-Class.jpg",
+            "Range Rover Sport": "https://i.postimg.cc/0jYQ2d6g/Range-Rover-Sport.jpg"
         };
 
         // WhatsApp message builder function
@@ -1098,15 +1108,24 @@
         document.getElementById('date').min = today;
 
         // Car selection with image display
-        document.getElementById('vehicle').addEventListener('change', function() {
+        function updateCarImage() {
+            const carSelect = document.getElementById('vehicle');
             const carImageContainer = document.getElementById('carImageContainer');
             const carImage = document.getElementById('carImage');
-            
-            if (this.value && CAR_IMAGES[this.value]) {
-                carImage.src = CAR_IMAGES[this.value];
+
+            if (carSelect.value && CAR_IMAGES[carSelect.value]) {
+                carImage.src = CAR_IMAGES[carSelect.value];
                 carImageContainer.classList.add('show');
             } else {
+                carImage.src = '';
                 carImageContainer.classList.remove('show');
+            }
+        }
+
+        document.getElementById('viewFullImage').addEventListener('click', function() {
+            const src = document.getElementById('carImage').src;
+            if (src) {
+                window.open(src, '_blank');
             }
         });
 
