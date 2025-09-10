@@ -772,19 +772,12 @@
 
                 <div class="form-group">
                     <label for="vehicle">Select Your Vehicle:</label>
-                    <select id="vehicle" name="vehicle" required>
+                    <select id="vehicle" name="vehicle" required onchange="updateCarImage()">
                         <option value="">Choose a vehicle...</option>
                         <option value="AUDI A6">AUDI A6</option>
-                        <option value="BMW 5 Series F10 (Old Shape)">BMW 5 Series F10 (Old Shape)</option>
-                        <option value="BMW 5 Series G30">BMW 5 Series G30</option>
-                        <option value="BMW Convertible">BMW Convertible</option>
-                        <option value="Hyundai Creta">Hyundai Creta</option>
-                        <option value="Hyundai Verna">Hyundai Verna</option>
-                        <option value="Mercedes CLA 200">Mercedes CLA 200</option>
-                        <option value="Mercedes G Wagon">Mercedes G Wagon</option>
+                        <option value="BMW 330D Convertible">BMW 330D Convertible</option>
                         <option value="Mercedes S Class">Mercedes S Class</option>
                         <option value="Range Rover Sport">Range Rover Sport</option>
-                        <option value="Range Rover Sport 2">Range Rover Sport 2</option>
                     </select>
                 </div>
 
@@ -819,8 +812,8 @@
             </div>
 
             <div class="car-image-container" id="carImageContainer">
-                <img id="carImage" class="car-image" src="#" alt="Selected Car">
-                <button id="viewFullImage" class="view-full-image" type="button">View</button>
+                <img id="carImage" class="car-image" src="" alt="Car Image">
+                <button id="viewFullImage" class="view-full-image" type="button">View Full Size</button>
             </div>
 
             <div class="form-section driving-section full-width">
@@ -909,25 +902,12 @@
             document.body.classList.toggle('light-theme');
         });
 
-        // Generates a placeholder image with car name
-        function placeholderImage(text) {
-            const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'><rect width='100%' height='100%' fill='#cccccc'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='#555' font-size='24' font-family='Arial'>${text}</text></svg>`;
-            return `data:image/svg+xml,${encodeURIComponent(svg)}`;
-        }
-
-        // Car images mapping using local placeholders
+        // Car images mapping using gallery URLs
         const CAR_IMAGES = {
-            "AUDI A6": placeholderImage("AUDI A6"),
-            "BMW 5 Series F10 (Old Shape)": placeholderImage("BMW 5 Series F10"),
-            "BMW 5 Series G30": placeholderImage("BMW 5 Series G30"),
-            "BMW Convertible": placeholderImage("BMW Convertible"),
-            "Hyundai Creta": placeholderImage("Hyundai Creta"),
-            "Hyundai Verna": placeholderImage("Hyundai Verna"),
-            "Mercedes CLA 200": placeholderImage("Mercedes CLA 200"),
-            "Mercedes G Wagon": placeholderImage("Mercedes G Wagon"),
-            "Mercedes S Class": placeholderImage("Mercedes S Class"),
-            "Range Rover Sport": placeholderImage("Range Rover Sport"),
-            "Range Rover Sport 2": placeholderImage("Range Rover Sport 2")
+            "AUDI A6": "https://i.postimg.cc/zfxy8jD7/AUDI-A6.jpg",
+            "BMW 330D Convertible": "https://i.postimg.cc/3xg7Y5f4/BMW-330D-Convertible.jpg",
+            "Mercedes S Class": "https://i.postimg.cc/9fW7Xy5H/Mercedes-S-Class.jpg",
+            "Range Rover Sport": "https://i.postimg.cc/0jYQ2d6g/Range-Rover-Sport.jpg"
         };
 
         // WhatsApp message builder function
@@ -1128,21 +1108,23 @@
         document.getElementById('date').min = today;
 
         // Car selection with image display
-        document.getElementById('vehicle').addEventListener('change', function() {
+        function updateCarImage() {
+            const carSelect = document.getElementById('vehicle');
             const carImageContainer = document.getElementById('carImageContainer');
             const carImage = document.getElementById('carImage');
 
-            if (this.value && CAR_IMAGES[this.value]) {
-                carImage.src = CAR_IMAGES[this.value];
+            if (carSelect.value && CAR_IMAGES[carSelect.value]) {
+                carImage.src = CAR_IMAGES[carSelect.value];
                 carImageContainer.classList.add('show');
             } else {
+                carImage.src = '';
                 carImageContainer.classList.remove('show');
             }
-        });
+        }
 
         document.getElementById('viewFullImage').addEventListener('click', function() {
             const src = document.getElementById('carImage').src;
-            if (src && src !== '#') {
+            if (src) {
                 window.open(src, '_blank');
             }
         });
