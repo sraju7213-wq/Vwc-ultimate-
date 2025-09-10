@@ -10,3 +10,5 @@ When selecting the "Self Drive" option, the following requirements must be met:
 
 4. Security Deposit: A security deposit will be required, which will be refunded after the vehicle is returned in the same condition.
 
+5. All fuel costs will be paid by the customer.
+
