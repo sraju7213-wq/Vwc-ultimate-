@@ -23,6 +23,112 @@
             padding: 20px;
         }
 
+        /* Light theme overrides */
+        body.light-theme {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        body.light-theme .container {
+            background: #ffffff;
+            border: 1px solid #dddddd;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme .form-section,
+        body.light-theme .note,
+        body.light-theme .booking-summary {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: #dddddd;
+        }
+
+        body.light-theme .summary-label,
+        body.light-theme .summary-value,
+        body.light-theme .note,
+        body.light-theme .section-title,
+        body.light-theme label,
+        body.light-theme .input-note,
+        body.light-theme .decor-label,
+        body.light-theme .driving-option,
+        body.light-theme .instagram-link {
+            color: #000000;
+        }
+
+        body.light-theme .booking-summary h3 {
+            color: #000000 !important;
+        }
+
+        body.light-theme .title {
+            background: none;
+            -webkit-text-fill-color: #000000;
+            color: #000000;
+        }
+
+        body.light-theme select,
+        body.light-theme input,
+        body.light-theme textarea {
+            background: #ffffff;
+            color: #000000;
+            border: 1px solid #cccccc;
+        }
+
+        body.light-theme ::placeholder {
+            color: #555555;
+        }
+
+        body.light-theme select:focus,
+        body.light-theme input:focus,
+        body.light-theme textarea:focus {
+            border-color: #000000;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        body.light-theme .btn {
+            background: rgba(0, 0, 0, 0.05);
+            color: #000000;
+            border: 1px solid #dddddd;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme .btn:hover {
+            background: rgba(0, 0, 0, 0.1);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        body.light-theme .driving-option {
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid #dddddd;
+        }
+
+        body.light-theme .driving-option:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        body.light-theme .seg-item {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: #dddddd !important;
+            color: #000000;
+        }
+
+        body.light-theme .seg-item:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        body.light-theme .seg-item:has(input:checked),
+        body.light-theme .seg-item input:checked + span {
+            background: #d4af37;
+            color: #000000;
+            border-color: #d4af37 !important;
+        }
+
+        body.light-theme .seg-item:focus-within {
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2) !important;
+        }
+
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -60,6 +166,37 @@
             margin-bottom: 30px;
             padding: 20px;
             border-bottom: 2px solid #FFD700;
+            position: relative;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #FFD700;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 8px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+        }
+
+        body.light-theme .theme-toggle {
+            color: #000000;
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid #dddddd;
+        }
+
+        body.light-theme .theme-toggle:hover {
+            background: rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         /* Circular logo container */
@@ -198,6 +335,12 @@
             flex:1;
             text-align:center;
         }
+
+        .seg-item:hover {
+            background: rgba(212, 175, 55, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
         
         .seg-item input{
             display:none
@@ -305,12 +448,25 @@
             border: 2px solid #FFD700;
             border-radius: 10px;
             transition: all 0.3s ease;
+            background: transparent;
         }
 
         .instagram-link:hover {
             background: #FFD700;
             color: #000;
-            transform: scale(1.05);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        body.light-theme .instagram-link {
+            border-color: #dddddd;
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-theme .instagram-link:hover {
+            background: rgba(0, 0, 0, 0.1);
+            color: #000000;
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.2);
         }
 
         .instagram-link i {
@@ -370,8 +526,12 @@
         }
 
         .summary-value {
-            color: #000000;
+            color: #FFD700;
             text-align: right;
+        }
+
+        body.light-theme .summary-value {
+            color: #000000;
         }
 
         .input-note {
@@ -405,6 +565,8 @@
 
         .driving-option:hover {
             background: rgba(255, 215, 0, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .driving-option.selected {
@@ -473,6 +635,9 @@
             </div>
             <h1 class="title">Valley Wedding Cars</h1>
             <p class="subtitle">Luxury Fleet Booking</p>
+            <button type="button" id="themeToggle" class="theme-toggle" aria-label="Toggle light theme">
+                <i class="fas fa-sun"></i>
+            </button>
         </div>
 
         <div class="quote">
@@ -720,6 +885,11 @@
     </div>
 
     <script>
+        // Theme toggle
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+        });
+
         // Car images mapping
         const CAR_IMAGES = {
             "BMW 5 SERIES G30": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@aa33fd78421e1a8fa9e1ff6d95800fc75c5c61b1/uploads/2025-08-22T09-42-16-425Z-k1kxvaegs.jpg",
