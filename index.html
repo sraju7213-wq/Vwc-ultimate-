@@ -909,10 +909,25 @@
             document.body.classList.toggle('light-theme');
         });
 
-        // Car images mapping
+        // Generates a placeholder image with car name
+        function placeholderImage(text) {
+            const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'><rect width='100%' height='100%' fill='#cccccc'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='#555' font-size='24' font-family='Arial'>${text}</text></svg>`;
+            return `data:image/svg+xml,${encodeURIComponent(svg)}`;
+        }
+
+        // Car images mapping using local placeholders
         const CAR_IMAGES = {
-            // TODO: Add vehicle image mappings using direct links from
-            // https://postimg.cc/gallery/Yr7VvJf/ab21c185
+            "AUDI A6": placeholderImage("AUDI A6"),
+            "BMW 5 Series F10 (Old Shape)": placeholderImage("BMW 5 Series F10"),
+            "BMW 5 Series G30": placeholderImage("BMW 5 Series G30"),
+            "BMW Convertible": placeholderImage("BMW Convertible"),
+            "Hyundai Creta": placeholderImage("Hyundai Creta"),
+            "Hyundai Verna": placeholderImage("Hyundai Verna"),
+            "Mercedes CLA 200": placeholderImage("Mercedes CLA 200"),
+            "Mercedes G Wagon": placeholderImage("Mercedes G Wagon"),
+            "Mercedes S Class": placeholderImage("Mercedes S Class"),
+            "Range Rover Sport": placeholderImage("Range Rover Sport"),
+            "Range Rover Sport 2": placeholderImage("Range Rover Sport 2")
         };
 
         // WhatsApp message builder function
