@@ -1,9 +1,12 @@
-# Self Drive Eligibility
+# Eligibility for Self Drive
 
-To qualify for a self-drive booking, the following requirements must be met:
+When selecting the "Self Drive" option, the following requirements must be met:
 
-1. **Indemnity Form** – We will provide this document. The nominated driver must sign to accept the self-driving terms and conditions.
-2. **Driving Licence** – A valid driving licence for the nominated driver must be presented at booking time.
-3. **Aadhar Card** – Provide a valid Aadhar card for the nominated driver as proof of identity.
-4. **Security Deposit** – A refundable deposit is required and will be returned if the vehicle is returned in the same condition.
+1. Indemnity Form: This form will be provided by us. You must sign it to accept the terms and conditions for self-driving.
+
+2. Driving Licence: A valid driving licence from the nominated driver is required. The licence must be presented at the time of booking.
+
+3. Aadhar Card: A valid Aadhar card of the nominated driver must be provided as proof of identity.
+
+4. Security Deposit: A security deposit will be required, which will be refunded after the vehicle is returned in the same condition.
 
