@@ -23,6 +23,50 @@
             padding: 20px;
         }
 
+        /* Light theme overrides */
+        body.light-theme {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        body.light-theme .container {
+            background: #ffffff;
+            border: 1px solid #dddddd;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme .form-section,
+        body.light-theme .note,
+        body.light-theme .booking-summary {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: #dddddd;
+        }
+
+        body.light-theme .summary-label,
+        body.light-theme .summary-value,
+        body.light-theme .note,
+        body.light-theme .section-title {
+            color: #000000;
+        }
+
+        body.light-theme .booking-summary h3 {
+            color: #000000 !important;
+        }
+
+        body.light-theme .btn {
+            background: #000000;
+            color: #FFD700;
+        }
+
+        body.light-theme .driving-option {
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid #dddddd;
+        }
+
+        body.light-theme .driving-option:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -60,6 +104,22 @@
             margin-bottom: 30px;
             padding: 20px;
             border-bottom: 2px solid #FFD700;
+            position: relative;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #FFD700;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        body.light-theme .theme-toggle {
+            color: #000000;
         }
 
         /* Circular logo container */
@@ -287,18 +347,13 @@
             font-size: 0.9rem;
         }
 
-        .estimate-output {
-            margin-top: 10px;
-            font-size: 1.2rem;
-            color: #FFD700;
+        .self-drive-note {
+            background: rgba(255, 0, 0, 0.2);
+            border-left: 3px solid #ff0000;
+            color: #ff0000;
         }
 
-        .estimate-note {
-            font-size: 0.85rem;
-            margin-top: 5px;
-            color: #FFD700;
-            opacity: 0.8;
-        }
+        /* Removed estimate output styles */
 
         .instagram-link {
             display: inline-block;
@@ -331,6 +386,10 @@
             margin-top: 20px;
             text-align: center;
             display: none;
+            border: 1px solid #d4af37;
+            padding: 15px;
+            border-radius: 15px;
+            background: rgba(255, 215, 0, 0.05);
         }
 
         .car-image-container.show {
@@ -371,8 +430,12 @@
         }
 
         .summary-value {
-            color: #000000;
+            color: #FFD700;
             text-align: right;
+        }
+
+        body.light-theme .summary-value {
+            color: #000000;
         }
 
         .input-note {
@@ -383,68 +446,7 @@
             opacity: 0.8;
         }
 
-        .hours-container,
-        .distance-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .hour-option,
-        .distance-option {
-            flex: 1;
-            min-width: 120px;
-            text-align: center;
-            padding: 10px;
-            background: rgba(255, 215, 0, 0.1);
-            border-radius: 8px;
-            cursor: pointer;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            transition: all 0.2s ease;
-            font-size: 0.9rem;
-        }
-
-        .hour-option:hover,
-        .distance-option:hover {
-            background: rgba(255, 215, 0, 0.2);
-        }
-
-        .hour-option.selected,
-        .distance-option.selected {
-            background: #d4af37;
-            color: #000;
-            border-color: #d4af37;
-        }
-
-        .distance-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .distance-option {
-            flex: 1;
-            min-width: 120px;
-            text-align: center;
-            padding: 10px;
-            background: rgba(255, 215, 0, 0.1);
-            border-radius: 8px;
-            cursor: pointer;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            transition: all 0.2s ease;
-        }
-
-        .distance-option:hover {
-            background: rgba(255, 215, 0, 0.2);
-        }
-
-        .distance-option.selected {
-            background: #d4af37;
-            color: #000;
-            border-color: #d4af37;
-        }
+        /* Removed interactive option styles for event hours and distance */
 
         .driving-options {
             display: flex;
@@ -475,15 +477,6 @@
             border-color: #d4af37;
         }
 
-        .custom-driving-input {
-            margin-top: 10px;
-            display: none;
-        }
-
-        .custom-driving-input.show {
-            display: block;
-        }
-
         /* Hide decoration options initially */
         .decoration-options {
             display: none;
@@ -509,8 +502,19 @@
 
         #bookingForm button,
         #bookingForm .booking-summary,
-        #bookingForm .vehicle-selection,
         #bookingForm .full-width {
+            grid-column: 1 / -1;
+        }
+
+        #bookingForm .vehicle-selection {
+            grid-column: 1;
+        }
+
+        #bookingForm .personal-info {
+            grid-column: 2;
+        }
+
+        #bookingForm .car-image-container {
             grid-column: 1 / -1;
         }
 
@@ -533,6 +537,9 @@
             </div>
             <h1 class="title">Valley Wedding Cars</h1>
             <p class="subtitle">Luxury Fleet Booking</p>
+            <button type="button" id="themeToggle" class="theme-toggle" aria-label="Toggle light theme">
+                <i class="fas fa-sun"></i>
+            </button>
         </div>
 
         <div class="quote">
@@ -612,11 +619,11 @@
                             <fieldset class="segmented small" role="radiogroup" aria-label="Decoration type">
                                 <label class="seg-item">
                                     <input type="radio" name="decorationTypeRadio" value="Artificial">
-                                    <span>Artificial (INR 500)</span>
+                                    <span>Artificial</span>
                                 </label>
                                 <label class="seg-item">
                                     <input type="radio" name="decorationTypeRadio" value="Fresh">
-                                    <span>Fresh (INR 1000)</span>
+                                    <span>Fresh</span>
                                 </label>
                             </fieldset>
                         </div>
@@ -665,56 +672,13 @@
                     </select>
                 </div>
 
-                <div class="car-image-container" id="carImageContainer">
-                    <img id="carImage" class="car-image" src="" alt="Selected Car">
-                </div>
-
                 <div class="form-group">
                     <label for="date">Event Date:</label>
                     <input type="date" id="date" name="date" required>
                 </div>
-
-                <div class="form-group">
-                    <label for="eventHours">Event Hours:</label>
-                    <div class="hours-container" id="hoursContainer">
-                        <div class="hour-option selected" data-hours="10">10 Hours (Included)</div>
-                        <div class="hour-option" data-hours="12">12 Hours</div>
-                        <div class="hour-option" data-hours="15">15 Hours</div>
-                        <div class="hour-option" data-hours="24">1 Day</div>
-                        <div class="hour-option" data-hours="48">2 Days</div>
-                    </div>
-                    <input type="hidden" id="eventHours" name="eventHours" value="10">
-                </div>
-                <div class="form-group">
-                    <label for="eventDistance">Event Total Distance:</label>
-                    <div class="distance-container" id="distanceContainer">
-                        <div class="distance-option selected" data-distance="20">20 KM (Included)</div>
-                        <div class="distance-option" data-distance="30">30 KM</div>
-                        <div class="distance-option" data-distance="40">40 KM</div>
-                        <div class="distance-option" data-distance="50">50 KM</div>
-                        <div class="distance-option" data-distance="60">60 KM</div>
-                    </div>
-                    <input type="hidden" id="eventDistance" name="eventDistance" value="20">
-                </div>
             </div>
 
-            <div class="form-section">
-                <h2 class="section-title"><i class="fas fa-route"></i> Travel Details</h2>
-                <div class="form-group">
-                    <label for="distance">Travel Distance (km):</label>
-                    <input type="number" id="distance" name="distance" min="0" placeholder="Enter distance" value="20">
-                </div>
-                <div class="form-group">
-                    <label for="duration">Booking Duration (hours):</label>
-                    <input type="number" id="duration" name="duration" min="0" placeholder="Enter total hours" value="10">
-                </div>
-                <div class="estimate-output">
-                    <strong>Total Estimate: INR <span id="totalEstimate">0</span></strong>
-                    <p class="estimate-note" id="estimateNote">*Pricing includes 20 km and 10 hours. Price increases when these package limits are exceeded. Final estimate may vary with fuel MRP. Please verify with our team via WhatsApp or call.</p>
-                </div>
-            </div>
-
-            <div class="form-section">
+            <div class="form-section personal-info">
                 <h2 class="section-title"><i class="fas fa-user"></i> Personal Information</h2>
                 
                 <div class="form-group">
@@ -738,17 +702,17 @@
                 </div>
             </div>
 
+            <div class="car-image-container" id="carImageContainer">
+                <img id="carImage" class="car-image" src="#" alt="Selected Car">
+            </div>
+
             <div class="form-section driving-section full-width">
                 <h2 class="section-title"><i class="fas fa-car-side"></i> Driving Options</h2>
                 <div class="driving-options" id="drivingOptions">
-                    <div class="driving-option" data-option="Chauffeur">NEED CHAUFFEUR</div>
+                    <div class="driving-option" data-option="Need with Driver">NEED WITH DRIVER</div>
                     <div class="driving-option" data-option="Self Drive">SELF DRIVE</div>
-                    <div class="driving-option" data-option="Other">OTHER</div>
                 </div>
-                <div class="custom-driving-input" id="customDrivingInput">
-                    <label for="customDriving">Please specify:</label>
-                    <input type="text" id="customDriving" name="customDriving" placeholder="Specify driving option...">
-                </div>
+                <div class="note self-drive-note" id="selfDriveNote" style="display:none;">All fuel costs will be paid by the customer.</div>
                 <input type="hidden" id="drivingOption" name="drivingOption" value="">
             </div>
 
@@ -797,10 +761,6 @@
                     <span class="summary-value" id="summaryEmail"></span>
                 </div>
                 <div class="summary-item">
-                    <span class="summary-label">Hours:</span>
-                    <span class="summary-value" id="summaryHours"></span>
-                </div>
-                <div class="summary-item">
                     <span class="summary-label">Driving:</span>
                     <span class="summary-value" id="summaryDriving"></span>
                 </div>
@@ -809,17 +769,13 @@
                     <span class="summary-value" id="summaryDecoration"></span>
                 </div>
                 <div class="summary-item">
-                    <span class="summary-label">Estimate:</span>
-                    <span class="summary-value" id="summaryEstimate"></span>
-                </div>
-                <div class="summary-item">
                     <span class="summary-label">Message:</span>
                     <span class="summary-value" id="summaryMessage"></span>
                 </div>
             </div>
 
             <div class="note full-width">
-                <strong>Note:</strong> We only provide services throughout Kashmir and please contact us for customized pricing.
+                <strong>Note:</strong> We serve all of Kashmir. Our standard package covers services between 3 PM and 11 AM within Srinagar; additional hours or travel outside Srinagar may incur nominal charges—please contact us for customized pricing.
             </div>
 
             <div class="instagram-wrapper full-width">
@@ -831,6 +787,11 @@
     </div>
 
     <script>
+        // Theme toggle
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+        });
+
         // Car images mapping
         const CAR_IMAGES = {
             "BMW 5 SERIES G30": "https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@aa33fd78421e1a8fa9e1ff6d95800fc75c5c61b1/uploads/2025-08-22T09-42-16-425Z-k1kxvaegs.jpg",
@@ -842,7 +803,6 @@
 
         // WhatsApp message builder function
         function buildBookingMessage() {
-            calculateEstimate();
             // Helper to safely get values
             const getVal = id => (document.getElementById(id)?.value || '').trim();
             
@@ -858,16 +818,12 @@
             const vehicle = getVal('vehicle');
             const startLocation = getVal('startLocation');
             const endLocation = getVal('endLocation');
-            const eventHours = getVal('eventHours');
-            const eventDistance = getVal('eventDistance');
             const drivingOption = getVal('drivingOption');
-            const customDriving = getVal('customDriving');
             const message = getVal('message');
-            
+
             // Decoration fields
             const wantDecoration = getVal('wantDecoration');
             const decorationType = getVal('decoration');
-            const estimate = document.getElementById('totalEstimate')?.textContent || '0';
             
             const startLocationStr = startLocation;
             const endLocationStr = endLocation;
@@ -890,9 +846,7 @@
                 `- Vehicle: ${vehicle}`,
                 `- Start: ${startLocationStr}`,
                 `- End: ${endLocationStr}`,
-                `- Hours: ${eventHours || 'Not specified'}`,
-                `- Distance Package: ${eventDistance || 'Not specified'}`,
-                `- Driving: ${(drivingOption === 'Other' && customDriving) ? customDriving : drivingOption || 'Not specified'}`,
+                `- Driving: ${drivingOption || 'Not specified'}`,
                 message ? `- Special Requests: ${message}` : null
             ].filter(Boolean).join('\n');
             
@@ -912,7 +866,7 @@
             // Join all non-empty sections
             const parts = [header, divider, clientSec, '', eventSec];
             if (decorSec) parts.push('', decorSec);
-            parts.push('', `Estimated Price: INR ${estimate}`, '', 'Note: Pricing may vary with fuel MRP and booking hours. Please verify final estimate with our team via WhatsApp or call.');
+            parts.push('', 'Note: Pricing may vary with fuel MRP and booking hours. Please verify final price with our team via WhatsApp or call.');
 
             return parts.filter(Boolean).join('\n');
         }
@@ -971,9 +925,7 @@
             const endLocation = document.getElementById('endLocation').value;
             const vehicle = document.getElementById('vehicle').value;
             const date = document.getElementById('date').value;
-            const eventHours = document.getElementById('eventHours').value;
             const drivingOption = document.getElementById('drivingOption').value;
-            const customDriving = document.getElementById('customDriving').value;
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
@@ -1005,12 +957,9 @@
             document.getElementById('summaryName').textContent = name;
             document.getElementById('summaryPhone').textContent = `+91${phone}`;
             document.getElementById('summaryEmail').textContent = email;
-            document.getElementById('summaryHours').textContent = eventHours || 'Not specified';
-            const driveText = drivingOption === 'Other' && customDriving ? customDriving : drivingOption;
-            document.getElementById('summaryDriving').textContent = driveText || 'Not specified';
+            document.getElementById('summaryDriving').textContent = drivingOption || 'Not specified';
             const decorText = wantDecoration === 'Yes' ? (decoration ? decoration : 'Yes') : 'No';
             document.getElementById('summaryDecoration').textContent = decorText;
-            document.getElementById('summaryEstimate').textContent = document.getElementById('totalEstimate').textContent;
             document.getElementById('summaryMessage').textContent = message || '—';
             document.getElementById('bookingSummary').style.display = 'block';
             
@@ -1039,6 +988,10 @@
             
             // Hide car image
             document.getElementById('carImageContainer').classList.remove('show');
+            // Hide self-drive note
+            document.getElementById('selfDriveNote').style.display = 'none';
+            document.querySelectorAll('.driving-option').forEach(opt => opt.classList.remove('selected'));
+            document.getElementById('drivingOption').value = '';
         });
 
         // Set minimum date to today
@@ -1058,78 +1011,22 @@
             }
         });
 
-        // Event hours selection
-        document.querySelectorAll('.hour-option').forEach(option => {
-            option.addEventListener('click', function() {
-                // Remove selected class from all options
-                document.querySelectorAll('.hour-option').forEach(opt => {
-                    opt.classList.remove('selected');
-                });
-
-                // Add selected class to clicked option
-                this.classList.add('selected');
-
-                // Set hidden input and sync duration input
-                document.getElementById('eventHours').value = this.dataset.hours;
-                const durationInput = document.getElementById('duration');
-                if (durationInput) durationInput.value = this.dataset.hours;
-                calculateEstimate();
-            });
-        });
-
-        // Event distance selection
-        document.querySelectorAll('.distance-option').forEach(option => {
-            option.addEventListener('click', function() {
-                document.querySelectorAll('.distance-option').forEach(opt => {
-                    opt.classList.remove('selected');
-                });
-
-                this.classList.add('selected');
-                document.getElementById('eventDistance').value = this.dataset.distance;
-                const distanceInput = document.getElementById('distance');
-                if (distanceInput) distanceInput.value = this.dataset.distance;
-                calculateEstimate();
-            });
-        });
-
-        const distanceInputEl = document.getElementById('distance');
-        if (distanceInputEl) {
-            distanceInputEl.addEventListener('input', function() {
-                document.getElementById('eventDistance').value = this.value;
-                calculateEstimate();
-            });
-        }
-
-        const durationInputEl = document.getElementById('duration');
-        if (durationInputEl) {
-            durationInputEl.addEventListener('input', function() {
-                document.getElementById('eventHours').value = this.value;
-                calculateEstimate();
-            });
-        }
-
-        // Driving options selection
+        // Driving options selection with self-drive note
         document.querySelectorAll('.driving-option').forEach(option => {
             option.addEventListener('click', function() {
-                // Remove selected class from all options
                 document.querySelectorAll('.driving-option').forEach(opt => {
                     opt.classList.remove('selected');
                 });
-                
-                // Add selected class to clicked option
+
                 this.classList.add('selected');
-                
-                // Set hidden input value
                 const optionValue = this.dataset.option;
                 document.getElementById('drivingOption').value = optionValue;
-                
-                // Show/hide custom input
-                const customDrivingInput = document.getElementById('customDrivingInput');
-                if (optionValue === 'Other') {
-                    customDrivingInput.classList.add('show');
+
+                const selfDriveNote = document.getElementById('selfDriveNote');
+                if (optionValue === 'Self Drive') {
+                    selfDriveNote.style.display = 'block';
                 } else {
-                    customDrivingInput.classList.remove('show');
-                    document.getElementById('customDriving').value = '';
+                    selfDriveNote.style.display = 'none';
                 }
             });
         });
@@ -1153,7 +1050,6 @@
 
                 // Update hidden field
                 document.getElementById('wantDecoration').value = this.value;
-                calculateEstimate();
             });
         });
 
@@ -1161,75 +1057,8 @@
         document.querySelectorAll('input[name="decorationTypeRadio"]').forEach(radio => {
             radio.addEventListener('change', function() {
                 document.getElementById('decoration').value = this.value;
-                calculateEstimate();
             });
         });
-        const CAR_RATES = {
-            'AUDI A6': 16000,
-            'BMW 5 Series F10 (Old Shape)': 0,
-            'BMW 5 Series G30': 0,
-            'BMW Convertible': 26000,
-            'Hyundai Creta': 12000,
-            'Hyundai Verna': 12000,
-            'Mercedes CLA 200': 14000,
-            'Mercedes G Wagon': 160000,
-            'Mercedes S Class': 22000,
-            'Range Rover Sport': 85000,
-            'Range Rover Sport 2': 125000
-        };
-
-        const DECORATION_COSTS = {
-            'Fresh': 1000,
-            'Artificial': 500
-        };
-
-        function calculateEstimate() {
-            const vehicle = document.getElementById('vehicle')?.value;
-            const carRate = CAR_RATES[vehicle] || 0;
-
-            const wantDecoration = document.querySelector('input[name="wantDecorationRadio"]:checked')?.value;
-            let decorationCost = 0;
-            if (wantDecoration === 'Yes') {
-                const decoType = document.querySelector('input[name="decorationTypeRadio"]:checked')?.value;
-                decorationCost = DECORATION_COSTS[decoType] || 0;
-            }
-
-            const baseDistance = 20;
-            const distance = parseFloat(document.getElementById('distance')?.value) || 0;
-            let distanceCost = 0;
-            if (distance > baseDistance) {
-                distanceCost = Math.ceil((distance - baseDistance) / 2) * 100;
-            }
-
-            const duration = parseFloat(document.getElementById('duration')?.value) || 0;
-            let hourlyCost = 0;
-            if (duration > 10) {
-                hourlyCost = (duration - 10) * carRate * 0.04;
-            }
-
-            const total = carRate + decorationCost + distanceCost + hourlyCost;
-            const estimateEl = document.getElementById('totalEstimate');
-            if (estimateEl) {
-                estimateEl.textContent = total;
-            }
-
-            const noteEl = document.getElementById('estimateNote');
-            if (noteEl) {
-                let note = '*Pricing includes 20 km and 10 hours.';
-                const reasons = [];
-                if (distance > baseDistance) reasons.push('extra distance');
-                if (duration > 10) reasons.push('extra time');
-                if (reasons.length) {
-                    note += ' Additional charges added for ' + reasons.join(' and ') + '.';
-                }
-                note += ' Final estimate may vary with fuel MRP. Please verify with our team via WhatsApp or call.';
-                noteEl.textContent = note;
-            }
-        }
-
-        const vehicleEl = document.getElementById('vehicle');
-        if (vehicleEl) vehicleEl.addEventListener('change', calculateEstimate);
-        calculateEstimate();
     </script>
 </body>
 </html>
