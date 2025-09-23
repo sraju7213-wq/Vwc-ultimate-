@@ -5,6 +5,7 @@
 | AUDI A6 | 16000 |
 | BMW 5 Series F10 (Old Shape) | TBD |
 | BMW 5 Series G30 | TBD |
+| BMW 520D | TBD |
 | BMW Convertible | 26000 |
 | Hyundai Creta | 12000 |
 | Hyundai Verna | 12000 |
