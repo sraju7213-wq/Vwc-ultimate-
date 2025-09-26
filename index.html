@@ -50,7 +50,9 @@
         body.light-theme .input-note,
         body.light-theme .decor-label,
         body.light-theme .driving-option,
-        body.light-theme .instagram-link {
+        body.light-theme .instagram-link,
+        body.light-theme .helper-text,
+        body.light-theme .error-message {
             color: #000000;
         }
 
@@ -547,6 +549,59 @@
             opacity: 0.8;
         }
 
+        .helper-text {
+            display: block;
+            font-size: 0.75rem;
+            margin-top: 4px;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .error-message {
+            font-size: 0.8rem;
+            color: #ff6b6b;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .input-error {
+            border-color: #ff6b6b !important;
+            box-shadow: 0 0 0 1px rgba(255, 107, 107, 0.4);
+        }
+
+        body.light-theme .input-error {
+            border-color: #b00020 !important;
+            box-shadow: 0 0 0 1px rgba(176, 0, 32, 0.2);
+        }
+
+        .conditional-input {
+            margin-top: 12px;
+            display: none;
+        }
+
+        .conditional-input label {
+            margin-bottom: 6px;
+        }
+
+        .pincode-field {
+            margin-top: 10px;
+        }
+
+        .pincode-field input {
+            max-width: 180px;
+        }
+
+        body.light-theme .helper-text {
+            color: #555555;
+        }
+
+        body.light-theme .error-message {
+            color: #b00020;
+        }
+
         /* Removed interactive option styles for event hours and distance */
 
         .driving-options {
@@ -621,15 +676,6 @@
             grid-column: 1 / -1;
         }
 
-        #bookingForm .service-section {
-            grid-column: 1;
-            grid-row: 2;
-        }
-
-        #bookingForm .location-section {
-            grid-column: 2;
-            grid-row: 2;
-        }
     </style>
 </head>
 <body>
@@ -670,7 +716,7 @@
                 </fieldset>
             </div>
 
-            <div class="form-section service-section">
+            <div class="form-section service-section full-width">
                 <h2 class="section-title"><i class="fas fa-car"></i> Service Type</h2>
                 <fieldset class="segmented" role="radiogroup" aria-label="Service type">
                     <label class="seg-item">
@@ -699,57 +745,31 @@
                     </label>
                 </fieldset>
                 <input type="hidden" id="serviceType" name="serviceType" value="Wedding">
-
-                <div id="decorBlock" class="decor-wrap" aria-live="polite">
-                    <div class="decor-row">
-                        <span class="decor-label">Want Decoration?</span>
-                        <fieldset class="segmented small" role="radiogroup" aria-label="Want decoration">
-                            <label class="seg-item">
-                                <input type="radio" name="wantDecorationRadio" value="No" checked>
-                                <span>No</span>
-                            </label>
-                            <label class="seg-item">
-                                <input type="radio" name="wantDecorationRadio" value="Yes">
-                                <span>Yes</span>
-                            </label>
-                        </fieldset>
-                    </div>
-
-                    <!-- Decoration Type Options - Hidden by default -->
-                    <div id="decorationOptions" class="decoration-options">
-                        <div class="decor-type">
-                            <span class="decor-label">Decoration Type</span>
-                            <fieldset class="segmented small" role="radiogroup" aria-label="Decoration type">
-                                <label class="seg-item">
-                                    <input type="radio" name="decorationTypeRadio" value="Artificial">
-                                    <span>Artificial</span>
-                                </label>
-                                <label class="seg-item">
-                                    <input type="radio" name="decorationTypeRadio" value="Fresh">
-                                    <span>Fresh</span>
-                                </label>
-                            </fieldset>
-                        </div>
-                    </div>
-
-                    <input type="hidden" id="wantDecoration" name="wantDecoration" value="No">
-                    <input type="hidden" id="decoration" name="decoration" value="">
-                </div>
             </div>
 
-            <div class="form-section location-section">
+            <div class="form-section location-section full-width">
                 <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> Location Details</h2>
-                
+
                 <div class="form-group">
                     <label for="startLocation">Event Start Location</label>
                     <small class="input-note">Fill the full location with the pin code.</small>
                     <textarea id="startLocation" name="startLocation" rows="2" placeholder="Enter start location..." required></textarea>
+                    <div class="pincode-field">
+                        <label for="startPincode">Pincode <span style="color:#ff6b6b;">*</span></label>
+                        <input type="text" id="startPincode" name="startPincode" placeholder="190006" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" required>
+                        <span id="startPincodeError" class="error-message">Please enter valid 6-digit pincode</span>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="endLocation">Event End Location</label>
                     <small class="input-note">Fill the full location with the pin code.</small>
                     <textarea id="endLocation" name="endLocation" rows="2" placeholder="Enter end location..." required></textarea>
+                    <div class="pincode-field">
+                        <label for="endPincode">Pincode <span style="color:#ff6b6b;">*</span></label>
+                        <input type="text" id="endPincode" name="endPincode" placeholder="190006" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" required>
+                        <span id="endPincodeError" class="error-message">Please enter valid 6-digit pincode</span>
+                    </div>
                 </div>
             </div>
 
@@ -777,11 +797,17 @@
                     <label for="date">Event Date:</label>
                     <input type="date" id="date" name="date" required>
                 </div>
+
+                <div class="form-group">
+                    <label for="time">Event Time:</label>
+                    <input type="time" id="time" name="time" required>
+                    <span class="helper-text">When you want car at the mentioned location</span>
+                </div>
             </div>
 
             <div class="form-section personal-info">
                 <h2 class="section-title"><i class="fas fa-user"></i> Personal Information</h2>
-                
+
                 <div class="form-group">
                     <label for="name">Full Name:</label>
                     <input type="text" id="name" name="name" placeholder="Enter your full name" required>
@@ -796,8 +822,66 @@
                     <label for="phone">Phone Number:</label>
                     <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
                 </div>
+            </div>
 
-                <div class="form-group">
+            <div class="form-section additional-details full-width">
+                <h2 class="section-title"><i class="fas fa-info-circle"></i> Additional Details</h2>
+
+                <div id="decorBlock" class="decor-wrap" aria-live="polite">
+                    <div class="decor-row">
+                        <span class="decor-label">Want Decoration?</span>
+                        <fieldset class="segmented small" role="radiogroup" aria-label="Want decoration">
+                            <label class="seg-item">
+                                <input type="radio" name="wantDecorationRadio" value="No" checked>
+                                <span>No</span>
+                            </label>
+                            <label class="seg-item">
+                                <input type="radio" name="wantDecorationRadio" value="Yes">
+                                <span>Yes</span>
+                            </label>
+                        </fieldset>
+                    </div>
+
+                    <div id="decorationOptions" class="decoration-options">
+                        <div class="decor-type">
+                            <span class="decor-label">Decoration Type</span>
+                            <fieldset class="segmented small" role="radiogroup" aria-label="Decoration type">
+                                <label class="seg-item">
+                                    <input type="radio" name="decorationTypeRadio" value="Artificial">
+                                    <span>Artificial</span>
+                                </label>
+                                <label class="seg-item">
+                                    <input type="radio" name="decorationTypeRadio" value="Fresh">
+                                    <span>Fresh</span>
+                                </label>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="wantDecoration" name="wantDecoration" value="No">
+                    <input type="hidden" id="decoration" name="decoration" value="">
+                </div>
+
+                <div class="decor-row" style="margin-top: 20px;">
+                    <span class="decor-label">Want Customized Name Plate?</span>
+                    <fieldset class="segmented small" role="radiogroup" aria-label="Want customized name plate">
+                        <label class="seg-item">
+                            <input type="radio" name="customNamePlateRadio" value="No" checked>
+                            <span>No</span>
+                        </label>
+                        <label class="seg-item">
+                            <input type="radio" name="customNamePlateRadio" value="Yes">
+                            <span>Yes</span>
+                        </label>
+                    </fieldset>
+                </div>
+
+                <div id="customNamePlateInputWrapper" class="conditional-input" aria-live="polite">
+                    <label for="customNamePlateText" class="decor-label">Custom Name Plate Text</label>
+                    <input type="text" id="customNamePlateText" name="customNamePlateText" placeholder="Enter custom text for name plate" maxlength="50">
+                </div>
+
+                <div class="form-group" style="margin-top: 20px;">
                     <label for="message">Special Requests:</label>
                     <textarea id="message" name="message" rows="4" placeholder="Any special requirements or notes..."></textarea>
                 </div>
@@ -860,6 +944,10 @@
                     <span class="summary-value" id="summaryDate">2025-01-01</span>
                 </div>
                 <div class="summary-item">
+                    <span class="summary-label">Time:</span>
+                    <span class="summary-value" id="summaryTime">—</span>
+                </div>
+                <div class="summary-item">
                     <span class="summary-label">Name:</span>
                     <span class="summary-value" id="summaryName">John Doe</span>
                 </div>
@@ -877,11 +965,15 @@
                 </div>
                 <div class="summary-item">
                     <span class="summary-label">Decoration:</span>
-                    <span class="summary-value" id="summaryDecoration"></span>
+                    <span class="summary-value" id="summaryDecoration">No</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Name Plate:</span>
+                    <span class="summary-value" id="summaryNamePlate">No</span>
                 </div>
                 <div class="summary-item">
                     <span class="summary-label">Message:</span>
-                    <span class="summary-value" id="summaryMessage"></span>
+                    <span class="summary-value" id="summaryMessage">—</span>
                 </div>
             </div>
 
@@ -916,6 +1008,49 @@
             "Range Rover Sport": "https://i.postimg.cc/rwCgTKdj/Range-Rover-Sport.jpg"
         };
 
+        // Restrict input to numbers only
+        function numericOnly(input) {
+            if (!input) return;
+            input.value = input.value.replace(/[^0-9]/g, '');
+        }
+
+        // Validate pincode length
+        function validatePincode(input) {
+            if (!input) return false;
+            return input.value.trim().length === 6;
+        }
+
+        function togglePincodeError(input, errorEl, shouldShow) {
+            if (!input || !errorEl) return;
+            if (shouldShow) {
+                errorEl.classList.add('show');
+                input.classList.add('input-error');
+            } else {
+                errorEl.classList.remove('show');
+                input.classList.remove('input-error');
+            }
+        }
+
+        function attachPincodeValidation(inputId, errorId) {
+            const input = document.getElementById(inputId);
+            const errorEl = document.getElementById(errorId);
+            if (!input || !errorEl) return;
+
+            input.addEventListener('input', () => {
+                const sanitized = input.value.replace(/[^0-9]/g, '');
+                if (sanitized !== input.value) {
+                    input.value = sanitized;
+                    togglePincodeError(input, errorEl, true);
+                    return;
+                }
+                togglePincodeError(input, errorEl, false);
+            });
+
+            input.addEventListener('blur', () => {
+                togglePincodeError(input, errorEl, !validatePincode(input));
+            });
+        }
+
         // WhatsApp message builder function
         function buildBookingMessage() {
             // Helper to safely get values
@@ -939,9 +1074,19 @@
             // Decoration fields
             const wantDecoration = getVal('wantDecoration');
             const decorationType = getVal('decoration');
-            
-            const startLocationStr = startLocation;
-            const endLocationStr = endLocation;
+            const eventTime = getVal('time');
+            const startPincode = getVal('startPincode');
+            const endPincode = getVal('endPincode');
+            const customNamePlate = document.querySelector('input[name="customNamePlateRadio"]:checked')?.value || 'No';
+            const customNamePlateText = getVal('customNamePlateText');
+
+            const formatLocation = (location, pincode) => {
+                if (!location) return '';
+                return pincode ? `${location} (Pincode: ${pincode})` : location;
+            };
+
+            const startLocationStr = formatLocation(startLocation, startPincode);
+            const endLocationStr = formatLocation(endLocation, endPincode);
             
             // Sections
             const header = 'Valley Wedding Cars — Booking Request';
@@ -957,6 +1102,7 @@
             const eventSec = [
                 'Event',
                 `- Date: ${eventDate}`,
+                eventTime ? `- Time: ${eventTime}` : null,
                 `- Service: ${service}`,
                 `- Vehicle: ${vehicle}`,
                 `- Start: ${startLocationStr}`,
@@ -964,23 +1110,36 @@
                 `- Driving: ${drivingOption || 'Not specified'}`,
                 message ? `- Special Requests: ${message}` : null
             ].filter(Boolean).join('\n');
-            
-            // Decoration section only for Wedding
-            let decorSec = '';
-            if (service === 'Wedding' && wantDecoration === 'Yes') {
+
+            const additionalSections = [];
+
+            if (service === 'Wedding' || wantDecoration === 'Yes') {
                 const decorLines = [
                     'Decoration',
                     `- Need Decoration: ${wantDecoration || 'No'}`
                 ];
-                if (decorationType) {
-                    decorLines.push(`- Type: ${decorationType}`);
+                if (wantDecoration === 'Yes' && decorationType) {
+                    decorLines.push(`- Decoration Type: ${decorationType}`);
                 }
-                decorSec = decorLines.join('\n');
+                additionalSections.push(decorLines.join('\n'));
             }
-            
+
+            if (customNamePlate) {
+                const namePlateLines = [
+                    'Name Plate',
+                    `- Want Customized Name Plate: ${customNamePlate}`
+                ];
+                if (customNamePlate === 'Yes' && customNamePlateText) {
+                    namePlateLines.push(`- Text: ${customNamePlateText}`);
+                }
+                additionalSections.push(namePlateLines.join('\n'));
+            }
+
             // Join all non-empty sections
             const parts = [header, divider, clientSec, '', eventSec];
-            if (decorSec) parts.push('', decorSec);
+            if (additionalSections.length) {
+                parts.push('', 'Additional Details', additionalSections.join('\n\n'));
+            }
             parts.push('', 'Note: Pricing may vary with fuel MRP and booking hours. Please verify final price with our team via WhatsApp or call.');
 
             return parts.filter(Boolean).join('\n');
@@ -1004,6 +1163,10 @@
                 alert('Please select event date.');
                 return;
             }
+            if (!document.getElementById('time')?.value.trim()) {
+                alert('Please select event time.');
+                return;
+            }
             if (!document.getElementById('serviceType')?.value.trim()) {
                 alert('Please select a service type.');
                 return;
@@ -1020,32 +1183,101 @@
                 alert('Please enter end location.');
                 return;
             }
-            
+
+            const startPincodeInput = document.getElementById('startPincode');
+            const endPincodeInput = document.getElementById('endPincode');
+            const startPincodeError = document.getElementById('startPincodeError');
+            const endPincodeError = document.getElementById('endPincodeError');
+
+            numericOnly(startPincodeInput);
+            numericOnly(endPincodeInput);
+
+            const startValid = validatePincode(startPincodeInput);
+            togglePincodeError(startPincodeInput, startPincodeError, !startValid);
+            if (!startValid) {
+                alert('Please enter valid start location pincode.');
+                startPincodeInput.focus();
+                return;
+            }
+
+            const endValid = validatePincode(endPincodeInput);
+            togglePincodeError(endPincodeInput, endPincodeError, !endValid);
+            if (!endValid) {
+                alert('Please enter valid end location pincode.');
+                endPincodeInput.focus();
+                return;
+            }
+
+            const customNamePlateChoice = document.querySelector('input[name="customNamePlateRadio"]:checked')?.value || 'No';
+            if (customNamePlateChoice === 'Yes') {
+                const customNamePlateField = document.getElementById('customNamePlateText');
+                if (!customNamePlateField.value.trim()) {
+                    customNamePlateField.classList.add('input-error');
+                    alert('Please enter custom text for name plate.');
+                    customNamePlateField.focus();
+                    return;
+                }
+                customNamePlateField.classList.remove('input-error');
+            }
+
             const msg = buildBookingMessage();
             const phoneIntl = '918826139339'; // Updated WhatsApp number
             const url = `https://wa.me/${phoneIntl}?text=${encodeURIComponent(msg)}`;
             window.open(url, '_blank', 'noopener,noreferrer');
         }
 
+        attachPincodeValidation('startPincode', 'startPincodeError');
+        attachPincodeValidation('endPincode', 'endPincodeError');
+
+        const customNamePlateWrapper = document.getElementById('customNamePlateInputWrapper');
+        const customNamePlateInput = document.getElementById('customNamePlateText');
+        document.querySelectorAll('input[name="customNamePlateRadio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'Yes') {
+                    customNamePlateWrapper.style.display = 'block';
+                    customNamePlateInput.required = true;
+                    customNamePlateInput.focus();
+                } else {
+                    customNamePlateWrapper.style.display = 'none';
+                    customNamePlateInput.required = false;
+                    customNamePlateInput.value = '';
+                    customNamePlateInput.classList.remove('input-error');
+                }
+            });
+        });
+
         // Add event listener to form submit
+        customNamePlateInput.addEventListener('input', () => {
+            if (customNamePlateInput.value.trim().length) {
+                customNamePlateInput.classList.remove('input-error');
+            }
+        });
+
         document.getElementById('bookingForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             // Get form values
             const enquiryType = document.querySelector('input[name="enquiryType"]:checked')?.value || 'Just Checking';
             const serviceType = document.querySelector('input[name="serviceTypeRadio"]:checked')?.value || 'Wedding';
             const wantDecoration = document.querySelector('input[name="wantDecorationRadio"]:checked')?.value || 'No';
             const decoration = document.querySelector('input[name="decorationTypeRadio"]:checked')?.value || '';
-            const startLocation = document.getElementById('startLocation').value;
-            const endLocation = document.getElementById('endLocation').value;
+            const startLocation = document.getElementById('startLocation').value.trim();
+            const endLocation = document.getElementById('endLocation').value.trim();
             const vehicle = document.getElementById('vehicle').value;
             const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
             const drivingOption = document.getElementById('drivingOption').value;
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
             const message = document.getElementById('message').value;
-            
+            const startPincodeInput = document.getElementById('startPincode');
+            const endPincodeInput = document.getElementById('endPincode');
+            const startPincodeError = document.getElementById('startPincodeError');
+            const endPincodeError = document.getElementById('endPincodeError');
+            const customNamePlateChoice = document.querySelector('input[name="customNamePlateRadio"]:checked')?.value || 'No';
+            const customNamePlateText = customNamePlateInput.value.trim();
+
             // Validate form
             if (!startLocation) {
                 alert('Please enter start location.');
@@ -1056,55 +1288,105 @@
                 alert('Please enter end location.');
                 return;
             }
-            
-            if (!vehicle || !date || !name || !email || !phone) {
+
+            if (!vehicle || !date || !time || !name || !email || !phone) {
                 alert('Please fill in all required fields');
                 return;
             }
-            
+
+            numericOnly(startPincodeInput);
+            numericOnly(endPincodeInput);
+
+            const startValid = validatePincode(startPincodeInput);
+            togglePincodeError(startPincodeInput, startPincodeError, !startValid);
+            if (!startValid) {
+                alert('Please enter valid start location pincode.');
+                startPincodeInput.focus();
+                return;
+            }
+
+            const endValid = validatePincode(endPincodeInput);
+            togglePincodeError(endPincodeInput, endPincodeError, !endValid);
+            if (!endValid) {
+                alert('Please enter valid end location pincode.');
+                endPincodeInput.focus();
+                return;
+            }
+
+            if (customNamePlateChoice === 'Yes' && !customNamePlateText) {
+                customNamePlateInput.classList.add('input-error');
+                alert('Please enter custom text for name plate.');
+                customNamePlateInput.focus();
+                return;
+            }
+
+            const startPincode = startPincodeInput.value.trim();
+            const endPincode = endPincodeInput.value.trim();
+
+            const formatSummaryLocation = (location, pincode) => {
+                if (!location) return '—';
+                return pincode ? `${location} (Pincode: ${pincode})` : location;
+            };
+
             // Display booking summary
             document.getElementById('summaryEnquiry').textContent = enquiryType;
             document.getElementById('summaryService').textContent = serviceType;
-            document.getElementById('summaryStart').textContent = startLocation;
-            document.getElementById('summaryEnd').textContent = endLocation;
+            document.getElementById('summaryStart').textContent = formatSummaryLocation(startLocation, startPincode);
+            document.getElementById('summaryEnd').textContent = formatSummaryLocation(endLocation, endPincode);
             document.getElementById('summaryVehicle').textContent = vehicle;
             document.getElementById('summaryDate').textContent = date;
+            document.getElementById('summaryTime').textContent = time || '—';
             document.getElementById('summaryName').textContent = name;
             document.getElementById('summaryPhone').textContent = `+91${phone}`;
             document.getElementById('summaryEmail').textContent = email;
             document.getElementById('summaryDriving').textContent = drivingOption || 'Not specified';
-            const decorText = wantDecoration === 'Yes' ? (decoration ? decoration : 'Yes') : 'No';
+            const decorText = wantDecoration === 'Yes' ? (decoration ? `${wantDecoration} (${decoration})` : 'Yes') : 'No';
             document.getElementById('summaryDecoration').textContent = decorText;
+            const namePlateSummary = customNamePlateChoice === 'Yes' ? (customNamePlateText ? `Yes — ${customNamePlateText}` : 'Yes') : 'No';
+            document.getElementById('summaryNamePlate').textContent = namePlateSummary;
             document.getElementById('summaryMessage').textContent = message || '—';
             document.getElementById('bookingSummary').style.display = 'block';
-            
+
             // Open WhatsApp
             openWhatsAppWithBooking();
-            
+
             // Reset form
             this.reset();
-            
-            // Reset service selection
+
+            document.getElementById('serviceType').value = 'Wedding';
+            document.getElementById('wantDecoration').value = 'No';
+            document.getElementById('decoration').value = '';
+
+            // Reset selections
             document.querySelectorAll('input[name="serviceTypeRadio"]').forEach(radio => {
                 radio.checked = radio.value === 'Wedding';
             });
-            
-            // Reset decoration selection
+
             document.querySelectorAll('input[name="wantDecorationRadio"]').forEach(radio => {
                 radio.checked = radio.value === 'No';
             });
-            
+
             document.querySelectorAll('input[name="decorationTypeRadio"]').forEach(radio => {
                 radio.checked = false;
             });
-            
-            // Hide decoration options
+
+            document.querySelectorAll('input[name="customNamePlateRadio"]').forEach(radio => {
+                radio.checked = radio.value === 'No';
+            });
+
+            // Hide conditional blocks
             document.getElementById('decorationOptions').classList.remove('show');
-            
-            // Hide car image
+            customNamePlateWrapper.style.display = 'none';
+            customNamePlateInput.required = false;
+            customNamePlateInput.value = '';
+            customNamePlateInput.classList.remove('input-error');
+
+            togglePincodeError(startPincodeInput, startPincodeError, false);
+            togglePincodeError(endPincodeInput, endPincodeError, false);
+
+            // Hide car image and driving selections
             document.getElementById('carImageContainer').classList.remove('show');
             document.getElementById('fullViewButton').style.display = 'none';
-            // Hide self-drive note
             document.getElementById('selfDriveNote').style.display = 'none';
             document.querySelectorAll('.driving-option').forEach(opt => opt.classList.remove('selected'));
             document.getElementById('drivingOption').value = '';
@@ -1169,6 +1451,8 @@
                     decorationOptions.classList.add('show');
                 } else {
                     decorationOptions.classList.remove('show');
+                    document.querySelectorAll('input[name="decorationTypeRadio"]').forEach(dec => dec.checked = false);
+                    document.getElementById('decoration').value = '';
                 }
 
                 // Update hidden field
