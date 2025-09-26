@@ -378,6 +378,20 @@
             flex: 1;
         }
 
+        .segmented-stack {
+            margin-top: 25px;
+        }
+
+        .section-subtitle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #FFD700;
+            margin-bottom: 12px;
+        }
+
         /* Remove fieldset default styling */
         fieldset {
             border: none !important;
@@ -387,13 +401,53 @@
             padding: 0;
         }
 
-        .decor-label{ 
+        .decor-label{
             color:#d4af37;
-            font-weight:700 
+            font-weight:700
         }
-        
-        .decor-type{ 
-            margin-top:8px 
+
+        .decor-row {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .decor-row:first-of-type {
+            margin-top: 0;
+        }
+
+        .decor-type{
+            margin-top:8px
+        }
+
+        .nameplate-details {
+            display: none;
+            margin-top: 15px;
+        }
+
+        .nameplate-details.show {
+            display: block;
+        }
+
+        .nameplate-details label {
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .location-input-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .location-input-row textarea {
+            flex: 1;
+        }
+
+        .pin-input {
+            width: 130px;
+            min-width: 100px;
         }
 
         .btn {
@@ -621,7 +675,7 @@
             grid-column: 1 / -1;
         }
 
-        #bookingForm .service-section {
+        #bookingForm .additional-details {
             grid-column: 1;
             grid-row: 2;
         }
@@ -668,37 +722,41 @@
                         <span>Booking Now</span>
                     </label>
                 </fieldset>
+
+                <div class="segmented-stack" aria-live="polite">
+                    <span class="section-subtitle"><i class="fas fa-car"></i> Service Type</span>
+                    <fieldset class="segmented" role="radiogroup" aria-label="Service type">
+                        <label class="seg-item">
+                            <input type="radio" name="serviceTypeRadio" value="Wedding" checked>
+                            <span>Wedding</span>
+                        </label>
+                        <label class="seg-item">
+                            <input type="radio" name="serviceTypeRadio" value="Engagement">
+                            <span>Engagement</span>
+                        </label>
+                        <label class="seg-item">
+                            <input type="radio" name="serviceTypeRadio" value="Proposal">
+                            <span>Proposal</span>
+                        </label>
+                        <label class="seg-item">
+                            <input type="radio" name="serviceTypeRadio" value="Photoshoot/video shoot">
+                            <span>Photoshoot/Video Shoot</span>
+                        </label>
+                        <label class="seg-item">
+                            <input type="radio" name="serviceTypeRadio" value="Airport Pickup/Drop">
+                            <span>Airport Pickup/Drop</span>
+                        </label>
+                        <label class="seg-item">
+                            <input type="radio" name="serviceTypeRadio" value="Sightseeing/Luxury Tour">
+                            <span>Sightseeing/Luxury Tour</span>
+                        </label>
+                    </fieldset>
+                </div>
+                <input type="hidden" id="serviceType" name="serviceType" value="Wedding">
             </div>
 
-            <div class="form-section service-section">
-                <h2 class="section-title"><i class="fas fa-car"></i> Service Type</h2>
-                <fieldset class="segmented" role="radiogroup" aria-label="Service type">
-                    <label class="seg-item">
-                        <input type="radio" name="serviceTypeRadio" value="Wedding" checked>
-                        <span>Wedding</span>
-                    </label>
-                    <label class="seg-item">
-                        <input type="radio" name="serviceTypeRadio" value="Engagement">
-                        <span>Engagement</span>
-                    </label>
-                    <label class="seg-item">
-                        <input type="radio" name="serviceTypeRadio" value="Proposal">
-                        <span>Proposal</span>
-                    </label>
-                    <label class="seg-item">
-                        <input type="radio" name="serviceTypeRadio" value="Photoshoot/video shoot">
-                        <span>Photoshoot/Video Shoot</span>
-                    </label>
-                    <label class="seg-item">
-                        <input type="radio" name="serviceTypeRadio" value="Airport Pickup/Drop">
-                        <span>Airport Pickup/Drop</span>
-                    </label>
-                    <label class="seg-item">
-                        <input type="radio" name="serviceTypeRadio" value="Sightseeing/Luxury Tour">
-                        <span>Sightseeing/Luxury Tour</span>
-                    </label>
-                </fieldset>
-                <input type="hidden" id="serviceType" name="serviceType" value="Wedding">
+            <div class="form-section additional-details">
+                <h2 class="section-title"><i class="fas fa-sparkles"></i> Additional Details</h2>
 
                 <div id="decorBlock" class="decor-wrap" aria-live="polite">
                     <div class="decor-row">
@@ -732,8 +790,29 @@
                         </div>
                     </div>
 
+                    <div class="decor-row">
+                        <span class="decor-label">Want Customized Name Plate?</span>
+                        <fieldset class="segmented small" role="radiogroup" aria-label="Want customized name plate">
+                            <label class="seg-item">
+                                <input type="radio" name="wantNamePlateRadio" value="No" checked>
+                                <span>No</span>
+                            </label>
+                            <label class="seg-item">
+                                <input type="radio" name="wantNamePlateRadio" value="Yes">
+                                <span>Yes</span>
+                            </label>
+                        </fieldset>
+                    </div>
+
+                    <div id="namePlateDetails" class="nameplate-details">
+                        <label for="namePlateText">Name Plate Details</label>
+                        <input type="text" id="namePlateText" name="namePlateText" placeholder="Enter the name plate text...">
+                    </div>
+
                     <input type="hidden" id="wantDecoration" name="wantDecoration" value="No">
                     <input type="hidden" id="decoration" name="decoration" value="">
+                    <input type="hidden" id="wantNamePlate" name="wantNamePlate" value="No">
+                    <input type="hidden" id="namePlateDetailsHidden" name="namePlateDetails" value="">
                 </div>
             </div>
 
@@ -743,13 +822,19 @@
                 <div class="form-group">
                     <label for="startLocation">Event Start Location</label>
                     <small class="input-note">Fill the full location with the pin code.</small>
-                    <textarea id="startLocation" name="startLocation" rows="2" placeholder="Enter start location..." required></textarea>
+                    <div class="location-input-row">
+                        <textarea id="startLocation" name="startLocation" rows="2" placeholder="Enter start location..." required></textarea>
+                        <input type="text" id="startPin" name="startPin" class="pin-input" placeholder="Pin Code" inputmode="numeric" pattern="\d*" required>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="endLocation">Event End Location</label>
                     <small class="input-note">Fill the full location with the pin code.</small>
-                    <textarea id="endLocation" name="endLocation" rows="2" placeholder="Enter end location..." required></textarea>
+                    <div class="location-input-row">
+                        <textarea id="endLocation" name="endLocation" rows="2" placeholder="Enter end location..." required></textarea>
+                        <input type="text" id="endPin" name="endPin" class="pin-input" placeholder="Pin Code" inputmode="numeric" pattern="\d*" required>
+                    </div>
                 </div>
             </div>
 
@@ -776,6 +861,12 @@
                 <div class="form-group">
                     <label for="date">Event Date:</label>
                     <input type="date" id="date" name="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventTime">Event Time</label>
+                    <small class="input-note">When do you want the car at the mentioned location?</small>
+                    <input type="time" id="eventTime" name="eventTime">
                 </div>
             </div>
 
@@ -860,6 +951,10 @@
                     <span class="summary-value" id="summaryDate">2025-01-01</span>
                 </div>
                 <div class="summary-item">
+                    <span class="summary-label">Event Time:</span>
+                    <span class="summary-value" id="summaryEventTime">—</span>
+                </div>
+                <div class="summary-item">
                     <span class="summary-label">Name:</span>
                     <span class="summary-value" id="summaryName">John Doe</span>
                 </div>
@@ -878,6 +973,10 @@
                 <div class="summary-item">
                     <span class="summary-label">Decoration:</span>
                     <span class="summary-value" id="summaryDecoration"></span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Name Plate:</span>
+                    <span class="summary-value" id="summaryNamePlate"></span>
                 </div>
                 <div class="summary-item">
                     <span class="summary-label">Message:</span>
@@ -929,19 +1028,29 @@
             const phone = getVal('phone');
             const email = getVal('email');
             const eventDate = getVal('date');
+            const eventTime = getVal('eventTime');
             const service = getVal('serviceType');
             const vehicle = getVal('vehicle');
             const startLocation = getVal('startLocation');
             const endLocation = getVal('endLocation');
+            const startPin = getVal('startPin');
+            const endPin = getVal('endPin');
             const drivingOption = getVal('drivingOption');
             const message = getVal('message');
 
             // Decoration fields
             const wantDecoration = getVal('wantDecoration');
             const decorationType = getVal('decoration');
-            
-            const startLocationStr = startLocation;
-            const endLocationStr = endLocation;
+            const wantNamePlate = getVal('wantNamePlate');
+            const namePlateDetails = getVal('namePlateDetailsHidden');
+
+            const formatLocationWithPin = (location, pin) => {
+                if (!location) return '';
+                return pin ? `${location} (Pin: ${pin})` : location;
+            };
+
+            const startLocationStr = formatLocationWithPin(startLocation, startPin);
+            const endLocationStr = formatLocationWithPin(endLocation, endPin);
             
             // Sections
             const header = 'Valley Wedding Cars — Booking Request';
@@ -962,9 +1071,10 @@
                 `- Start: ${startLocationStr}`,
                 `- End: ${endLocationStr}`,
                 `- Driving: ${drivingOption || 'Not specified'}`,
+                eventTime ? `- Time: ${eventTime}` : null,
                 message ? `- Special Requests: ${message}` : null
             ].filter(Boolean).join('\n');
-            
+
             // Decoration section only for Wedding
             let decorSec = '';
             if (service === 'Wedding' && wantDecoration === 'Yes') {
@@ -977,10 +1087,23 @@
                 }
                 decorSec = decorLines.join('\n');
             }
-            
+
+            let namePlateSec = '';
+            if (wantNamePlate === 'Yes') {
+                const namePlateLines = [
+                    'Name Plate',
+                    `- Customized Plate: ${wantNamePlate}`
+                ];
+                if (namePlateDetails) {
+                    namePlateLines.push(`- Details: ${namePlateDetails}`);
+                }
+                namePlateSec = namePlateLines.join('\n');
+            }
+
             // Join all non-empty sections
             const parts = [header, divider, clientSec, '', eventSec];
             if (decorSec) parts.push('', decorSec);
+            if (namePlateSec) parts.push('', namePlateSec);
             parts.push('', 'Note: Pricing may vary with fuel MRP and booking hours. Please verify final price with our team via WhatsApp or call.');
 
             return parts.filter(Boolean).join('\n');
@@ -1016,8 +1139,16 @@
                 alert('Please enter start location.');
                 return;
             }
+            if (!document.getElementById('startPin')?.value.trim()) {
+                alert('Please enter start location pin code.');
+                return;
+            }
             if (!document.getElementById('endLocation')?.value.trim()) {
                 alert('Please enter end location.');
+                return;
+            }
+            if (!document.getElementById('endPin')?.value.trim()) {
+                alert('Please enter end location pin code.');
                 return;
             }
             
@@ -1036,15 +1167,20 @@
             const serviceType = document.querySelector('input[name="serviceTypeRadio"]:checked')?.value || 'Wedding';
             const wantDecoration = document.querySelector('input[name="wantDecorationRadio"]:checked')?.value || 'No';
             const decoration = document.querySelector('input[name="decorationTypeRadio"]:checked')?.value || '';
+            const wantNamePlate = document.querySelector('input[name="wantNamePlateRadio"]:checked')?.value || 'No';
             const startLocation = document.getElementById('startLocation').value;
             const endLocation = document.getElementById('endLocation').value;
+            const startPin = document.getElementById('startPin').value.trim();
+            const endPin = document.getElementById('endPin').value.trim();
             const vehicle = document.getElementById('vehicle').value;
             const date = document.getElementById('date').value;
+            const eventTime = document.getElementById('eventTime').value;
             const drivingOption = document.getElementById('drivingOption').value;
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
             const message = document.getElementById('message').value;
+            const namePlateDetails = document.getElementById('namePlateText').value.trim();
             
             // Validate form
             if (!startLocation) {
@@ -1065,16 +1201,20 @@
             // Display booking summary
             document.getElementById('summaryEnquiry').textContent = enquiryType;
             document.getElementById('summaryService').textContent = serviceType;
-            document.getElementById('summaryStart').textContent = startLocation;
-            document.getElementById('summaryEnd').textContent = endLocation;
+            const formatSummaryLocation = (location, pin) => pin ? `${location} (Pin: ${pin})` : location;
+            document.getElementById('summaryStart').textContent = formatSummaryLocation(startLocation, startPin);
+            document.getElementById('summaryEnd').textContent = formatSummaryLocation(endLocation, endPin);
             document.getElementById('summaryVehicle').textContent = vehicle;
             document.getElementById('summaryDate').textContent = date;
+            document.getElementById('summaryEventTime').textContent = eventTime || 'Not specified';
             document.getElementById('summaryName').textContent = name;
             document.getElementById('summaryPhone').textContent = `+91${phone}`;
             document.getElementById('summaryEmail').textContent = email;
             document.getElementById('summaryDriving').textContent = drivingOption || 'Not specified';
             const decorText = wantDecoration === 'Yes' ? (decoration ? decoration : 'Yes') : 'No';
             document.getElementById('summaryDecoration').textContent = decorText;
+            const namePlateText = wantNamePlate === 'Yes' ? (namePlateDetails ? namePlateDetails : 'Yes') : 'No';
+            document.getElementById('summaryNamePlate').textContent = namePlateText;
             document.getElementById('summaryMessage').textContent = message || '—';
             document.getElementById('bookingSummary').style.display = 'block';
             
@@ -1093,14 +1233,28 @@
             document.querySelectorAll('input[name="wantDecorationRadio"]').forEach(radio => {
                 radio.checked = radio.value === 'No';
             });
-            
+
             document.querySelectorAll('input[name="decorationTypeRadio"]').forEach(radio => {
                 radio.checked = false;
             });
-            
+
+            document.querySelectorAll('input[name="wantNamePlateRadio"]').forEach(radio => {
+                radio.checked = radio.value === 'No';
+            });
+
             // Hide decoration options
             document.getElementById('decorationOptions').classList.remove('show');
-            
+            document.getElementById('wantDecoration').value = 'No';
+            document.getElementById('decoration').value = '';
+
+            const namePlateDetailsWrap = document.getElementById('namePlateDetails');
+            const namePlateInputEl = document.getElementById('namePlateText');
+            namePlateDetailsWrap.classList.remove('show');
+            namePlateInputEl.value = '';
+            namePlateInputEl.removeAttribute('required');
+            document.getElementById('wantNamePlate').value = 'No';
+            document.getElementById('namePlateDetailsHidden').value = '';
+
             // Hide car image
             document.getElementById('carImageContainer').classList.remove('show');
             document.getElementById('fullViewButton').style.display = 'none';
@@ -1169,6 +1323,10 @@
                     decorationOptions.classList.add('show');
                 } else {
                     decorationOptions.classList.remove('show');
+                    document.getElementById('decoration').value = '';
+                    document.querySelectorAll('input[name="decorationTypeRadio"]').forEach(decRadio => {
+                        decRadio.checked = false;
+                    });
                 }
 
                 // Update hidden field
@@ -1180,6 +1338,37 @@
         document.querySelectorAll('input[name="decorationTypeRadio"]').forEach(radio => {
             radio.addEventListener('change', function() {
                 document.getElementById('decoration').value = this.value;
+            });
+        });
+
+        document.querySelectorAll('input[name="wantNamePlateRadio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const namePlateWrap = document.getElementById('namePlateDetails');
+                const namePlateInput = document.getElementById('namePlateText');
+                const hiddenWant = document.getElementById('wantNamePlate');
+                const hiddenDetails = document.getElementById('namePlateDetailsHidden');
+
+                hiddenWant.value = this.value;
+                if (this.value === 'Yes') {
+                    namePlateWrap.classList.add('show');
+                    namePlateInput.setAttribute('required', 'required');
+                    namePlateInput.focus();
+                } else {
+                    namePlateWrap.classList.remove('show');
+                    namePlateInput.value = '';
+                    namePlateInput.removeAttribute('required');
+                    hiddenDetails.value = '';
+                }
+            });
+        });
+
+        document.getElementById('namePlateText').addEventListener('input', function() {
+            document.getElementById('namePlateDetailsHidden').value = this.value.trim();
+        });
+
+        document.querySelectorAll('.pin-input').forEach(input => {
+            input.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '');
             });
         });
     </script>
