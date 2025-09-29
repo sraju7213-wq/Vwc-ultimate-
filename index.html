@@ -866,7 +866,7 @@
                 <div class="form-group">
                     <label for="eventTime">Event Time</label>
                     <small class="input-note">When do you want the car at the mentioned location?</small>
-                    <input type="time" id="eventTime" name="eventTime">
+                    <input type="time" id="eventTime" name="eventTime" required>
                 </div>
             </div>
 
@@ -890,7 +890,7 @@
 
                 <div class="form-group">
                     <label for="message">Special Requests:</label>
-                    <textarea id="message" name="message" rows="4" placeholder="Any special requirements or notes..."></textarea>
+                    <textarea id="message" name="message" rows="4" placeholder="Please share any special requirements or event details..." required></textarea>
                 </div>
             </div>
 
@@ -1014,6 +1014,18 @@
             "MERCEDES S-CLASS S350": "https://i.postimg.cc/cLNTPQJ6/MERCEDES-S-CLASS-S350.jpg",
             "Range Rover Sport": "https://i.postimg.cc/rwCgTKdj/Range-Rover-Sport.jpg"
         };
+
+        const decorationRadios = Array.from(document.querySelectorAll('input[name="decorationTypeRadio"]'));
+        function toggleDecorationRequirement(isRequired) {
+            decorationRadios.forEach(radio => {
+                if (isRequired) {
+                    radio.setAttribute('required', 'required');
+                } else {
+                    radio.removeAttribute('required');
+                }
+            });
+        }
+        toggleDecorationRequirement(false);
 
         // WhatsApp message builder function
         function buildBookingMessage() {
@@ -1151,7 +1163,29 @@
                 alert('Please enter end location pin code.');
                 return;
             }
-            
+            if (!document.getElementById('eventTime')?.value.trim()) {
+                alert('Please select event time.');
+                return;
+            }
+            if (!document.getElementById('drivingOption')?.value.trim()) {
+                alert('Please choose a driving option.');
+                return;
+            }
+            const wantDecorationValue = document.querySelector('input[name="wantDecorationRadio"]:checked')?.value;
+            if (wantDecorationValue === 'Yes' && !document.querySelector('input[name="decorationTypeRadio"]:checked')) {
+                alert('Please select a decoration type.');
+                return;
+            }
+            const wantNamePlateValue = document.querySelector('input[name="wantNamePlateRadio"]:checked')?.value;
+            if (wantNamePlateValue === 'Yes' && !document.getElementById('namePlateText')?.value.trim()) {
+                alert('Please enter name plate details.');
+                return;
+            }
+            if (!document.getElementById('message')?.value.trim()) {
+                alert('Please provide special requirements or event details.');
+                return;
+            }
+
             const msg = buildBookingMessage();
             const phoneIntl = '918826139339'; // Updated WhatsApp number
             const url = `https://wa.me/${phoneIntl}?text=${encodeURIComponent(msg)}`;
@@ -1168,20 +1202,20 @@
             const wantDecoration = document.querySelector('input[name="wantDecorationRadio"]:checked')?.value || 'No';
             const decoration = document.querySelector('input[name="decorationTypeRadio"]:checked')?.value || '';
             const wantNamePlate = document.querySelector('input[name="wantNamePlateRadio"]:checked')?.value || 'No';
-            const startLocation = document.getElementById('startLocation').value;
-            const endLocation = document.getElementById('endLocation').value;
+            const startLocation = document.getElementById('startLocation').value.trim();
+            const endLocation = document.getElementById('endLocation').value.trim();
             const startPin = document.getElementById('startPin').value.trim();
             const endPin = document.getElementById('endPin').value.trim();
             const vehicle = document.getElementById('vehicle').value;
             const date = document.getElementById('date').value;
-            const eventTime = document.getElementById('eventTime').value;
-            const drivingOption = document.getElementById('drivingOption').value;
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const message = document.getElementById('message').value;
+            const eventTime = document.getElementById('eventTime').value.trim();
+            const drivingOption = document.getElementById('drivingOption').value.trim();
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const message = document.getElementById('message').value.trim();
             const namePlateDetails = document.getElementById('namePlateText').value.trim();
-            
+
             // Validate form
             if (!startLocation) {
                 alert('Please enter start location.');
@@ -1192,9 +1226,44 @@
                 alert('Please enter end location.');
                 return;
             }
-            
+
+            if (!startPin) {
+                alert('Please enter start location pin code.');
+                return;
+            }
+
+            if (!endPin) {
+                alert('Please enter end location pin code.');
+                return;
+            }
+
+            if (!eventTime) {
+                alert('Please select event time.');
+                return;
+            }
+
+            if (!drivingOption) {
+                alert('Please choose a driving option.');
+                return;
+            }
+
             if (!vehicle || !date || !name || !email || !phone) {
                 alert('Please fill in all required fields');
+                return;
+            }
+
+            if (wantDecoration === 'Yes' && !decoration) {
+                alert('Please select a decoration type.');
+                return;
+            }
+
+            if (wantNamePlate === 'Yes' && !namePlateDetails) {
+                alert('Please provide name plate details.');
+                return;
+            }
+
+            if (!message) {
+                alert('Please provide special requirements or event details.');
                 return;
             }
             
@@ -1206,16 +1275,16 @@
             document.getElementById('summaryEnd').textContent = formatSummaryLocation(endLocation, endPin);
             document.getElementById('summaryVehicle').textContent = vehicle;
             document.getElementById('summaryDate').textContent = date;
-            document.getElementById('summaryEventTime').textContent = eventTime || 'Not specified';
+            document.getElementById('summaryEventTime').textContent = eventTime;
             document.getElementById('summaryName').textContent = name;
             document.getElementById('summaryPhone').textContent = `+91${phone}`;
             document.getElementById('summaryEmail').textContent = email;
-            document.getElementById('summaryDriving').textContent = drivingOption || 'Not specified';
+            document.getElementById('summaryDriving').textContent = drivingOption;
             const decorText = wantDecoration === 'Yes' ? (decoration ? decoration : 'Yes') : 'No';
             document.getElementById('summaryDecoration').textContent = decorText;
             const namePlateText = wantNamePlate === 'Yes' ? (namePlateDetails ? namePlateDetails : 'Yes') : 'No';
             document.getElementById('summaryNamePlate').textContent = namePlateText;
-            document.getElementById('summaryMessage').textContent = message || '—';
+            document.getElementById('summaryMessage').textContent = message;
             document.getElementById('bookingSummary').style.display = 'block';
             
             // Open WhatsApp
@@ -1234,9 +1303,10 @@
                 radio.checked = radio.value === 'No';
             });
 
-            document.querySelectorAll('input[name="decorationTypeRadio"]').forEach(radio => {
+            decorationRadios.forEach(radio => {
                 radio.checked = false;
             });
+            toggleDecorationRequirement(false);
 
             document.querySelectorAll('input[name="wantNamePlateRadio"]').forEach(radio => {
                 radio.checked = radio.value === 'No';
@@ -1321,12 +1391,14 @@
                 const decorationOptions = document.getElementById('decorationOptions');
                 if (this.value === 'Yes') {
                     decorationOptions.classList.add('show');
+                    toggleDecorationRequirement(true);
                 } else {
                     decorationOptions.classList.remove('show');
                     document.getElementById('decoration').value = '';
-                    document.querySelectorAll('input[name="decorationTypeRadio"]').forEach(decRadio => {
+                    decorationRadios.forEach(decRadio => {
                         decRadio.checked = false;
                     });
+                    toggleDecorationRequirement(false);
                 }
 
                 // Update hidden field
@@ -1335,7 +1407,7 @@
         });
 
         // Decoration type selection - update hidden field
-        document.querySelectorAll('input[name="decorationTypeRadio"]').forEach(radio => {
+        decorationRadios.forEach(radio => {
             radio.addEventListener('change', function() {
                 document.getElementById('decoration').value = this.value;
             });
