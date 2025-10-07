@@ -632,6 +632,30 @@
             color: #FFD700;
         }
 
+        .price-total-amount {
+            display: flex;
+            gap: 10px;
+            align-items: baseline;
+        }
+
+        .price-original {
+            text-decoration: line-through;
+            color: rgba(255, 215, 0, 0.6);
+            font-weight: 400;
+        }
+
+        .price-final {
+            color: #4CAF50;
+            font-weight: 700;
+        }
+
+        .price-savings {
+            margin-top: 6px;
+            font-size: 0.9rem;
+            color: #4CAF50;
+            text-align: right;
+        }
+
         .price-note {
             margin-top: 15px;
             font-size: 0.85rem;
@@ -647,6 +671,15 @@
         body.light-theme .price-total,
         body.light-theme .price-note {
             color: #000000;
+        }
+
+        body.light-theme .price-original {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        body.light-theme .price-final,
+        body.light-theme .price-savings {
+            color: #1b5e20;
         }
 
         .input-note {
@@ -978,8 +1011,12 @@
                     </div>
                     <div class="price-total">
                         <span>Total Estimate</span>
-                        <span id="priceTotal">₹0</span>
+                        <span id="priceTotal" class="price-total-amount">
+                            <span class="price-original">₹0</span>
+                            <span class="price-final">₹0</span>
+                        </span>
                     </div>
+                    <p class="price-savings" id="priceSavings" style="display:none;">You save 15% — limited-time offer!</p>
                 </div>
                 <p class="price-note">Final pricing may vary based on availability and special requests. Our team will confirm the quotation with you.</p>
             </div>
@@ -1125,6 +1162,7 @@
         const priceDiscountEl = document.getElementById('priceDiscount');
         const priceSurchargeEl = document.getElementById('priceSurcharge');
         const priceTotalEl = document.getElementById('priceTotal');
+        const priceSavingsEl = document.getElementById('priceSavings');
         const priceDiscountRow = document.getElementById('priceDiscountRow');
         const priceSurchargeRow = document.getElementById('priceSurchargeRow');
 
@@ -1197,6 +1235,7 @@
                 priceEstimatorEl.style.display = 'none';
                 if (priceDiscountRow) priceDiscountRow.style.display = 'none';
                 if (priceSurchargeRow) priceSurchargeRow.style.display = 'none';
+                if (priceSavingsEl) priceSavingsEl.style.display = 'none';
                 return;
             }
 
@@ -1228,7 +1267,20 @@
                 }
             }
 
-            priceTotalEl.textContent = formatCurrency(breakdown.total);
+            if (priceTotalEl) {
+                const inflatedTotal = Math.round(breakdown.total * 1.15);
+                const originalAmount = inflatedTotal > 0 ? inflatedTotal : breakdown.total;
+                priceTotalEl.innerHTML = `<span class="price-original">${formatCurrency(originalAmount)}</span> <span class="price-final">${formatCurrency(breakdown.total)}</span>`;
+            }
+
+            if (priceSavingsEl) {
+                if (breakdown.total > 0) {
+                    priceSavingsEl.style.display = 'block';
+                    priceSavingsEl.textContent = 'You save 15% — limited-time offer!';
+                } else {
+                    priceSavingsEl.style.display = 'none';
+                }
+            }
         }
 
         const decorationRadios = Array.from(document.querySelectorAll('input[name="decorationTypeRadio"]'));
