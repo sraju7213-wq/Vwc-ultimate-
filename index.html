@@ -593,6 +593,62 @@
             color: #000000;
         }
 
+        .price-estimator {
+            background: rgba(255, 215, 0, 0.08);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            display: none;
+        }
+
+        .price-breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+
+        .price-row.adjustment {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .price-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            color: #FFD700;
+        }
+
+        .price-note {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: rgba(255, 215, 0, 0.85);
+        }
+
+        body.light-theme .price-estimator {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: #dddddd;
+        }
+
+        body.light-theme .price-row,
+        body.light-theme .price-total,
+        body.light-theme .price-note {
+            color: #000000;
+        }
+
         .input-note {
             display: block;
             font-size: 0.85rem;
@@ -899,6 +955,35 @@
                 <button id="fullViewButton" class="btn" style="display:none;" onclick="window.open(document.getElementById('carImage').src, '_blank')">Full View</button>
             </div>
 
+            <div class="price-estimator full-width" id="priceEstimator">
+                <h3 style="color: #FFD700; margin-bottom: 15px; text-align: center;">
+                    <i class="fas fa-calculator"></i> Live Price Estimate
+                </h3>
+                <div class="price-breakdown">
+                    <div class="price-row">
+                        <span>Vehicle Cost</span>
+                        <span id="priceVehicle">₹0</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Decoration Cost</span>
+                        <span id="priceDecoration">₹0</span>
+                    </div>
+                    <div class="price-row adjustment" id="priceDiscountRow" style="display:none;">
+                        <span>Srinagar Discount (15%)</span>
+                        <span id="priceDiscount">-₹0</span>
+                    </div>
+                    <div class="price-row adjustment" id="priceSurchargeRow" style="display:none;">
+                        <span>Outside Srinagar Surcharge (10%)</span>
+                        <span id="priceSurcharge">+₹0</span>
+                    </div>
+                    <div class="price-total">
+                        <span>Total Estimate</span>
+                        <span id="priceTotal">₹0</span>
+                    </div>
+                </div>
+                <p class="price-note">Final pricing may vary based on availability and special requests. Our team will confirm the quotation with you.</p>
+            </div>
+
             <div class="form-section driving-section full-width">
                 <h2 class="section-title"><i class="fas fa-car-side"></i> Driving Options</h2>
                 <div class="driving-options" id="drivingOptions">
@@ -1015,6 +1100,137 @@
             "Range Rover Sport": "https://i.postimg.cc/rwCgTKdj/Range-Rover-Sport.jpg"
         };
 
+        const VEHICLE_PRICES = {
+            "AUDI A6": 16000,
+            "BMW 330 D Convertible": 26000,
+            "BMW 5 Series F10 (Old Shape)": 16000,
+            "BMW 520D": 16000,
+            "BMW 5 SERIES G30 (New Shape)": 24000,
+            "Mercedes G-Wagon": 132000,
+            "MERCEDES Maybach": 85000,
+            "MERCEDES S-CLASS S350": 18000,
+            "Range Rover Sport": 85000
+        };
+
+        const DECORATION_PRICES = {
+            "Artificial": 0,
+            "Fresh": 7000
+        };
+
+        const SRINAGAR_PINS = new Set(["190001", "190002", "190003", "190004", "190005", "190006", "190007", "190008", "190009", "190010"]);
+
+        const priceEstimatorEl = document.getElementById('priceEstimator');
+        const priceVehicleEl = document.getElementById('priceVehicle');
+        const priceDecorationEl = document.getElementById('priceDecoration');
+        const priceDiscountEl = document.getElementById('priceDiscount');
+        const priceSurchargeEl = document.getElementById('priceSurcharge');
+        const priceTotalEl = document.getElementById('priceTotal');
+        const priceDiscountRow = document.getElementById('priceDiscountRow');
+        const priceSurchargeRow = document.getElementById('priceSurchargeRow');
+
+        function formatCurrency(amount) {
+            return `₹${amount.toLocaleString('en-IN')}`;
+        }
+
+        function calculatePriceBreakdown() {
+            const vehicleValue = document.getElementById('vehicle').value;
+            const vehiclePrice = VEHICLE_PRICES[vehicleValue] || 0;
+
+            if (!vehicleValue || !vehiclePrice) {
+                return {
+                    show: false,
+                    vehiclePrice: 0,
+                    decorationPrice: 0,
+                    discount: 0,
+                    surcharge: 0,
+                    total: 0
+                };
+            }
+
+            const wantDecoration = document.querySelector('input[name="wantDecorationRadio"]:checked')?.value;
+            const decorationType = wantDecoration === 'Yes'
+                ? document.querySelector('input[name="decorationTypeRadio"]:checked')?.value
+                : null;
+            const decorationPrice = (wantDecoration === 'Yes' && decorationType)
+                ? (DECORATION_PRICES[decorationType] || 0)
+                : 0;
+
+            const basePrice = vehiclePrice + decorationPrice;
+            const startPin = document.getElementById('startPin').value.trim();
+            const endPin = document.getElementById('endPin').value.trim();
+
+            let discount = 0;
+            let surcharge = 0;
+            let total = basePrice;
+
+            if (startPin && endPin) {
+                const startInSrinagar = SRINAGAR_PINS.has(startPin);
+                const endInSrinagar = SRINAGAR_PINS.has(endPin);
+
+                if (startInSrinagar && endInSrinagar) {
+                    discount = Math.round(basePrice * 0.15);
+                    total = basePrice - discount;
+                } else if (!startInSrinagar || !endInSrinagar) {
+                    surcharge = Math.round(basePrice * 0.10);
+                    total = basePrice + surcharge;
+                }
+            }
+
+            return {
+                show: true,
+                vehiclePrice,
+                decorationPrice,
+                discount,
+                surcharge,
+                total
+            };
+        }
+
+        function updatePriceEstimator() {
+            if (!priceEstimatorEl || !priceVehicleEl || !priceTotalEl) {
+                return;
+            }
+
+            const breakdown = calculatePriceBreakdown();
+
+            if (!breakdown.show) {
+                priceEstimatorEl.style.display = 'none';
+                if (priceDiscountRow) priceDiscountRow.style.display = 'none';
+                if (priceSurchargeRow) priceSurchargeRow.style.display = 'none';
+                return;
+            }
+
+            priceEstimatorEl.style.display = 'block';
+            priceVehicleEl.textContent = formatCurrency(breakdown.vehiclePrice);
+            if (priceDecorationEl) {
+                priceDecorationEl.textContent = formatCurrency(breakdown.decorationPrice);
+            }
+
+            if (priceDiscountRow) {
+                if (breakdown.discount > 0) {
+                    priceDiscountRow.style.display = 'flex';
+                    if (priceDiscountEl) {
+                        priceDiscountEl.textContent = `-₹${breakdown.discount.toLocaleString('en-IN')}`;
+                    }
+                } else {
+                    priceDiscountRow.style.display = 'none';
+                }
+            }
+
+            if (priceSurchargeRow) {
+                if (breakdown.surcharge > 0) {
+                    priceSurchargeRow.style.display = 'flex';
+                    if (priceSurchargeEl) {
+                        priceSurchargeEl.textContent = `+₹${breakdown.surcharge.toLocaleString('en-IN')}`;
+                    }
+                } else {
+                    priceSurchargeRow.style.display = 'none';
+                }
+            }
+
+            priceTotalEl.textContent = formatCurrency(breakdown.total);
+        }
+
         const decorationRadios = Array.from(document.querySelectorAll('input[name="decorationTypeRadio"]'));
         function toggleDecorationRequirement(isRequired) {
             decorationRadios.forEach(radio => {
@@ -1112,10 +1328,31 @@
                 namePlateSec = namePlateLines.join('\n');
             }
 
+            const priceDetails = calculatePriceBreakdown();
+            let estimateSec = '';
+            if (priceDetails.show) {
+                const priceLines = [
+                    'Estimate',
+                    `- Vehicle: ${formatCurrency(priceDetails.vehiclePrice)}`
+                ];
+                if (priceDetails.decorationPrice > 0) {
+                    priceLines.push(`- Decoration: ${formatCurrency(priceDetails.decorationPrice)}`);
+                }
+                if (priceDetails.discount > 0) {
+                    priceLines.push(`- Srinagar Discount: -${formatCurrency(priceDetails.discount)}`);
+                }
+                if (priceDetails.surcharge > 0) {
+                    priceLines.push(`- Outside Srinagar Surcharge: +${formatCurrency(priceDetails.surcharge)}`);
+                }
+                priceLines.push(`- Total Estimate: ${formatCurrency(priceDetails.total)}`);
+                estimateSec = priceLines.join('\n');
+            }
+
             // Join all non-empty sections
             const parts = [header, divider, clientSec, '', eventSec];
             if (decorSec) parts.push('', decorSec);
             if (namePlateSec) parts.push('', namePlateSec);
+            if (estimateSec) parts.push('', estimateSec);
             parts.push('', 'Note: Pricing may vary with fuel MRP and booking hours. Please verify final price with our team via WhatsApp or call.');
 
             return parts.filter(Boolean).join('\n');
@@ -1332,6 +1569,8 @@
             document.getElementById('selfDriveNote').style.display = 'none';
             document.querySelectorAll('.driving-option').forEach(opt => opt.classList.remove('selected'));
             document.getElementById('drivingOption').value = '';
+
+            updatePriceEstimator();
         });
 
         // Set minimum date to today
@@ -1339,7 +1578,10 @@
         document.getElementById('date').min = today;
 
         // Car selection with image display and full view option
-        document.getElementById('vehicle').addEventListener('change', updateCarImage);
+        document.getElementById('vehicle').addEventListener('change', () => {
+            updateCarImage();
+            updatePriceEstimator();
+        });
 
         function updateCarImage() {
             const carSelect = document.getElementById('vehicle');
@@ -1403,6 +1645,7 @@
 
                 // Update hidden field
                 document.getElementById('wantDecoration').value = this.value;
+                updatePriceEstimator();
             });
         });
 
@@ -1410,6 +1653,7 @@
         decorationRadios.forEach(radio => {
             radio.addEventListener('change', function() {
                 document.getElementById('decoration').value = this.value;
+                updatePriceEstimator();
             });
         });
 
@@ -1441,8 +1685,11 @@
         document.querySelectorAll('.pin-input').forEach(input => {
             input.addEventListener('input', function() {
                 this.value = this.value.replace(/\D/g, '');
+                updatePriceEstimator();
             });
         });
+
+        updatePriceEstimator();
     </script>
 </body>
 </html>
