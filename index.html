@@ -634,8 +634,20 @@
 
         .price-total-amount {
             display: flex;
-            gap: 10px;
-            align-items: baseline;
+            gap: 16px;
+            align-items: flex-end;
+        }
+
+        .price-total-block {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+        }
+
+        .price-total-label {
+            font-size: 0.75rem;
+            color: rgba(255, 215, 0, 0.7);
         }
 
         .price-original {
@@ -644,10 +656,24 @@
             font-weight: 400;
         }
 
+        .price-original-vehicle {
+            text-decoration: line-through;
+            opacity: 0.6;
+            margin-left: 8px;
+            font-size: 0.9rem;
+            color: rgba(255, 215, 0, 0.6);
+        }
+
         .price-final {
             color: #4CAF50;
             font-weight: 700;
         }
+
+        .price-base-total {
+            color: rgba(255, 215, 0, 0.85);
+            font-weight: 600;
+        }
+
 
         .price-savings {
             margin-top: 6px;
@@ -675,6 +701,18 @@
 
         body.light-theme .price-original {
             color: rgba(0, 0, 0, 0.5);
+        }
+
+        body.light-theme .price-original-vehicle {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        body.light-theme .price-total-label {
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        body.light-theme .price-base-total {
+            color: rgba(0, 0, 0, 0.75);
         }
 
         body.light-theme .price-final,
@@ -1012,8 +1050,10 @@
                     <div class="price-total">
                         <span>Total Estimate</span>
                         <span id="priceTotal" class="price-total-amount">
-                            <span class="price-original">₹0</span>
-                            <span class="price-final">₹0</span>
+                            <span class="price-total-block price-total-block-final">
+                                <span class="price-total-label">You Pay</span>
+                                <span class="price-final">₹0</span>
+                            </span>
                         </span>
                     </div>
                     <p class="price-savings" id="priceSavings" style="display:none;">You save 15% — limited-time offer!</p>
@@ -1166,22 +1206,32 @@
         const priceDiscountRow = document.getElementById('priceDiscountRow');
         const priceSurchargeRow = document.getElementById('priceSurchargeRow');
 
-        function formatCurrency(amount) {
-            return `₹${amount.toLocaleString('en-IN')}`;
+        function formatINR(amount) {
+            if (typeof amount !== 'number' || Number.isNaN(amount)) {
+                return '₹0';
+            }
+
+            return amount.toLocaleString('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+                maximumFractionDigits: 0
+            });
         }
 
         function calculatePriceBreakdown() {
             const vehicleValue = document.getElementById('vehicle').value;
-            const vehiclePrice = VEHICLE_PRICES[vehicleValue] || 0;
+            const baseVehiclePrice = VEHICLE_PRICES[vehicleValue];
 
-            if (!vehicleValue || !vehiclePrice) {
+            if (!vehicleValue || typeof baseVehiclePrice !== 'number') {
                 return {
                     show: false,
-                    vehiclePrice: 0,
-                    decorationPrice: 0,
+                    vehicleCost: 0,
+                    decorationCost: 0,
                     discount: 0,
                     surcharge: 0,
-                    total: 0
+                    total: 0,
+                    originalVehicleCost: 0,
+                    originalTotal: 0
                 };
             }
 
@@ -1189,38 +1239,53 @@
             const decorationType = wantDecoration === 'Yes'
                 ? document.querySelector('input[name="decorationTypeRadio"]:checked')?.value
                 : null;
-            const decorationPrice = (wantDecoration === 'Yes' && decorationType)
+            const decorationCost = (wantDecoration === 'Yes' && decorationType)
                 ? (DECORATION_PRICES[decorationType] || 0)
                 : 0;
 
-            const basePrice = vehiclePrice + decorationPrice;
             const startPin = document.getElementById('startPin').value.trim();
             const endPin = document.getElementById('endPin').value.trim();
 
-            let discount = 0;
-            let surcharge = 0;
-            let total = basePrice;
+            let vehicleCost = baseVehiclePrice;
+            let originalVehicleCost = baseVehiclePrice;
 
-            if (startPin && endPin) {
+            const hasLocation = startPin && endPin;
+            if (hasLocation) {
                 const startInSrinagar = SRINAGAR_PINS.has(startPin);
                 const endInSrinagar = SRINAGAR_PINS.has(endPin);
+                const isWithinSrinagar = startInSrinagar && endInSrinagar;
+                const isOutsideSrinagar = !isWithinSrinagar;
 
-                if (startInSrinagar && endInSrinagar) {
-                    discount = Math.round(basePrice * 0.15);
-                    total = basePrice - discount;
-                } else if (!startInSrinagar || !endInSrinagar) {
-                    surcharge = Math.round(basePrice * 0.10);
-                    total = basePrice + surcharge;
+                if (isWithinSrinagar) {
+                    const discountedAmount = Math.round(baseVehiclePrice * 0.15);
+                    vehicleCost = baseVehiclePrice - discountedAmount;
+                    originalVehicleCost = Math.round(vehicleCost / (1 - 0.15));
+                } else if (isOutsideSrinagar) {
+                    const surchargeAmount = Math.round(baseVehiclePrice * 0.10);
+                    vehicleCost = baseVehiclePrice + surchargeAmount;
+                    originalVehicleCost = baseVehiclePrice;
                 }
             }
 
+            if (!hasLocation) {
+                originalVehicleCost = vehicleCost;
+            }
+
+            const discount = Math.max(0, originalVehicleCost - vehicleCost);
+            const surcharge = Math.max(0, vehicleCost - originalVehicleCost);
+
+            const total = vehicleCost + decorationCost;
+            const originalTotal = originalVehicleCost + decorationCost;
+
             return {
                 show: true,
-                vehiclePrice,
-                decorationPrice,
+                vehicleCost,
+                originalVehicleCost,
+                decorationCost,
                 discount,
                 surcharge,
-                total
+                total,
+                originalTotal
             };
         }
 
@@ -1240,16 +1305,21 @@
             }
 
             priceEstimatorEl.style.display = 'block';
-            priceVehicleEl.textContent = formatCurrency(breakdown.vehiclePrice);
+            const vehicleCostText = formatINR(breakdown.vehicleCost);
+            if (breakdown.originalVehicleCost && breakdown.originalVehicleCost > breakdown.vehicleCost) {
+                priceVehicleEl.innerHTML = `${vehicleCostText} <span class="price-original-vehicle" aria-label="original price">${formatINR(breakdown.originalVehicleCost)}</span>`;
+            } else {
+                priceVehicleEl.textContent = vehicleCostText;
+            }
             if (priceDecorationEl) {
-                priceDecorationEl.textContent = formatCurrency(breakdown.decorationPrice);
+                priceDecorationEl.textContent = formatINR(breakdown.decorationCost);
             }
 
             if (priceDiscountRow) {
                 if (breakdown.discount > 0) {
                     priceDiscountRow.style.display = 'flex';
                     if (priceDiscountEl) {
-                        priceDiscountEl.textContent = `-₹${breakdown.discount.toLocaleString('en-IN')}`;
+                        priceDiscountEl.textContent = `-${formatINR(breakdown.discount)}`;
                     }
                 } else {
                     priceDiscountRow.style.display = 'none';
@@ -1260,7 +1330,7 @@
                 if (breakdown.surcharge > 0) {
                     priceSurchargeRow.style.display = 'flex';
                     if (priceSurchargeEl) {
-                        priceSurchargeEl.textContent = `+₹${breakdown.surcharge.toLocaleString('en-IN')}`;
+                        priceSurchargeEl.textContent = `+${formatINR(breakdown.surcharge)}`;
                     }
                 } else {
                     priceSurchargeRow.style.display = 'none';
@@ -1268,13 +1338,31 @@
             }
 
             if (priceTotalEl) {
-                const inflatedTotal = Math.round(breakdown.total * 1.15);
-                const originalAmount = inflatedTotal > 0 ? inflatedTotal : breakdown.total;
-                priceTotalEl.innerHTML = `<span class="price-original">${formatCurrency(originalAmount)}</span> <span class="price-final">${formatCurrency(breakdown.total)}</span>`;
+                const hasDifference = typeof breakdown.originalTotal === 'number' && Math.round(breakdown.originalTotal) !== Math.round(breakdown.total);
+                if (hasDifference) {
+                    const originalAmountClass = breakdown.originalTotal > breakdown.total ? 'price-original' : 'price-base-total';
+                    priceTotalEl.innerHTML = `
+                        <span class="price-total-block" aria-label="original total">
+                            <span class="price-total-label">Original Total</span>
+                            <span class="${originalAmountClass}">${formatINR(breakdown.originalTotal)}</span>
+                        </span>
+                        <span class="price-total-block price-total-block-final" aria-label="you pay">
+                            <span class="price-total-label">You Pay</span>
+                            <span class="price-final">${formatINR(breakdown.total)}</span>
+                        </span>
+                    `.trim();
+                } else {
+                    priceTotalEl.innerHTML = `
+                        <span class="price-total-block price-total-block-final" aria-label="you pay">
+                            <span class="price-total-label">You Pay</span>
+                            <span class="price-final">${formatINR(breakdown.total)}</span>
+                        </span>
+                    `.trim();
+                }
             }
 
             if (priceSavingsEl) {
-                if (breakdown.total > 0) {
+                if (breakdown.discount > 0) {
                     priceSavingsEl.style.display = 'block';
                     priceSavingsEl.textContent = 'You save 15% — limited-time offer!';
                 } else {
@@ -1385,18 +1473,18 @@
             if (priceDetails.show) {
                 const priceLines = [
                     'Estimate',
-                    `- Vehicle: ${formatCurrency(priceDetails.vehiclePrice)}`
+                    `- Vehicle: ${formatINR(priceDetails.vehicleCost)}`
                 ];
-                if (priceDetails.decorationPrice > 0) {
-                    priceLines.push(`- Decoration: ${formatCurrency(priceDetails.decorationPrice)}`);
+                if (priceDetails.decorationCost > 0) {
+                    priceLines.push(`- Decoration: ${formatINR(priceDetails.decorationCost)}`);
                 }
                 if (priceDetails.discount > 0) {
-                    priceLines.push(`- Srinagar Discount: -${formatCurrency(priceDetails.discount)}`);
+                    priceLines.push(`- Srinagar Discount: -${formatINR(priceDetails.discount)}`);
                 }
                 if (priceDetails.surcharge > 0) {
-                    priceLines.push(`- Outside Srinagar Surcharge: +${formatCurrency(priceDetails.surcharge)}`);
+                    priceLines.push(`- Outside Srinagar Surcharge: +${formatINR(priceDetails.surcharge)}`);
                 }
-                priceLines.push(`- Total Estimate: ${formatCurrency(priceDetails.total)}`);
+                priceLines.push(`- Total Estimate: ${formatINR(priceDetails.total)}`);
                 estimateSec = priceLines.join('\n');
             }
 
