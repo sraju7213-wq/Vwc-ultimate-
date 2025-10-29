@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valley Wedding Cars - Luxury Fleet Booking</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -140,6 +141,123 @@
             border: 1px solid rgba(255, 215, 0, 0.3);
             position: relative;
             overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+
+            .container {
+                padding: 22px 18px;
+                border-radius: 16px;
+            }
+
+            .container::before {
+                border-radius: 18px;
+            }
+
+            .header {
+                margin-bottom: 22px;
+                padding: 12px 10px 18px;
+            }
+
+            .title {
+                font-size: 1.8rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .quote {
+                font-size: 1rem;
+                margin: 16px 0;
+                padding: 12px;
+            }
+
+            .form-section {
+                padding: 16px;
+                margin-bottom: 22px;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+            }
+
+            select, input, textarea {
+                padding: 12px;
+                font-size: 0.95rem;
+            }
+
+            .segmented {
+                gap: 6px;
+            }
+
+            .theme-toggle {
+                top: 12px;
+                right: 12px;
+                font-size: 1rem;
+            }
+
+            .logo-wrap {
+                --size: 90px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 18px 14px;
+            }
+
+            .title {
+                font-size: 1.6rem;
+            }
+
+            .subtitle {
+                font-size: 0.95rem;
+            }
+
+            .quote {
+                font-size: 0.95rem;
+            }
+
+            .section-title {
+                font-size: 1.1rem;
+            }
+
+            .form-group {
+                margin-bottom: 16px;
+            }
+
+            label {
+                font-size: 0.95rem;
+            }
+
+            select, input, textarea {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+
+            .theme-toggle {
+                padding: 6px;
+            }
+
+            .booking-summary h3 {
+                font-size: 1.1rem;
+            }
+
+            .booking-summary p,
+            .summary-label,
+            .summary-value,
+            .input-note,
+            .note {
+                font-size: 0.9rem;
+            }
         }
 
         .container::before {
